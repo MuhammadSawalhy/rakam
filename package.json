@@ -1,0 +1,20 @@
+{
+  "name": "mathpackage",
+  "version": "1.0.0",
+  "description": "Intense math library, God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs.",
+  "main": "MathPackage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "math",
+    "javascript",
+    "js",
+    "mathlibrary",
+    "mathpackage",
+    "latex",
+    "maxima"
+  ],
+  "author": "Mohammed Samir",
+  "license": "ISC"
+}
