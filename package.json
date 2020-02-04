@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Intense math library, God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs.",
   "main": "MathPackage.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [
     "math",
     "javascript",
@@ -15,6 +13,13 @@
     "latex",
     "maxima"
   ],
-  "author": "Mohammed Samir",
-  "license": "ISC"
+  "author": "SciCave",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.8.0",
+    "rollup": "^1.31.0"
+  }
 }
