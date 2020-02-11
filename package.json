@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Intense math library, God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs.",
   "main": "MathPackage.js",
-  "scripts": {},
+  "scripts": {
+    "build": "rollup ./src/MathPackage.js --file ./lib/mathpackage.js --format umd --name MathPackage"
+  },
   "keywords": [
     "math",
     "javascript",

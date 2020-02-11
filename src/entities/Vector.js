@@ -1,4 +1,6 @@
-class vector {
+import Angles from '../main/Angles.js';
+
+export default class {
    constructor(x, y) {
       this.x = x;
       this.y = y;

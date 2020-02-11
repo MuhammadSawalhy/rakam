@@ -1,4 +1,4 @@
-class Lines {
+export default class Lines {
 
    //#region relates to lines
 

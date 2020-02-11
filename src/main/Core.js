@@ -1,5 +1,5 @@
 
-class Core {
+export default class Core {
 
   // #region checking, bool, is_...
 
@@ -118,4 +118,4 @@ class Core {
     return node.caluclate(CalculationSettings(), new Map());
   }
 
-};
+}

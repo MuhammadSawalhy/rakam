@@ -1,13 +1,31 @@
-import Angles from './index/Angles.js';
-import Lines from './index/Lines.js';
-import Core from './index/Core.js';
+import Angles from './main/Angles.js';
+import Lines from './main/Lines.js';
+import Core from './main/Core.js';
 import Parser from './Parser.js';
+import entities from './entities/index.js';
 
-export default class MathPackage {
+let __MMP = new MagicalParser.CustomParsers.Math();
+export default {
 
-   constructor() {
-      this.MagicalMathParser = new MagicalParser.CustomParsers.Math();
-      this.Parser = new Parser(this.MagicalMathParser);
+   //#region properties
+
+   Angles,
+   Lines,
+   Core,
+   entities,
+   MMP /* magical math parser */: __MMP,
+   Parser: new Parser(__MMP),
+   
+   //#endregion
+   
+   //#region methods
+
+   compile: function (input) {
+      // if(input instanceof this.Parser.Node){
+      //    return this.Parser.stringT
+      // }
    }
+
+   //#endregion
 
 }

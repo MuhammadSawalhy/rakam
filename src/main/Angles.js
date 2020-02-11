@@ -1,4 +1,6 @@
-class Angles {
+import Core from './Core.js';
+
+export default class {
 
    //#region calculations ///////////////////////////////////////////////////
 
@@ -17,10 +19,10 @@ class Angles {
          let s = p1.dot(p2) / (p1.mag * p2.mag);
          let a = Math.acos(Core.constrain(s, -1, 1));
 
-         return Angles.constrainAngle(a);
+         return this.constrainAngle(a);
       }
       else if (options.type === 'lines') {
-         let a = Angles.minAngle(p1, p2);
+         let a = this.minAngle(p1, p2);
          return Math.min(a, Math.PI - a);  // notice that {(a) and (Math.PI - a)} are always positive.
       }
    }
@@ -37,11 +39,11 @@ class Angles {
          ...options
       };
       if (options.type === 'vectors') {
-         let min = Angles.minAngle(p1, p2);
+         let min = this.minAngle(p1, p2);
          return Math.max(2 * Math.PI - min, min);
       }
       else if (options.type === 'lines') {
-         let a = Angles.minAngle(p1, p2);
+         let a = this.minAngle(p1, p2);
          return Math.max(a, Math.PI - a);  // notice that {(a) and (Math.PI - a)} are always positive.
       }
    }
@@ -61,17 +63,17 @@ class Angles {
       };
 
       if (options.type === 'vectors') {
-         var a1 = Angles.minAngle(p1, new vector(1, 0));
+         var a1 = this.minAngle(p1, new vector(1, 0));
          a1 = p1.y >= 0 ? a1 : -a1;
-         var a2 = Angles.minAngle(p2, new vector(1, 0));
+         var a2 = this.minAngle(p2, new vector(1, 0));
          a2 = p2.y >= 0 ? a2 : -a2;
          let a = options.dir === 'counterclockwise' || options.dir === '+' ? a2 - a1 : a1 - a2;
 
-         return Angles.constrainAngle(a);
+         return this.constrainAngle(a);
       }
       else if (options.type === 'lines') {
-         let a1 = Angles.angle(p1, p2, { type: 'vectors', dir });
-         let a2 = Angles.angle(p1, p2.mult(-1), { type: 'vectors', dir });
+         let a1 = this.angle(p1, p2, { type: 'vectors', dir });
+         let a2 = this.angle(p1, p2.mult(-1), { type: 'vectors', dir });
          return Math.min(a1, a2); // that is a wonderful optimization for getting the angle of rotation when you rotate the 1st line to fit it on the other one, consider the dir of rotation inside options.
       }
    }
@@ -243,4 +245,4 @@ class Angles {
 
    //#endregion
 
-};
+}
