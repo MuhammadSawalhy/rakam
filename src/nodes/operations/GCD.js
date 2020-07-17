@@ -3,13 +3,13 @@
 /// Greatest Common Factor
 /// Highest Common Factor
 /// Greatest common divisor
-/// Highest common divisor.........
-/// ......... 
+/// Highest common divisor
+///  
 /// gcm, hcm, gcf, hcf, gcd, hcd
 /// 
 /// </summary>
-import Node from '../inherited/Node.js';
-class GCD extends Node {
+import Node from '../Node.js';
+export default class GCD extends Node {
 
 
     constructor(children) 
@@ -91,7 +91,7 @@ class GCD extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             if (this.children[0].isEqual(node.children[0]))
                 return true;

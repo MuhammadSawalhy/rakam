@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Sqrt extends Node {
+import Node from '../Node.js';
+export default class Sqrt extends Node {
 
     constructor(children)
     {
@@ -29,7 +29,7 @@ class Sqrt extends Node {
 
     isEqual(node)
     {
-        if(fromTheSame(this, node))
+        if(this.constructor === node.contructor)
         {
             for(let i = 0; i < this.children.length; i++)
             {

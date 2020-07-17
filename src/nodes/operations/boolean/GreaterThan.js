@@ -1,7 +1,7 @@
 ﻿//import { Boolean } from './Boolean.js';
 
-import Boolean from '../../Boolean.js';
-class GreaterThan extends Boolean {
+import Boolean from './Boolean.js';
+export default class GreaterThan extends Boolean {
 
     constructor(children) {
         super(children, 2);
@@ -26,7 +26,7 @@ class GreaterThan extends Boolean {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             let sChild1 = this.children[0].simplify(),
                 sChild2 = this.children[1].simplify();
             let sChild1_ = this.children[0].simplify(),

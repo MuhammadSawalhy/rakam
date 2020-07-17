@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class Subtract extends Node {
+import Node from '../../Node.js';
+export default class Subtract extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';
@@ -45,7 +45,7 @@ class Subtract extends Node {
             }
             else return false;
         }
-        else if (fromTheSame(this, node)) {
+        else if (this.constructor === node.contructor) {
             for (let i = 0; i < this.children.length; i++) {
                 if (!this.children[i].simplify().isEqual(node.children[i].simplify())) return false;
             }

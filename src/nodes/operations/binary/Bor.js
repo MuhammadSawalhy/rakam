@@ -1,7 +1,7 @@
 ﻿//import { Binary } from './Binary.js';
 
-import Boolean from '../../Binary.js';
-class Bor extends Binary {
+import Binary from './Binary.js';
+export default class Bor extends Binary {
 
     constructor(children) {
         super(children);

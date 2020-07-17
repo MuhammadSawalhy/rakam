@@ -1,5 +1,5 @@
-﻿import Node from './inherited/Node.js';
-class Constant extends Node {
+﻿import Node from './Node.js';
+export default class Constant extends Node {
 
     constructor(value, name_ = null) {
         super([], 0);
@@ -21,7 +21,7 @@ class Constant extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             if (this.value === node.value) {
                 return true;
             }

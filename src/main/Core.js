@@ -1,53 +1,65 @@
 
 export default class Core {
 
-  // #region checking, bool, is_...
-
-  static isAlpha(input) {
-    return input.toString().replace(/\d/g, '@').replace(/\w/g, '') === '';
-  }
-
-  static isSymbol(char) {
-    return (char.replace(/\W/, '') === '');
-  }
+  // #region checking, bool, is_
 
   static isNumeric(value) {
     return !isNaN(value);
     // return value.toString().replace(/^\s*(\-?\d+|\-?\d+\.\d*|\-?\d*\.\d+)\s*$/, '123') === '123';
   }
 
-  static fromTheSame(a, b) {
-    return a.fromTheSame === b.fromTheSame;
+  static isInteger(value) {
+    return value % 1 === 0;
+    // return value.toString().replace(/^\s*(\-?\d+|\-?\d+\.\d*|\-?\d*\.\d+)\s*$/, '123') === '123';
+  }
+
+  static isPrime(number) {    // determines if number is prime
+    var divisor = Math.floor(number / 2);
+    var prime = true;
+    if (number % 1 === 0) {
+      while (divisor > 1) {
+        if (number % divisor === 0) {
+          prime = false;
+          divisor = 0;
+        } else {
+          divisor -= 1;
+        }
+      }
+    } else {
+      prime = false;
+    }
+    return prime;
   }
 
   // #endregion
 
   // #region SimplifiedFraction
 
-  static simplifiedFraction_1(num) {
-    if (num.toString().shearch(".") > 1) {
+  static fraction(num) {
+    if (num.toString().indexOf(".") > -1) {
       let
         num1 = parseInt(num.toString().replace(".", "")),
         num2 = Math.pow(10, num.toString().split('.')[1].length);
-      let gcd = new GCD(new Set([new Constant(num1), new Constant(num2)], true));
-      let gcd_ = gcd.calculate(new CalculationSettings());
-      return [(num1 / gcd_), (num2 / gcd_)];
+      let gcd_ = this.gcd(num1, num2);
+      return { numerator: (num1 / gcd_), denominator: (num2 / gcd_)};
     }
     else
-      return [num, 1];
+      return { numerator: num, denominator:1 };
   }
-  static simplifiedFraction_2(num) {
-    if (num.toString().Contains(".")) {
+
+  static quotientRemainder(num) {
+    if (num.toString().indexOf(".") > -1) {
       let
-        num1 = parseInt(num.toString().replace(".", "")),
-        num2 = Math.pow(10, num.toString().split('.')[1].length);
-      num1 = mod(num1, num2);
-      let gcd = new GCD(new Set([new Constant(num1), new Constant(num2)], true));
-      let gcd_ = gcd.calculate(new CalculationSettings());
-      return [Math.floor(num), (num1 / gcd_), (num2 / gcd_)];
+        num1 = parseInt(num.toString().split('.')[1]),
+        num2 = Math.pow(10, num1.toString().length);
+      
+      num = parseInt(num.toString().split('.')[0]);
+      let gcd_ = this.gcd2(num1, num2);
+
+      return { quotient: num, numerator: (num1 / gcd_), denominator: (num2 / gcd_) };
     }
     else
-      return [num, 0, 1];
+      return { quotient: num, numerator: 0, denominator: 1 };
   }
 
   // #endregion
@@ -109,6 +121,53 @@ export default class Core {
 
   static snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
 
+  }
+
+  static random(start, end) {
+    if (end) {
+      return start + Math.random() * (end - start);
+    } else {
+      return Math.random() * start;
+    }
+  }
+
+  static randomInt(start, end) {
+    return Math.round(this.random(start, end))
+  }
+
+  static gcd(...values) {
+    let gcd_ = values[0];
+    let a = values[1];
+    if (gcd_ % 1 != 0 || a % 1 != 0)
+      return NaN;
+    gcd_ = a > gcd_ ? this.gcd2(a, gcd_) : this.gcd2(gcd_, a);
+
+    for (let i = 2; i < values.length; i++) {
+      a = Math.abs(values[i]);
+      if (a % 1 != 0)
+        return NaN;
+      gcd_ = a > gcd_ ? this.gcd2(a, gcd_) : this.gcd2(gcd_, a);
+    }
+
+    return gcd_;
+  }
+
+  static gcd2(a, b) {
+    if (b == 0)
+      return a;
+    return this.gcd2(b, a % b);
+  }
+
+  static lcm(...values) {
+    let product = 1;
+    let a;
+    for (let i = 0; i < values.length; i++) {
+      a = values[i];
+      if (a % 1 !== 0)
+        return NaN;
+      product *= a;
+    }
+    return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
   }
 
   //#endregion

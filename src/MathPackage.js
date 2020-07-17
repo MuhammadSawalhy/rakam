@@ -3,9 +3,15 @@ import Lines from './main/Lines.js';
 import Core from './main/Core.js';
 import Parser from './Parser.js';
 import entities from './entities/index.js';
-
+import Nodes from './nodes/index.js';
+   
 let __MMP = new MagicalParser.CustomParsers.Math();
+
 export default {
+
+   //#region classes
+   Nodes,
+   //#endregion
 
    //#region properties
 

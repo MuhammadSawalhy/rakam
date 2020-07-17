@@ -19,7 +19,7 @@ export default class Lines {
 
    /**
     * return the lineIntersection of the line which equation instanceof a1*x + b1*x + c1 and the perpendiuclar line crossing through v
-    * @param {Object} le instanceof {a: ..., b: ..., c: ...} in "a*x+b*y+c=0"
+    * @param {Object} le instanceof {a: ___, b: ___, c: ___} in "a*x+b*y+c=0"
     */
    static projectionToLine(v, le) {
       if (v && le) {
@@ -28,7 +28,7 @@ export default class Lines {
    }
 
    /**
-    * return {a: ..., b: ..., c: ...} in "a*x+b*y+c=0"
+    * return {a: ___, b: ___, c: ___} in "a*x+b*y+c=0"
     * @param {*} angle instanceof the sloopAngle
     * @param {*} trans instanceof any point or vector that the line crossing through.
     */
@@ -43,8 +43,8 @@ export default class Lines {
 
    /**
     * return a vector represents
-    * @param {*} lineEquation1 instanceof {a: ..., b: ..., c: ...} in "a*x+b*y+c=0"
-    * @param {*} lineEquation2 instanceof {a: ..., b: ..., c: ...} in "a*x+b*y+c=0"
+    * @param {*} lineEquation1 instanceof {a: ___, b: ___, c: ___} in "a*x+b*y+c=0"
+    * @param {*} lineEquation2 instanceof {a: ___, b: ___, c: ___} in "a*x+b*y+c=0"
     */
    static lineIntersection(le1, le2) {
       let y = -(le1.c / le1.a - le2.c / le2.a) / (le1.b / le1.a - le2.b / le2.a);

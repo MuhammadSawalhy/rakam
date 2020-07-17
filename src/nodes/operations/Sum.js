@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Sum extends Node {
+import Node from '../Node.js';
+export default class Sum extends Node {
 
 
     /**

@@ -1,5 +1,5 @@
-import Node from './inherited/Node.js';
-class NAN extends Node {
+import Node from './Node.js';
+export default class NAN extends Node {
    constructor() {
       super([], 0);
       this.syntaxType = 'literal';
@@ -22,7 +22,7 @@ class NAN extends Node {
    }
 
    isEqual(node) {
-      if (fromTheSame(this, node)) {
+      if (this.constructor === node.contructor) {
          if (this.name == node.name) {
             return true;
          }

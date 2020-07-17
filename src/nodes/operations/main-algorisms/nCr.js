@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class nCr extends Node {
+import Node from '../../Node.js';
+export default class nCr extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';
@@ -29,7 +29,7 @@ class nCr extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             for (let i = 0; i < this.children.length; i++) {
                 if (!this.children[i].simplify().isEqual(node.children[i].simplify())) return false;
             }

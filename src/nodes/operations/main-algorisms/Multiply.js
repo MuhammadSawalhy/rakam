@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class Multiply extends Node {
+import Node from '../../Node.js';
+export default class Multiply extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';

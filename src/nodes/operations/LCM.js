@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class LCM extends Node {
+import Node from '../Node.js';
+export default class LCM extends Node {
     constructor(children){
         super(children, 0);
         this.syntaxType = 'function';
@@ -44,7 +44,7 @@ class LCM extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             if (this.children[0].isEqual(node.children[0]))
                 return true;

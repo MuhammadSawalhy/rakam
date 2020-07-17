@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Func extends Node {
+import Node from '../Node.js';
+export default class Func extends Node {
 
     constructor(name, args) {
         super(args, 0);
@@ -51,7 +51,7 @@ class Func extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             if (this.name === node.name) {
                 if (this.children && node.children && this.children.length == node.children.length) {
                     for (let i = 0; i < this.children.length; i++) {

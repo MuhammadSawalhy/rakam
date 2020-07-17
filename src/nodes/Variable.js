@@ -1,6 +1,6 @@
 ﻿
-import Node from './inherited/Node.js';
-class Variable extends Node {
+import Node from './Node.js';
+export default class Variable extends Node {
     constructor(name) {
         super([], 0);
         this.name = name;
@@ -42,7 +42,7 @@ class Variable extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             if (this.name == node.name) {
                 return true;
             }

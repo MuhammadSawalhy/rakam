@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Sign extends Node {
+import Node from '../Node.js';
+export default class Sign extends Node {
     constructor(children){
         super(children, 1);
         this.syntaxType = 'function';
@@ -19,7 +19,7 @@ class Sign extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             for (let i = 0; i < this.children.length; i++)
             {

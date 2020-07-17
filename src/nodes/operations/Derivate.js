@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Derivate extends Node {
+import Node from '../Node.js';
+export default class Derivate extends Node {
 
     constructor(expression, cs)
     {
@@ -27,7 +27,7 @@ class Derivate extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             for (let i = 0; i < this.children.length; i++)
             {

@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class Power extends Node {
+import Node from '../../Node.js';
+export default class Power extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';

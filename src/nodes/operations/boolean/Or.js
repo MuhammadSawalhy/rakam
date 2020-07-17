@@ -1,7 +1,7 @@
 ﻿//import { Boolean } from './Boolean.js';
 
-import Boolean from '../../Boolean.js';
-class Or extends Boolean {
+import Boolean from './Boolean.js';
+export default class Or extends Boolean {
     constructor(children) {
         super(children, 2);
         this.syntaxType = 'operator';
@@ -27,7 +27,7 @@ class Or extends Boolean {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             let sChild1 = children[0].simplify(),
                 sChild2 = children[1].simplify();
             let sChild1_ = children[0].simplify(),

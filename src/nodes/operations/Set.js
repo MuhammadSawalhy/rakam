@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Set extends Node {
+import Node from '../Node.js';
+export default class Set extends Node {
     
     constructor(items, allowRepetition_)
     {
@@ -112,7 +112,7 @@ class Set extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             let set_ = node;
             if(this.length == set_.length)

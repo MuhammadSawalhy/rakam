@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class Divide extends Node {
+import Node from '../../Node.js';
+export default class Divide extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';
@@ -250,7 +250,7 @@ class Divide extends Node {
             }
             else return false;
         }
-        else if (fromTheSame(this, node)) {
+        else if (this.constructor === node.contructor) {
             for (let i = 0; i < this.children.length; i++) {
                 if (!this.children[i].simplify().isEqual(node.children[i].simplify())) return false;
             }

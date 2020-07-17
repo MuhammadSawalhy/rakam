@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class Factorial extends Node {
+import Node from '../../Node.js';
+export default class Factorial extends Node {
 
     constructor(children) {
         super(children, 1);

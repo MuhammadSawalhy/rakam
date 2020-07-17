@@ -1,5 +1,5 @@
-﻿import Node from '../inherited/Node.js';
-class Min extends Node {
+﻿import Node from '../Node.js';
+export default class Min extends Node {
     constructor(set_)
     {
         super([set_], 1);
@@ -52,7 +52,7 @@ class Min extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             if (this.children[0].isEqual(node.children[0]))
                 return true;

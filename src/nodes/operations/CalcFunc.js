@@ -1,4 +1,4 @@
-﻿class CalcFunc
+﻿export default class CalcFunc
 {
 
     get args(){

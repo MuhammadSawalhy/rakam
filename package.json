@@ -4,13 +4,12 @@
   "description": "Intense math library, God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs.",
   "main": "MathPackage.js",
   "scripts": {
-    "build": "rollup ./src/MathPackage.js --file ./lib/mathpackage.js --format umd --name MathPackage"
+    "build": "rollup -c",
+    "build:prod": "NODE_ENV=production rollup -c"
   },
   "keywords": [
     "math",
-    "javascript",
-    "js",
-    "mathlibrary",
+    "mathematics",
     "mathpackage",
     "latex",
     "maxima"
@@ -22,6 +21,7 @@
     "@typescript-eslint/parser": "^2.19.0",
     "babel-loader": "^8.0.6",
     "eslint": "^6.8.0",
+    "pegjs": "^0.10.0",
     "rollup": "^1.31.0"
   }
 }

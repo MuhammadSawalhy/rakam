@@ -1,7 +1,7 @@
 ﻿//import { Binary } from './Binary.js';
 
-import Boolean from '../../Binary.js';
-class ShiftLeft extends Binary {
+import Binary from './Binary.js';
+export default class ShiftLeft extends Binary {
 
     constructor(children) {
         super(children);

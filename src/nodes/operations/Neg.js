@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Neg extends Node {
+import Node from '../Node.js';
+export default class Neg extends Node {
 
     constructor(children){
         super(children, 1)
@@ -41,7 +41,7 @@ class Neg extends Node {
             sNode = node.simplify();
         if (sMe.this.type === sNode.this.type)
         {
-            // as it may be Constant(0) or variable ..., there will be an Exception unless we do this.
+            // as it may be Constant(0) or variable ___, there will be an Exception unless we do this.
             if (sMe instanceof Variable)
             {
                 if (sMe.isEqual(sNode)) return true;

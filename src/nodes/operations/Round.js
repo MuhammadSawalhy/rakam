@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Round extends Node {
+import Node from '../Node.js';
+export default class Round extends Node {
 
     constructor(children)
     {
@@ -38,7 +38,7 @@ class Round extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             for (let i = 0; i < this.children.length; i++)
             {

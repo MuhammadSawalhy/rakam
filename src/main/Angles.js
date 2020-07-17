@@ -6,15 +6,12 @@ export default class {
 
    /**
     * return angle between 0 and 2*PI (one round)
-    * @param {vector} p1 instanceof {x: ..., y: ...},
-    * @param {vector} p2 instanceof {x: ..., y: ...};
+    * @param {vector} p1 instanceof {x: ___, y: ___},
+    * @param {vector} p2 instanceof {x: ___, y: ___};
     * @param {object} options instanceof '{}' that defines 'type'.
     */
    static minAngle(p1, p2, options = {}) {
-      options = {
-         type: 'vectors',
-         ...options
-      };
+      options.type = options.type || 'vectors';
       if (options.type === 'vectors') {
          let s = p1.dot(p2) / (p1.mag * p2.mag);
          let a = Math.acos(Core.constrain(s, -1, 1));
@@ -34,10 +31,7 @@ export default class {
     * @param {object} options instanceof '{}' that defines 'type'.
    */
    static maxAngle(p1, p2, options = {}) {
-      options = {
-         type: 'vectors',
-         ...options
-      };
+      options.type = options.type || 'vectors';
       if (options.type === 'vectors') {
          let min = this.minAngle(p1, p2);
          return Math.max(2 * Math.PI - min, min);
@@ -50,17 +44,13 @@ export default class {
 
    /**
     * return angle between 0 and 2*PI (one round)
-    * @param {vector} p1 instanceof {x: ..., y: ...},
-    * @param {vector} p2 instanceof {x: ..., y: ...};
+    * @param {vector} p1 instanceof {x: ___, y: ___},
+    * @param {vector} p2 instanceof {x: ___, y: ___}
     * @param {object} options instanceof '{}' that defines 'type', 'dir'.
     */
    static angle(p1, p2, options = {}) {
-
-      options = {
-         type: 'vectors',
-         dir: 'counterclockwise',
-         ...options
-      };
+      options.type = options.type || 'vectors';
+      options.dir = options.dir || 'counterclockwise';
 
       if (options.type === 'vectors') {
          var a1 = this.minAngle(p1, new vector(1, 0));

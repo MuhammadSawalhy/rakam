@@ -1,6 +1,6 @@
 ﻿
-import Node from './inherited/Node.js';
-class Vector extends Node {
+import Node from './Node.js';
+export default class Vector extends Node {
 
     constructor(x, y, _get = undefined, name_ = null) {
         super([], 0);

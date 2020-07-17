@@ -1,7 +1,7 @@
 ﻿//import { Binary } from './Binary.js';
 
-import Boolean from '../../Binary.js';
-class NullCoalesce extends Binary {
+import Binary from './Binary.js';
+export default class NullCoalesce extends Binary {
 
     constructor(children) {
         super(children);

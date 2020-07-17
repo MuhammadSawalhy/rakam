@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Ceil extends Node {
+import Node from '../Node.js';
+export default class Ceil extends Node {
 
     constructor(children)
     {
@@ -32,7 +32,7 @@ class Ceil extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             for (let i = 0; i < this.children.length; i++)
             {

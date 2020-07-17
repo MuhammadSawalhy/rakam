@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Random extends Node {
+import Node from '../Node.js';
+export default class Random extends Node {
     /**
      * @param {*} children 
      * @param {string} type 'double' or 'int' 
@@ -81,7 +81,7 @@ class Random extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node) && this.myType === node.myType)
+        if (this.constructor === node.contructor && this.myType === node.myType)
         {
             for (let i = 0; i < this.children.length; i++)
             {

@@ -1,6 +1,6 @@
 ﻿
-import Node from './inherited/Node.js';
-class ArithmeticSequence extends Node {
+import Node from './Node.js';
+export default class ArithmeticSequence extends Node {
     constructor(script, start, end, step) {
         super([], 0);
         this.syntaxType = 'literal';
@@ -29,7 +29,7 @@ class ArithmeticSequence extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             let arithmeticSequence = node;
             if (this.start.isEqual(arithmeticSequence.start) && this.end.isEqual(arithmeticSequence.end) && this.step.isEqual(arithmeticSequence.step)) {
                 return true;

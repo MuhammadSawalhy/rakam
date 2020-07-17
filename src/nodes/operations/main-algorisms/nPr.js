@@ -1,6 +1,6 @@
 ﻿
-import Node from '../../inherited/Node.js';
-class nPr extends Node {
+import Node from '../../Node.js';
+export default class nPr extends Node {
     constructor(children) {
         super(children, 2);
         this.type = 'operator';
@@ -20,7 +20,7 @@ class nPr extends Node {
     }
 
     isEqual(node) {
-        if (fromTheSame(this, node)) {
+        if (this.constructor === node.contructor) {
             for (let i = 0; i < this.children.length; i++) {
                 if (!this.children[i].simplify().isEqual(node.children[i].simplify())) return false;
             }

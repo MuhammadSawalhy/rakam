@@ -1,6 +1,6 @@
 ﻿
-import Node from '../inherited/Node.js';
-class Constrain extends Node {
+import Node from '../Node.js';
+export default class Constrain extends Node {
     constructor(children)
     {
         super(children, 3);
@@ -35,7 +35,7 @@ class Constrain extends Node {
 
     isEqual(node)
     {
-        if (fromTheSame(this, node))
+        if (this.constructor === node.contructor)
         {
             for (let i = 0; i < this.children.length; i++)
             {
