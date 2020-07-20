@@ -1,8 +1,3 @@
-/*
- Accepts expressions like 
- m_{1}=\left[\frac{A.y+\sqrt{\left(A.y\right)^{2}-4A\cdot P}}{2A.x},\frac{A.y-\sqrt{\left(A.y\right)^{2}-4A.x\cdot P}}{2A.x}\right] 
-*/
-
 {
   options = Object.assign({
     autoMult: true,
@@ -272,8 +267,10 @@ sp "space or tab"= [ \t]
 
 s "whitespace" = nl / sp
 
+escapedSpace = "\\ "
+
 _ "whitespace"
-  = (nl !nl / sp)*
+  = (nl !nl / sp / escapedSpace)*
 
 ///////////////////// definitions
 
