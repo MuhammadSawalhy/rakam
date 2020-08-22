@@ -1,5 +1,5 @@
 import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 const env = process.env.NODE_ENV;
 
 export default {
@@ -12,5 +12,5 @@ export default {
       plugins: [terser()],
       strict: true
    },
-   // plugins: [babel()],
+   plugins: [babel()],
 };

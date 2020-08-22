@@ -1,3 +1,4 @@
+import CalculationSettings from '../CalculationSettings.js';
 
 export default class Core {
 
@@ -13,7 +14,7 @@ export default class Core {
     // return value.toString().replace(/^\s*(\-?\d+|\-?\d+\.\d*|\-?\d*\.\d+)\s*$/, '123') === '123';
   }
 
-  static isPrime(number) {    // determines if number is prime
+  static isPrime(number) {
     var divisor = Math.floor(number / 2);
     var prime = true;
     if (number % 1 === 0) {
@@ -83,36 +84,12 @@ export default class Core {
 
   //#region Methods
 
-  static sqrt(x) {
-    return Math.sqrt(x);
-  }
-
-  static mod(num1, num2) {
-    return (num1 - num2 * Math.floor(num1 / num2));
-  }
-
-  static max(...params) {
-    let max = params[0];
-    for (let param of params) {
-      max = Math.max(param, max);
+  static dist(a, b, c, d) {
+    if((c && d) || (typeof a === 'object' && typeof b === 'object')){
+      return this.dist(v1.x, v1.y, v2.x, v2.y);
+    } else {
+      throw new Error('can\'t calculate the distance, check that you passed two vectors or 4 numbers x1,y1,x2,y2');
     }
-    return max;
-  }
-
-  static min(...params) {
-    let min = params[0];
-    for (let param of params) {
-      min = Math.min(param, min);
-    }
-    return min;
-  }
-
-  static dist(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(y1 - y2, 2) + Math.pow(x1 - x2, 2));
-  }
-
-  static distVectors(v1, v2) {
-    return this.dist(v1.x, v1.y, v2.x, v2.y);
   }
 
   static constrain(v, min, max) {

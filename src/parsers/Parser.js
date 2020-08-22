@@ -1,18 +1,46 @@
 /**
  * Using Parser.js we can do incredible things ::: {<>}
  */
+import mathParser from './pegjs-parsers/math.js';
+import texParser from './pegjs-parsers/tex.js';
+import mathParserNode from './pegjs-parsers/mathParserNode.js';
+import texParserNode from './pegjs-parsers/texParserNode.js';
 
 export default class Parser {
 
-   constructor(mathParserLib) {
-      this.mathParserLib = mathParserLib;
-      this.maximaTOlatex = new tex2max({ disallowDecimalCommas: false, addTimesSign: false });
+   constructor() {
+      this.mathParser = mathParser;
+      /// mathParser.Node === mathParserNode
+      this.texParser = texParser;
+      /// texParser.Node === texParserNode
    }
 
-   //#region  parserNode to ___
+   //#region : latex to ___
 
-   parsedTOnode(snode) {
-      let expr = snode;
+   latex2math({tex}) {
+      return this.maximaTOlatex.toMaxima(tex);
+   }
+
+   latex2node({tex}) {
+      return this.parserNodeTOnode(this.mathParserLib.parse(this.latex2math(tex)));
+   }
+
+   latex2jsfunction({tex, params = [], noparse = false}) {
+      return this.math2jsFunction(this.latex2math(tex), params, noparse);
+   }
+
+   //#endregion
+
+   //#region : maxima(string) to ___
+
+   compileMath({math}) {
+      if (math instanceof String){
+         math = this.mathparser.parse(math);
+      }
+      return this.__parsed2mathNode_math(math);
+   }
+   __parsed2mathNode_math(parserTree) {
+      let expr = parserTree;
       if (expr.type === 'number') {
          return new Constant(parseFloat(expr.value));
       } else if (expr.type === 'variable')
@@ -198,10 +226,8 @@ export default class Parser {
       }
 
       throw new Error("Expression not understood: " + expr.toString());
-
    }
-
-   _getRandom(expr) {
+   __getRandom_math(expr) {
       let type = 'double';
       let TypeAssigned = false;
       if (expr.args.length > 0)
@@ -230,14 +256,30 @@ export default class Parser {
 
    /**
     * 
-    * @param {MagicalParser.Node} parsed 
+    * @param {String|this.mathParser.Node} math 
     * @param {Array} params 
-    * @param {String} math is the math object containing the functions and the variables that is not a parameter.
+    * @param {String} scope is the (object name related to window, default: "Math" or "window.Math" ) containing the functions and the variables that is not a parameter.
     * @param {Boolean} strict
     */
-   parsedTOjsFunction(parsed, params = [], math = 'Math', strict = true) {
-      let undef = { vars: [], funcs: [] };
-      let func = new Function(...params, `${strict ? '"use strict";\n' : ''}return ${this.__generateJS(parsed, params, math, undef)};`);
+   math2jsFunction({math, params = [], scope = 'Math', header = ""}) {
+      if (math instanceof String){
+         math = this.mathparser.parse(math);
+      }
+
+      /// to know the undefined scope varaibles and functions found in the math expression
+      /// this help developers to know if the         
+      let undef = { vars: [], funcs: [] }; 
+
+      // header may be modifies to add some helper of sub functions
+      // in case of the header length increases, "func" will be called
+      // to return the ready-to-use function at least.....
+      let _return = this.__generateJS_math({math, params, scope, undef, header: [header]});
+      let func = new Function(...params, `${header.join('\n')}\nreturn ${_return};`);
+      
+      if (header.length > 1){
+         func = func();
+      }
+
       undef.vars = undef.vars.reduce((b, a) => {
          if (!b.find(e => e === a)) b.push(a);
          return b;
@@ -246,22 +288,22 @@ export default class Parser {
          if (!b.find(e => e === a)) b.push(a);
          return b;
       }, []);
+
       return { func, undef };
    }
-
-   __generateJS(parsed, params = [], math = "Math", undef = null) {
-      if (parsed.type === 'number') {
-         return parsed.value;
-      } else if (parsed.type === 'functionCalling') {
-         switch (parsed.name) {
+   __generateJS_math({parserTree, params, scope, undef, header}) {
+      if (parserTree.type === 'number') {
+         return parserTree.value;
+      } else if (parserTree.type === 'functionCalling') {
+         switch (parserTree.name) {
             case 'sum':
-               if (!parsed.args[0].check({ type: 'separator', name: ',', length: 4 }) || !parsed.args[0].args[1].type === 'variable') throw new Error('sum function has not valid arguments: "' + parsed.match + '"');
-               let sumParam = parsed.args[0].args[1].name;
+               if (!parserTree.args[0].check({ type: 'separator', name: ',', length: 4 }) || !parserTree.args[0].args[1].type === 'variable') throw new Error('sum function has not valid arguments: "' + parserTree.match + '"');
+               let sumParam = parserTree.args[0].args[1].name;
                let newParams = [...params];
                newParams.push(sumParam);
-               let sumExpr = this.__generateJS(parsed.args[0].args[0], newParams, math, undef);
-               let start = this.__generateJS(parsed.args[0].args[2], params, math, undef);
-               let end = this.__generateJS(parsed.args[0].args[3], params, math, undef);
+               let sumExpr = this.__generateJS_math(parserTree.args[0].args[0], newParams, scope, undef);
+               let start = this.__generateJS_math(parserTree.args[0].args[2], params, scope, undef);
+               let end = this.__generateJS_math(parserTree.args[0].args[3], params, scope, undef);
                return `(()=>{
                   let _ = 0;
                   for(let ${sumParam} = ${start}; ${sumParam} <= ${end}; ${sumParam}++){
@@ -270,21 +312,21 @@ export default class Parser {
                   return _; 
                })()`;
             default:
-               if (params.find(param => parsed.name === param)) {
-                  return parsed.name + `(${this.__generateJS(parsed.args[0], params, math, undef)})`;
+               if (params.find(param => parserTree.name === param)) {
+                  return parserTree.name + `(${this.__generateJS_math(parserTree.args[0], params, scope, undef)})`;
                }
-               if (!window[math].hasOwnProperty(parsed.name)) undef.funcs.push(parsed.name);
-               return math + `.${parsed.name}(${this.__generateJS(parsed.args[0], params, math, undef)})`;
+               if (!window[scope].hasOwnProperty(parserTree.name)) undef.funcs.push(parserTree.name);
+               return scope + `.${parserTree.name}(${this.__generateJS_math(parserTree.args[0], params, scope, undef)})`;
          }
-      } else if (parsed.type === 'variable') {
-         if (params.find(param => parsed.name === param)) {
-            return parsed.name;
+      } else if (parserTree.type === 'variable') {
+         if (params.find(param => parserTree.name === param)) {
+            return parserTree.name;
          }
-         if (!window[math].hasOwnProperty(parsed.name)) undef.vars.push(parsed.name);
-         return math + '.' + parsed.name;
-      } else if (parsed.type === 'block') {
+         if (!window[scope].hasOwnProperty(parserTree.name)) undef.vars.push(parserTree.name);
+         return scope + '.' + parserTree.name;
+      } else if (parserTree.type === 'block') {
          let opening, closing;
-         switch (parsed.name) {
+         switch (parserTree.name) {
             case '()':
                opening = '(';
                closing = ')';
@@ -298,66 +340,40 @@ export default class Parser {
                closing = '}';
                break;
          }
-         return opening + this.__generateJS(parsed.args[0], params, math, undef) + closing;
-      } else if (parsed.type === 'operator') {
-         switch (parsed.name) {
+         return opening + this.__generateJS_math(parserTree.args[0], params, scope, undef) + closing;
+      } else if (parserTree.type === 'operator') {
+         switch (parserTree.name) {
             case '.':
-               return this.__generateJS(parsed.args[0], params, math, undef) + '.' + parsed.args[1].match;
+               return this.__generateJS_math(parserTree.args[0], params, scope, undef) + '.' + parserTree.args[1].match;
             case '^':
-               return this.__generateJS(parsed.args[0], params, math, undef) + ' ** ' + this.__generateJS(parsed.args[1], params, math, undef);
+               return this.__generateJS_math(parserTree.args[0], params, scope, undef) + ' ** ' + this.__generateJS_math(parserTree.args[1], params, scope, undef);
             case '=':
-               return this.__generateJS(parsed.args[0], params, math, undef) + ' == ' + this.__generateJS(parsed.args[1], params, math, undef);
+               return this.__generateJS_math(parserTree.args[0], params, scope, undef) + ' == ' + this.__generateJS_math(parserTree.args[1], params, scope, undef);
             default:
-               return this.__generateJS(parsed.args[0], params, math, undef) + ' ' + parsed.name + ' ' + this.__generateJS(parsed.args[1], params, math, undef);
+               return this.__generateJS_math(parserTree.args[0], params, scope, undef) + ' ' + parserTree.name + ' ' + this.__generateJS_math(parserTree.args[1], params, scope, undef);
          }
-      } else if (parsed.type === 'suffixOperator') {
-         switch (parsed.name) {
+      } else if (parserTree.type === 'suffixOperator') {
+         switch (parserTree.name) {
             case '!':
-               return 'Math.fact(' + this.__generateJS(parsed.args[0], params, math, undef) + ')';
+               return 'Math.fact(' + this.__generateJS_math(parserTree.args[0], params, scope, undef) + ')';
             default:
-               return this.__generateJS(parsed.args[0], params, math, undef) + parsed.name;
+               return this.__generateJS_math(parserTree.args[0], params, scope, undef) + parserTree.name;
          }
-      } else if (parsed.type === 'prefixOperator') {
-         return parsed.name + this.__generateJS(parsed.args[0], params, math, undef);
-      } else if (parsed.type === 'separator') {
+      } else if (parserTree.type === 'prefixOperator') {
+         return parserTree.name + this.__generateJS_math(parserTree.args[0], params, scope, undef);
+      } else if (parserTree.type === 'separator') {
          let args = [];
-         for (let arg of parsed.args) {
-            args.push(this.__generateJS(arg, params, math, undef));
+         for (let arg of parserTree.args) {
+            args.push(this.__generateJS_math(arg, params, scope, undef));
          }
-         return args.join(parsed.name + ' ');
+         return args.join(parserTree.name + ' ');
       } else {
-         return parsed.match;
+         return parserTree.match;
       }
    }
 
-   //#endregion
 
-   //#region : latex to ___
-
-   latexTOmaxima(tex) {
-      return this.maximaTOlatex.toMaxima(tex);
-   }
-
-   latexTOnode(tex) {
-      return this.parserNodeTOnode(this.mathParserLib.parse(this.latexTOmaxima(tex)));
-   }
-
-   latexTOjsfunction(tex, params = [], noparse = false) {
-      return this.maximaTOjsFunction(this.latexTOmaxima(tex), params, noparse);
-   }
-
-   //#endregion
-
-   //#region : maxima(string) to ___
-
-   maximaTOnode(str) {
-      return this.parserNodeTOnode(this.mathParserLib.parse(str));
-   }
-   maximaTOjsFunction(str, params = [], math = 'Math', strict = true) {
-      return this.parsedTOjsFunction(this.mathParserLib.parse(str), params, math, strict);
-   }
-
-   maximaTOlatex(str) {
+   math2latex({math}) {
 
    }
 
