@@ -1,8 +1,16 @@
 {
-  "name": "mathpackage",
+  "name": "rakam",
   "version": "1.0.0",
-  "description": "Intense math library, God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs.",
-  "main": "MathPackage.js",
+  "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scicave/rakam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scicave/rakam/issues"
+  },
+  "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "rollup -c",
     "build:prod": "NODE_ENV=production rollup -c",
@@ -15,13 +23,18 @@
   "keywords": [
     "math",
     "mathematics",
-    "mathpackage",
+    "rakam",
     "latex",
-    "maxima"
+    "arithmetic",
+    "interval-arithmetic",
+    "array-arithmetic",
+    "calculator",
+    "numpy"
   ],
   "author": "SciCave",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-babel": "^5.2.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
