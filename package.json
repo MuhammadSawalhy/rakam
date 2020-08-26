@@ -6,7 +6,11 @@
   "scripts": {
     "build": "rollup -c",
     "build:prod": "NODE_ENV=production rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "preset": "rollup-jest"
   },
   "keywords": [
     "math",
@@ -20,10 +24,15 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "jest": "^26.4.2",
     "pegjs": "^0.10.0",
-    "rollup": "^1.32.1"
+    "rollup": "^1.32.1",
+    "rollup-jest": "0.0.2",
+    "rollup-plugin-terser": "^7.0.0"
+  },
+  "dependencies": {
+    "@scicave/math-latex-parser": "^1.0.0",
+    "@scicave/math-parser": "^1.0.0"
   }
 }
