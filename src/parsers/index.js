@@ -1,16 +1,13 @@
 /**
  * Using Parser.js we can do incredible things ::: {<>}
  */
-import mathParser from './pegjs-parsers/math.js';
+import mathParser from '@scicave/math-parser';
 import texParser from '@scicave/math-latex-parser';
 
-export default class Parser {
+class Parser {
 
    constructor() {
-      this.mathParser = mathParser;
-      /// mathParser.Node === mathParserNode
-      this.texParser = texParser;
-      /// texParser.Node === texParserNode
+
    }
 
    //#region : latex to ___
@@ -29,7 +26,7 @@ export default class Parser {
 
    //#endregion
 
-   //#region : maxima(string) to ___
+   //#region : math(string) to ___
 
    compileMath({math}) {
       if (math instanceof String){
@@ -37,6 +34,7 @@ export default class Parser {
       }
       return this.__parsed2mathNode_math(math);
    }
+
    __parsed2mathNode_math(parserTree) {
       let expr = parserTree;
       if (expr.type === 'number') {
@@ -225,6 +223,7 @@ export default class Parser {
 
       throw new Error("Expression not understood: " + expr.toString());
    }
+
    __getRandom_math(expr) {
       let type = 'double';
       let TypeAssigned = false;
@@ -290,6 +289,7 @@ export default class Parser {
 
       return { func, undef };
    }
+
    __generateJS_math(parserTree, params, scope, undef, header) {
       if (parserTree.check('number')) {
          return parserTree.value;
@@ -364,3 +364,8 @@ export default class Parser {
    //#endregion
 
 }
+
+Parser.prototype.mathParser = mathParser;
+Parser.prototype.texParser = texParser;
+
+export default Parser;
