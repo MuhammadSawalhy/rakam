@@ -1,4 +1,5 @@
-  
+import addToHeader from "./helper/math2js/addToHeader.js";
+
 export default function prepareHandlers(handlers){
 
   for (let i = 0; i < handlers.length; i++) {
