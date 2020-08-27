@@ -1,7 +1,3 @@
-#### 1.0.0 (2020-08-26)
+#### 1.0.0 (2020-08-27)
 
-##### Other Changes
-
-*  (lines, core, entities, angles) (25abb3fa)
-* //github.com/ms2052001/mathpackage (c32c8295)
-
+First publish, still uncompleted package to be even used.
