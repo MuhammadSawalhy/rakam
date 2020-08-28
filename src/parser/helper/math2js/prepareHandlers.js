@@ -1,4 +1,4 @@
-import addToHeader from "./helper/math2js/addToHeader.js";
+import addToHeader from "./addToHeader.js";
 
 export default function prepareHandlers(handlers){
 
