@@ -2,7 +2,10 @@
   "name": "rakam",
   "version": "1.0.0",
   "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/scicave/rakam.git"
@@ -18,7 +21,10 @@
     "test:watch": "jest --watch"
   },
   "jest": {
-    "preset": "rollup-jest"
+    "verbose": true,
+    "preset": "rollup-jest",
+    "notify": true,
+    "notifyMode": "success"
   },
   "keywords": [
     "math",
@@ -35,9 +41,10 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/plugin-transform-object-assign": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@rollup/plugin-babel": "^5.2.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
@@ -49,6 +56,7 @@
   },
   "dependencies": {
     "@scicave/math-latex-parser": "^1.0.0",
-    "@scicave/math-parser": "^1.0.0"
+    "@scicave/math-parser": "^1.0.0",
+    "three": "^0.120.0"
   }
 }
