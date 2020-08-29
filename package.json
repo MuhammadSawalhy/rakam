@@ -18,12 +18,12 @@
     "build": "rollup -c",
     "build:prod": "NODE_ENV=production rollup -c",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "preversion": "npm run test"
   },
   "jest": {
     "verbose": true,
     "preset": "rollup-jest",
-    "notify": true,
     "notifyMode": "success"
   },
   "keywords": [
@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "@scicave/math-latex-parser": "^1.0.0",
-    "@scicave/math-parser": "^1.0.0",
-    "three": "^0.120.0"
+    "@scicave/math-parser": "^2.1.1"
   }
 }
