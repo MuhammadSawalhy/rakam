@@ -5,8 +5,10 @@ import prepareHandlers from "./helper/math2js/prepareHandlers.js";
 import prepareScope from "./helper/math2js/prepareScope.js";
 import generateJs from './helper/math2js/generateJs.js';
 
+// the  default handler will be exported in some cases
+export const defaultHandlers = ["sum", "gamma", "fact", "int", "diff"]; 
+
 /**
- *
  * @param {String|this.mathParser.Node} math
  * @param {Array} params
  * @param {String} scope is the Object, [Object] or function
@@ -16,20 +18,24 @@ export default function math2js({
   math,
   params = [],
   scope = Math,
-  handlers = ["sum", "gamma", "fact", "int", "diff"],
-  header = "",
+  handlers = defaultHandlers,
+  header,
   throwUndefError = false
 }) {
-  if (math instanceof String) {
+  if (typeof math === 'string') {
     math = mathParser.parse(math);
   }
 
-  header = header instanceof Array ? header : [header];
+  header = header instanceof Array ? header : header ? [header] : []; /// ? : is left to right 
   header.addedFuncs = [];
   header.addedVars = [];
   addToHeader.header = header;
 
-  prepareScope(scope, header);
+  // the argument to be passed to func, the outer function
+  let funcArgs = prepareScope(scope, header);
+  console.log('after prepareScope');
+  console.log('scope', scope);
+  console.log('header', header);
 
   prepareHandlers(handlers);
 
@@ -62,18 +68,22 @@ export default function math2js({
   let code = [
     // "(scope) => {",
     ...header
-      .map((h) => h.split("\n"))
+      .map(h => h.split("\n"))
       .flat()
-      .map((h) => "  " + h),
+      .map(h => "  " + h),
     `  return (${params.join(", ")})=>${jsExpr};`,
     // "}",
   ].join("\n");
 
+  let funcParams = [typeof scope === 'function' ? '__scicave_rakam_getId__' :  'scope'];
+
   // using function instead of eval, see https://rollupjs.org/guide/en/#avoiding-eval
-  let func = new Function('scope', code);
+  let func = new Function(...funcParams, code);
 
   return {
-    eval: func(),
-    code,
+    eval: func(...funcArgs),
+    code: `(${funcParams.join(', ')})=>{\n${code}\n}`,
   };
 }
+
+math2js.defaultHandlers = defaultHandlers;

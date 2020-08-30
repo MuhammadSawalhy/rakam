@@ -7,24 +7,15 @@ import texParser from "@scicave/math-latex-parser";
 import latex2js from './latex2math.js';
 import latex2math from './latex2math.js';
 
-function randomName() {
-  return (Date.now() + randomName.counter++).toString(32).replace(/\d/, "");
-}
+// export all function as default wraped in object
+export default {
 
-randomName.counter = 0;
+  mathParser,
+  math2js,
+  math2latex,
 
-class Parser {
-  constructor() {
+  texParser,
+  latex2js,
+  latex2math,
 
-    this.prototype.mathParser = mathParser;
-    this.prototype.math2js = math2js;
-    this.prototype.math2latex = math2latex;
-
-    this.prototype.texParser = texParser;
-    this.prototype.latex2js = latex2js;
-    this.prototype.latex2math = latex2math;
-
-  }
-}
-
-export default Parser;
+};

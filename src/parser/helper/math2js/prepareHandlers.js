@@ -1,9 +1,9 @@
 import addToHeader from "./addToHeader.js";
+import randomName from '../../../helper/randomName.js';
 
 export default function prepareHandlers(handlers){
-
   for (let i = 0; i < handlers.length; i++) {
-    if (handlers[i] instanceof String) {
+    if (typeof handlers[i] === 'string') {
       switch (handlers[i]) {
         case "sum":
           {
@@ -34,7 +34,7 @@ export default function prepareHandlers(handlers){
                   "  return _; ",
                   "}",
                 ];
-                header.concat(_sum);
+                header.push(..._sum);
 
                 header.addedFuncs.push(headerFuncName);
                 return headerFuncName + "(" + params.join(", ") + ")";
@@ -47,7 +47,7 @@ export default function prepareHandlers(handlers){
           {
             handlers[i] = {
               test(node) {
-                return node.checkType("function") && node.callee.checkType("id") && node.callee.name === "integrate";
+                return node.checkType("function") && node.callee.checkType("id") && (node.callee.name === "integrate" || node.callee.name === 'int');
               },
 
               handle(node) {
@@ -59,6 +59,41 @@ export default function prepareHandlers(handlers){
                 return `__scicave_rakam_int__(${arg})`;
               },
             };
+          }
+          break;
+
+        case "diff":
+          {
+            handlers[i] = {
+              test(node) {
+
+                // if (automult enabled) and we found a differentiation
+                let a = 
+                  node.check({type: "operator", name: '/'}) && 
+                  node.args[0].checkType('automult') && node.args[0].args[0].check({type: 'id', name: 'd'}) &&
+                  node.args[1].checkType('automult') && node.args[1].args[0].check({type: 'id', name: 'd'})
+                ;
+                
+                if(a){
+                  // differentiation data
+                  this.diffData = {
+                    node,
+                    deriveExpr: node.args[0].args[1],
+                    withRespectTo: node.args[1].args[1],
+                  }
+                  return true;
+                }
+
+                // if (automult not enabled), the differentiation is defined
+                // by explicit function derive(expr, withRespectTo)
+                return node.checkType("function") && node.callee.checkType("id") && (node.callee.name === 'derive');
+              },
+
+              handle(node) {
+                // on the test process, we saved the differentiation process data
+                // TODO:
+              },
+            }; 
           }
           break;
 
@@ -102,5 +137,4 @@ export default function prepareHandlers(handlers){
       }
     }
   }
-
 }
