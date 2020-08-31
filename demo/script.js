@@ -1,4 +1,4 @@
 
 let {parser} = rakam;
 
-console.log(parser.math2js({math: '1+2-sinx'}));
+console.log(parser.math2js('1+2-sinx'));

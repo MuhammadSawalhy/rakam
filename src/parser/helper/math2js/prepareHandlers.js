@@ -1,5 +1,6 @@
 import addToHeader from "./addToHeader.js";
 import randomName from '../../../helper/randomName.js';
+import generateJs from './generateJs.js';
 
 export default function prepareHandlers(handlers){
   for (let i = 0; i < handlers.length; i++) {
@@ -9,23 +10,32 @@ export default function prepareHandlers(handlers){
           {
             handlers[i] = {
               test(node) {
-                return node.checkType("function") && node.callee.checkType("id") && node.callee.name === "sum";
+                return node.check({ type: "function", name: 'sum' });
               },
 
-              handle(node) {
+              handle(parserTree, {params, scope, handlers, undef, header}) {
                 // check validity of sum arguments
-                if (!(node.args[0].check({ type: "delimiter", name: "," }) && node.args.length === 4) || !node.args[0].args[1].checkType("id"))
-                  throw new Error('sum function has invalid arguments: "' + node.match.text + '"');
+                let delimiter, sumVar, sumExpr, newParams, start, end, headerFuncName, _sum; 
 
-                let sumVar = node.args[0].args[1].name;
-                let newParams = [...params];
+                if (
+                  parserTree.args[0].check({ type: "block", name: "()" }) &&
+                  parserTree.args[0].args[0].check({ type: "delimiter", name: "," })
+                ){
+                  delimiter = parserTree.args[0].args[0];
+                  if(!(delimiter.args.length === 4 && delimiter.args[1].checkType('id'))){
+                    throw new Error('sum function has invalid arguments: "' + parserTree.match.text + '"');
+                  }
+                }
+
+                sumVar = delimiter.args[1].name;
+                newParams = [...params];
                 newParams.push(sumVar);
-                let sumExpr = generateJs({parserTree: node.args[0].args[0], params: newParams, scope, handlers, undef, header});
-                let start = generateJs({parserTree: node.args[0].args[2], params, scope, handlers, undef, header});
-                let end = generateJs({parserTree: node.args[0].args[3], params, scope, handlers, undef, header});
+                sumExpr = generateJs(delimiter.args[0], { params: newParams, scope, handlers, undef, header});
+                start = generateJs(delimiter.args[2], { params, scope, handlers, undef, header});
+                end = generateJs(delimiter.args[3], { params, scope, handlers, undef, header});
 
-                let headerFuncName = `__scicave_rakam_${randomName()}__`;
-                let _sum = [
+                headerFuncName = `__scicave_rakam_${randomName()}__`;
+                _sum = [
                   `function ${headerFuncName}(${params.join(", ")}){`,
                   "  let _ = 0",
                   `  for(var ${sumVar} = ${start}; ${sumVar} <= ${end}; ${sumVar}++){`,
@@ -47,15 +57,15 @@ export default function prepareHandlers(handlers){
           {
             handlers[i] = {
               test(node) {
-                return node.checkType("function") && node.callee.checkType("id") && (node.callee.name === "integrate" || node.callee.name === 'int');
+                return node.checkType("function") && (node.name === "integrate" || node.name === 'int');
               },
 
-              handle(node) {
+              handle(parserTree, {params, scope, handlers, undef, header}) {
                 // adding function fact to header
-                addToHeader.int();
+                addToHeader.int(header);
 
-                let arg = generateJs({parserTree: node.args[0], params, scope, handlers, undef, header});
-                if (node.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_int__${arg}`;
+                let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+                if (parserTree.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_int__${arg}`;
                 return `__scicave_rakam_int__(${arg})`;
               },
             };
@@ -86,10 +96,10 @@ export default function prepareHandlers(handlers){
 
                 // if (automult not enabled), the differentiation is defined
                 // by explicit function derive(expr, withRespectTo)
-                return node.checkType("function") && node.callee.checkType("id") && (node.callee.name === 'derive');
+                return node.check({ type: 'function', name: 'derive' });
               },
 
-              handle(node) {
+              handle(parserTree, {params, scope, handlers, undef, header}) {
                 // on the test process, we saved the differentiation process data
                 // TODO:
               },
@@ -104,12 +114,12 @@ export default function prepareHandlers(handlers){
                 return node.check({ type: "operator", operatorType: "postfix", name: "!" });
               },
 
-              handle(node) {
+              handle(parserTree, {params, scope, handlers, undef, header}) {
                 // adding function fact to header
-                addToHeader.fact();
+                addToHeader.fact(header);
 
-                let arg = generateJs({parserTree: node.args[0], params, scope, handlers, undef, header});
-                if (node.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_fact__${arg}`;
+                let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+                if (parserTree.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_fact__${arg}`;
                 return `__scicave_rakam_fact__(${arg})`;
               },
             };
@@ -120,15 +130,15 @@ export default function prepareHandlers(handlers){
           {
             handlers[i] = {
               test(node) {
-                return node.checkType("function") && node.callee.checkType("id") && node.callee.name === "gamma";
+                return node.check({ type: 'function', name: 'gamma' });
               },
 
-              handle(node) {
+              handle(parserTree, {params, scope, handlers, undef, header}) {
                 // adding function fact to header
-                addToHeader.gamma();
+                addToHeader.gamma(header);
 
-                let arg = generateJs({parserTree: node.args[0], params, scope, handlers, undef, header});
-                if (node.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_gamma__${arg}`;
+                let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+                if (parserTree.args[0].check({ type: "block", name: "()" })) return `__scicave_rakam_gamma__${arg}`;
                 return `__scicave_rakam_gamma__(${arg})`;
               },
             };
