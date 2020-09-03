@@ -1,7 +1,7 @@
 // we are using rollup-jest transformer
 import parser from '../index.js';
 import {defaultHandlers} from '../math2js.js';
-import generateJs from '../helper/math2js/generateJs.js';
+import generateJs from '../utils/math2js/generateJs.js';
 
 // const path = require('path');
 // let pkg = require(path.resolve(process.cwd(), './package.json'));

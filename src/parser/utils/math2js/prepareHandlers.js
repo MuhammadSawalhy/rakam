@@ -1,5 +1,5 @@
 import addToHeader from "./addToHeader.js";
-import randomName from '../../../helper/randomName.js';
+import randomName from '../../../utils/randomName.js';
 import generateJs from './generateJs.js';
 
 export default function prepareHandlers(handlers){
