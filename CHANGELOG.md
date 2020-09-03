@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 27-08-2020
 
-First publish, still uncompleted package to be even used.
+The First publish, still uncompleted package to be even used.
