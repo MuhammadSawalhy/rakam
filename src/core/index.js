@@ -83,3 +83,18 @@ export function newtonMethod(intialGuess, F, F_prime, cs) {
 export function evaluate(){
 
 }
+
+// export all the exported functions here as default
+export default {
+  dist,
+  constrain,
+  snap,
+  random,
+  randomInt,
+  gcd,
+  gcd2,
+  lcm,
+  newtonMethod,
+  evaluate,
+};
+
