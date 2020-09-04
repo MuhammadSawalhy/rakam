@@ -4,8 +4,10 @@
 
 
 export function dist(a, b, c, d) {
-  if((c && d) || (typeof a === 'object' && typeof b === 'object')){
-    return this.dist(v1.x, v1.y, v2.x, v2.y);
+  if(typeof a === 'object' && typeof b === 'object'){
+    return ((a.x-b.x)**2 + (a.y-b.y)**2)**0.5;
+  } if (c && d){
+    return ((a-c)**2 + (b-d)**2)**0.5;
   } else {
     throw new Error('can\'t calculate the distance, check that you passed two vectors or 4 numbers x1,y1,x2,y2');
   }
@@ -16,9 +18,9 @@ export function constrain(v, min, max) {
 }
 
 // TODO: fill this function with a fast algorithm 
-export function snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
+// export function snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
 
-}
+// }
 
 export function random(start, end) {
   if (end) {
@@ -67,34 +69,23 @@ export function lcm(...values) {
   return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
 }
 
-export function newtonMethod(intialGuess, F, F_prime, cs) {
-  let x = intialGuess, x_;
-  do {
-    x_ = x;
-    cs.vars[0].value = new Constant(x_);
-    x = x_ - F.calculate(cs) / F_prime.calculate(cs);
-    if (Math.abs(x_) < Math.abs(x)) {
-      return NaN;
-    }
-  } while (Math.abs(F.calculate(cs)) > Math.pow(10, -15));
-  return x;
-}
 
-export function evaluate(){
+// TODO: 
 
-}
+// export function newtonMethod(intialGuess, F, F_prime, cs) {
+//   let x = intialGuess, x_;
+//   do {
+//     x_ = x;
+//     cs.vars[0].value = new Constant(x_);
+//     x = x_ - F.calculate(cs) / F_prime.calculate(cs);
+//     if (Math.abs(x_) < Math.abs(x)) {
+//       return NaN;
+//     }
+//   } while (Math.abs(F.calculate(cs)) > Math.pow(10, -15));
+//   return x;
+// }
 
-// export all the exported functions here as default
-export default {
-  dist,
-  constrain,
-  snap,
-  random,
-  randomInt,
-  gcd,
-  gcd2,
-  lcm,
-  newtonMethod,
-  evaluate,
-};
+// export function evaluate(){
+
+// }
 
