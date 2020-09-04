@@ -16,12 +16,14 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "rollup -c",
-    "prod": "node ./utils/generate-version-file.js && npm run prepare && NODE_ENV=production rollup -c",
+    "build:prod": "node ./utils/generate-version-file.js && cross-env NODE_ENV=production rollup -c",
+    "prod": "npm run prepare && npm run build:prod",
     "prepare": "npm run lint && npm run test",
-    "lint": "eslint --fix",
+    "lint": "eslint src/ --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "postversion": "npm run prod"
+    "preversion": "npm run prepare",
+    "postversion": "npm run build:prod"
   },
   "jest": {
     "verbose": true,
@@ -46,9 +48,8 @@
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
-    "eslint": "^6.8.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.8.1",
     "jest": "^26.4.2",
     "pegjs": "^0.10.0",
     "rollup": "^1.32.1",
