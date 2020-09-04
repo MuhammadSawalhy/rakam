@@ -1,6 +1,6 @@
 {
   "name": "rakam",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
   "main": "lib/index.js",
   "files": [
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "rollup -c",
-    "prod": "node ./utils/generate-version-file.js && node ./utils/update-authors.js && npm run prepare && NODE_ENV=production rollup -c",
+    "prod": "node ./utils/generate-version-file.js && npm run prepare && NODE_ENV=production rollup -c",
     "prepare": "npm run lint && npm run test",
     "lint": "eslint --fix",
     "test": "jest",
