@@ -1,3 +1,4 @@
+/* eslint-disable-file no-unused-vars */
 import addToHeader from "./addToHeader.js";
 import randomName from '../../../utils/randomName.js';
 import generateJs from './generateJs.js';
@@ -99,6 +100,7 @@ export default function prepareHandlers(handlers){
                 return node.check({ type: 'function', name: 'derive' });
               },
 
+              // eslint-disable-next-line no-unused-vars
               handle(parserTree, {params, scope, handlers, undef, header}) {
                 // on the test process, we saved the differentiation process data
                 // TODO:

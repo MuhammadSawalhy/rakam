@@ -88,7 +88,7 @@ function getScopedId(id, { params, scope, undef, header }){
     else if (scope instanceof Array) {
     let found = false;
     for (let i = 0; i < scope.length; i++) {
-      if (typeof scope[i] === 'object' && scope[i].hasOwnProperty(id)) {
+      if (typeof scope[i] === 'object' && Object.prototype.hasOwnProperty.call(scope[i], id)) {
         found = true;
       } else if (typeof scope[i] === 'function'){
         if (scope[i](id) !== undefined) {

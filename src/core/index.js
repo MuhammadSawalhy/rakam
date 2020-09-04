@@ -69,6 +69,9 @@ export function lcm(...values) {
   return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
 }
 
+
+// TODO: 
+
 // export function newtonMethod(intialGuess, F, F_prime, cs) {
 //   let x = intialGuess, x_;
 //   do {
@@ -85,18 +88,4 @@ export function lcm(...values) {
 // export function evaluate(){
 
 // }
-
-// export all the exported functions here as default
-export default {
-  dist,
-  constrain,
-  snap,
-  random,
-  randomInt,
-  gcd,
-  gcd2,
-  lcm,
-  newtonMethod,
-  evaluate,
-};
 

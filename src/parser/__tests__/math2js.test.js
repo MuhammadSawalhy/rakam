@@ -1,3 +1,5 @@
+/* eslint-disable-file no-unused-vars */
+
 // we are using rollup-jest transformer
 import parser from '../index.js';
 import {defaultHandlers} from '../math2js.js';
@@ -96,7 +98,7 @@ describe("math2js", ()=>{
           return node.check({ type: 'function', name: 'sum' });
         },
   
-        handle(parserTree, options){
+        handle(){
           // options that has been passed to math2js -> generateJs function
           // but options.parserTree = node that has passed this.test not the top most Node
           return 'newSum()'
