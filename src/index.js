@@ -1,7 +1,7 @@
 import geometry from './geometry/index.js'
 import * as core from './core/index.js';
 import parser from './parser/index.js';
-   
+import version from './version.js';
 
 export default {
 
@@ -11,4 +11,5 @@ export default {
 
    geometry,
    
+   version
 };

@@ -1,45 +1,38 @@
 
+
 /**
  * return an object with degress, seconds and minutes properities
- * @param {*} angle ::: in radian form
+ * @param {Number} angle ::: in degrees as float number
  */
-export function degAngle(angle) {
-  if (Core.isNumeric(angle)) {
-    let splitted;
-    angle = (angle * 180) / Math.PI;
-    let deg, min, sec;
-    let getTerm = (a, b) => {
-      a = "0." + a.toString();
-      a *= b;
-      splitted = a.toString().split(".");
-      splitted = [parseInt(splitted[0]), parseInt(splitted[1])];
-      return [...splitted];
-    };
+export function degForm(angle) {
+  if (!isNaN(angle)) {
+    let deg, min = 0, sec = 0, num;
 
-    if (Math.round(angle) != angle) {
-      splitted = angle.toString().split(".");
-      splitted = [parseInt(splitted[0]), parseInt(splitted[1])];
-      deg = splitted[0];
-      min = getTerm(splitted[1], 60);
-      sec = getTerm(min[1], 60);
+    if (Math.round(angle) !== angle) {
+      deg = angle < 0 ? Math.ceil(angle) : Math.floor(angle); // the same as Math.trunc
+      // get the decimal number only 0.1326548
+      // then multiply by 60 and trunc
+      num = (angle - deg) * 60;
+      min = angle < 0 ? Math.ceil(num) : Math.floor(num);
+      num = (num - min) * 60;
+      sec = angle < 0 ? Math.ceil(num) : Math.floor(num);
 
-      if (Math.abs(sec[0] - 60) <= 1) {
-        min[0]++;
-        sec[0] = 0;
+      //#region avoid a tiny error resulting in a slitly different angle
+      if (Math.abs(sec - 60) <= 1) {
+        min++;
+        sec = 0;
       }
-      if (min[0] === 60) {
+      if (min === 60) {
         deg += 1 * Math.sign(deg);
         min[0] = 0;
       }
-      return { degrees: deg, minutes: min[0], seconds: sec[0] };
+      //#endregion
     }
-    return { degrees: angle, minutes: 0, seconds: 0 };
-  } else {
-    let cAngle = calculateString(angle);
-    if (Core.isNumeric(cAngle)) {
-      return this.degAngle(cAngle);
-    } else throw new Error("your angle value (" + angle + ') is not valid. :"(');
+
+    return { deg, min, sec };
+
   }
+  throw new Error(`can't convert ${angle} into degrees form, please pass a valid number.`);
 }
 
 export function stringDegAngle(angle) {

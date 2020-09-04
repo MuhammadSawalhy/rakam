@@ -13,16 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## [0.0.2] - 2020-9-4
+### Fixed
+- the second trial to fix readme file issue, after asking [a question](https://stackoverflow.com/questions/63733460/readme-is-deformed-in-npmjs-but-appears-in-github) in stackoverflow.
+
+
+
 ## [0.0.1] - 2020-9-4
 ### Fixed
-- Change README.md from binary file into bytes file, there was weird README in [rakam](https://npmjs.com/package/rakam).
+- Change README.md from a binary looking file into a file in bytes, there was weird README in [rakam](https://npmjs.com/package/rakam).
 
 
 ## [0.0.0] - 2020-9-4
 ### Added
-- `math2js` to convert math expression from string into real js function by generating the code then evaluating it.
+- `math2js` to convert math expression from a string into real js function by generating the code then evaluating it.
 - `geometry.angles` property in the exported library, with angles you can get:
-  - the angle between two vectors or lines, in clockwise direction or the other one. You can also trim or normalize the angle to be between 0 and 360.
+  - the angle between two vectors or lines, in a clockwise direction or the other one. You can also trim or normalize the angle to be between 0 and 360.
   - the min angle between two vectors or lines, in either direction
   - as well as the max angle
 

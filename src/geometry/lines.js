@@ -16,7 +16,7 @@ export function distToLine(v, line) {
  */
 export function projectionToLine(v, line) {
   if (v && line) {
-    return Lines.lineIntersection(line, Lines.lineEquation(line.angle + Math.PI / 2, v));
+    return lineIntersection(line, lineEquation(line.angle + Math.PI / 2, v));
   }
 }
 
@@ -41,5 +41,8 @@ export function lineEquation(angle, trans) {
  */
 export function lineIntersection(line1, line2) {
   let y = -(line1.c / line1.a - line2.c / line2.a) / (line1.b / line1.a - line2.b / line2.a);
-  return new vector((-line1.b * y - line1.c) / line1.a, y);
+  return {
+    x: (-line1.b * y - line1.c) / line1.a,
+    y
+  };
 }
