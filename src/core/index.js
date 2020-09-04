@@ -16,9 +16,9 @@ export function constrain(v, min, max) {
 }
 
 // TODO: fill this function with a fast algorithm 
-export function snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
+// export function snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
 
-}
+// }
 
 export function random(start, end) {
   if (end) {
@@ -67,34 +67,22 @@ export function lcm(...values) {
   return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
 }
 
-export function newtonMethod(intialGuess, F, F_prime, cs) {
-  let x = intialGuess, x_;
-  do {
-    x_ = x;
-    cs.vars[0].value = new Constant(x_);
-    x = x_ - F.calculate(cs) / F_prime.calculate(cs);
-    if (Math.abs(x_) < Math.abs(x)) {
-      return NaN;
-    }
-  } while (Math.abs(F.calculate(cs)) > Math.pow(10, -15));
-  return x;
-}
+// TODO: 
 
-export function evaluate(){
+// export function newtonMethod(intialGuess, F, F_prime, cs) {
+//   let x = intialGuess, x_;
+//   do {
+//     x_ = x;
+//     cs.vars[0].value = new Constant(x_);
+//     x = x_ - F.calculate(cs) / F_prime.calculate(cs);
+//     if (Math.abs(x_) < Math.abs(x)) {
+//       return NaN;
+//     }
+//   } while (Math.abs(F.calculate(cs)) > Math.pow(10, -15));
+//   return x;
+// }
 
-}
+// export function evaluate(){
 
-// export all the exported functions here as default
-export default {
-  dist,
-  constrain,
-  snap,
-  random,
-  randomInt,
-  gcd,
-  gcd2,
-  lcm,
-  newtonMethod,
-  evaluate,
-};
+// }
 
