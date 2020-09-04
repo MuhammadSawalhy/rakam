@@ -1,5 +1,5 @@
 # RAKAM
-Rakam or (رقم) in Arabic, which means "number". This is a math library. Lots of new, breaking, unprecedented features such as `parser`, which contains something like `math2js`. That amazing function which is available right now, we will try our best to make this a full-featured, easy-to-use, good-performance library for all uses. 
+Rakam or (رقم) in Arabic, which means "number". This is a math library. Lots of new, breaking, unprecedented features such as `parser`, which contains something like `math2js`. That amazing function which is available right now, we will try our best to make this a full-featured, easy-to-use, good-performance library for all uses, insha'allah. 
 
 -------------------------------
 Here is some ready-to-use features:
