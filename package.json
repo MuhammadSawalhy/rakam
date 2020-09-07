@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^2.2.2"
+    "@scicave/math-parser": "^2.2.2",
+    "angles": "^0.2.4"
   }
 }
