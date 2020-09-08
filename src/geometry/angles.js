@@ -5,7 +5,7 @@
  */
 
 import * as extend from './angles-extend.js';
-import anglesJs from 'angles'; // https://www.npmjs.com/package/angles
+import anglesJs from './angles-external.js'; // https://www.npmjs.com/package/angles
 
 const angles = {
 
