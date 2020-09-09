@@ -46,3 +46,10 @@ export function lineIntersection(line1, line2) {
     y
   };
 }
+
+export default {
+  distToLine,
+  projectionToLine,
+  lineEquation,
+  lineIntersection,
+};

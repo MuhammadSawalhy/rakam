@@ -69,6 +69,13 @@ export function lcm(...values) {
   return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
 }
 
+export function trunc(v) {
+  return v < 0 ? Math.ceil(v) : Math.floor(v);
+}
+
+export function toFixed(v, decimalDigitsNum) {
+  return Math.round(v * 10**decimalDigitsNum) / 10**decimalDigitsNum;
+}
 
 // TODO: 
 
