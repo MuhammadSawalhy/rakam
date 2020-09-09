@@ -153,3 +153,15 @@ export function fromStrDegMinSec(strDegMinSec) {
 
   return (a / 360) * this.SCALE; // convert to the current scale
 }
+
+//#region aliases, shorcuts
+
+export const DMS = degMinSec;
+
+export const strDMS = strDegMinSec;
+
+export const fromDMS = fromDegMinSec;
+
+export const fromStrDMS = fromStrDegMinSec;
+
+//#endregion

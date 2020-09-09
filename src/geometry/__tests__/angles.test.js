@@ -7,6 +7,13 @@ let error = 0.00001;
 
 describe('angles', ()=>{
 
+  test("aliases are referencess to the main functions", ()=>{
+    expect(angles.DMS).toBe(angles.degMinSec);
+    expect(angles.strDMS).toBe(angles.strDegMinSec);
+    expect(angles.fromDMS).toBe(angles.fromDegMinSec);
+    expect(angles.fromStrDMS).toBe(angles.fromStrDegMinSec);
+  });
+
   test("minAngle, vectors", ()=>{
     let a = angles.minAngle(vector.fromAngle(angles.toRad(45)), vector.fromAngle(angles.toRad(135)));
     let expectedValue = Math.PI/2;
