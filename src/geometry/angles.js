@@ -12,17 +12,15 @@ const angles = {
   ...anglesJs,
   ...extend,
 
-  SCALE: Math.PI,
-  
 };
 
 Object.defineProperty(angles, 'degMinSecSymbols', {
   get(){
-    return HTMLDListElement.__dmsSymbols;
+    return this.__dmsSymbols;
   },
   set(v){
     this.__dmsSymbols = v;
-    this.degMinSecRegex = new RegExp(`^\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.deg})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.min})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.sec})?\\s*$`);
+    this.__dmsRegex = new RegExp(`^\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.deg})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.min})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.sec})?\\s*$`);
   }
 });
 
