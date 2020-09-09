@@ -14,6 +14,19 @@ const angles = {
 
 };
 
+Object.defineProperty(angles, 'SCALE', {
+  get(){
+    return this.__SCALE;
+  },
+  set(v){
+    var h = v / 2;
+    this.__SCALE        = v; this.__HALF_SCALE   = h;
+    this.__RAD_TO_SCALE = h / Math.PI;
+    this.__DEG_TO_SCALE = h / 180;
+    this.__GON_TO_SCALE = h / 200;
+  }
+});
+
 Object.defineProperty(angles, 'degMinSecSymbols', {
   get(){
     return this.__dmsSymbols;
@@ -24,6 +37,7 @@ Object.defineProperty(angles, 'degMinSecSymbols', {
   }
 });
 
+angles.SCALE = 360;
 angles.degMinSecSymbols = {deg: '°', min: '"', sec: "'"};
 
 export default angles;

@@ -3,7 +3,11 @@
  *
  * Copyright (c) 2015, Robert Eisele (robert@xarg.org)
  * Dual licensed under the MIT or GPL Version 2 licenses.
+ * 
+ * We have made some modifications here
  **/
+
+
 
 var TAU = 2 * Math.PI;
 var EPS = 1e-15;
@@ -32,7 +36,7 @@ export default {
    * @returns {number}
    */
   normalizeHalf: function (n) {
-    var c = this["SCALE"];
+    var c = this["__SCALE"];
     var h = c / 2;
 
     return mod(n + h, c) - h;
@@ -44,7 +48,7 @@ export default {
    * @returns {number}
    */
   normalize: function (n) {
-    var c = this["SCALE"];
+    var c = this["__SCALE"];
 
     return mod(n, c);
   },
@@ -79,7 +83,7 @@ export default {
   between: function (n, a, b) {
     // Check if an angle n is between a and b
 
-    var c = this["SCALE"];
+    var c = this["__SCALE"];
     n = mod(n, c);
     a = mod(a, c);
     b = mod(b, c);
@@ -95,7 +99,7 @@ export default {
    * @returns {number}
    */
   diff: function (a, b) {
-    return Math.abs(b - a) % this["SCALE"];
+    return Math.abs(b - a) % this["__SCALE"];
   },
   /**
    * Calculate the minimal distance between two angles
@@ -105,17 +109,8 @@ export default {
    * @returns {number}
    */
   distance: function (a, b) {
-    var m = this["SCALE"];
-    var h = m / 2;
-
-    // One-Liner:
-    //return Math.min(mod(a - b, m), mod(b - a, m));
-
-    var diff = this["normalizeHalf"](a - b);
-
-    if (diff > h) diff = diff - m;
-
-    return Math.abs(diff);
+    // here are some modifications
+    return Math.abs(this["normalizeHalf"](a - b));
   },
   /**
    * Calculate radians from current angle
@@ -125,7 +120,7 @@ export default {
    */
   toRad: function (n) {
     // https://en.wikipedia.org/wiki/Radian
-    return (n / this["SCALE"]) * TAU;
+    return n / this.__RAD_TO_SCALE;
   },
   /**
    * Calculate degrees from current angle
@@ -135,7 +130,7 @@ export default {
    */
   toDeg: function (n) {
     // https://en.wikipedia.org/wiki/Degree_(angle)
-    return (n / this["SCALE"]) * 360;
+    return n / this.__DEG_TO_SCALE;
   },
   /**
    * Calculate gons from current angle
@@ -145,7 +140,7 @@ export default {
    */
   toGon: function (n) {
     // https://en.wikipedia.org/wiki/Gradian
-    return (n / this["SCALE"]) * 400;
+    return n / this.__GON_TO_SCALE;
   },
   /**
    * Given the sine and cosine of an angle, what is the original angle?
@@ -155,7 +150,7 @@ export default {
    * @returns {number}
    */
   fromSinCos: function (sin, cos) {
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
     var angle = (1 + Math.acos(cos) / TAU) * s;
 
     if (sin < 0) {
@@ -171,7 +166,7 @@ export default {
    * @returns {number}
    */
   fromSlope: function (p1, p2) {
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
     var angle = (TAU + Math.atan2(p2[1] - p1[1], p2[0] - p1[0])) % TAU;
 
     return (angle / TAU) * s;
@@ -186,7 +181,7 @@ export default {
    * @returns {number}
    */
   quadrant: function (x, y, k, shift) {
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
 
     if (k === undefined) k = 4; // How many regions? 4 = quadrant, 8 = octant, ...
 
@@ -226,7 +221,7 @@ export default {
     // 180° = S
     // 270° = W
 
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
     var k = DIRECTIONS.length;
 
     // floor((2ck + s) / (2s)) = round((c / s) * k)
@@ -244,7 +239,7 @@ export default {
    * @returns {number}
    */
   lerp: function (a, b, p, dir) {
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
     a = mod(a, s);
     b = mod(b, s);
 
@@ -264,7 +259,7 @@ export default {
    * @returns {number}
    */
   average: function (angles) {
-    var s = this["SCALE"];
+    var s = this["__SCALE"];
 
     // Basically treat each angle as a vector, add all the vecotrs up,
     // and return the angle of the resultant vector.

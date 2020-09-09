@@ -1,4 +1,70 @@
-import { constrain, trunc } from "../core/index.js";
+import { trunc } from "../core/index.js";
+
+export const angleTypes = {
+  RAD: 'rad',
+  DEG: 'deg',
+  GON: 'gon',
+  GRAD: 'gradian',
+}
+
+//#region conversions 
+
+/**
+ * Calculate gons (gradians) from current angle and SCALE
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+export function toGrad(n) {
+  // https://en.wikipedia.org/wiki/Gradian
+  return n / this.__GON_TO_SCALE;
+}
+
+/**
+ * Calculate angle from gons (gradians) unit
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+export function fromGrad(n) {
+  // https://en.wikipedia.org/wiki/Gradian
+  return n * this.__GON_TO_SCALE;
+}
+
+/**
+ * Calculate angle from gons (gradians) unit
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+export function fromGon(n) {
+  // https://en.wikipedia.org/wiki/Gradian
+  return n * this.__GON_TO_SCALE;
+}
+
+/**
+ * Calculate angle from degree unit
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+export function fromDeg(n) {
+  // https://en.wikipedia.org/wiki/Gradian
+  return n * this.__DEG_TO_SCALE;
+}
+
+/**
+ * Calculate angle from radian unit
+ *
+ * @param {number} n
+ * @returns {number}
+ */
+export function fromRad(n) {
+  // https://en.wikipedia.org/wiki/Gradian
+  return n * this.__RAD_TO_SCALE;
+}
+
+//#endregion
 
 /**
  * returns angle between 0 and SCALE (one round)
@@ -12,12 +78,17 @@ export function minAngle(p1, p2, { type = "vectors" } = {}) {
     // dot product devided by product if the magnitude
     // dot product = (p1.x*p2.x + p1.y*p2.y)
     // the dot product of 2 vectors = mag(p1) * mag(p2) * cos(the angle between these 2 vectors)
-    let s = (p1.x * p2.x + p1.y * p2.y) / ((p1.x ** 2 + p1.y ** 2) * (p2.x ** 2 + p2.y ** 2)) ** 0.5;
-    let a = Math.acos(constrain(s, -1, 1)); // there may be a tiny float error, so let make sure it is valid
-    return this.normalize(a);
+    // let s = (p1.x * p2.x + p1.y * p2.y) / ((p1.x ** 2 + p1.y ** 2) * (p2.x ** 2 + p2.y ** 2)) ** 0.5;
+    // there may be a tiny float error, so let make sure it is valid
+    // return Math.acos(constrain(Math.abs(s), 0, 1)) * this.__RAD_TO_SCALE;
+
+    return this.distance(
+      Math.atan2(p1.y, p1.x) * this.__RAD_TO_SCALE,
+      Math.atan2(p2.y, p2.x) * this.__RAD_TO_SCALE
+    );
   } else if (type === "lines") {
     let a = this.minAngle(p1, p2);
-    return Math.min(a, Math.PI - a); // notice that {(a) and (Math.PI - a)} are always positive.
+    return Math.min(a, this.__HALF_SCALE - a); // notice that {(a) and (Math.PI - a)} are always positive.
   }
 }
 
@@ -30,11 +101,12 @@ export function minAngle(p1, p2, { type = "vectors" } = {}) {
  */
 export function maxAngle(p1, p2, { type = "vectors" } = {}) {
   if (type === "vectors") {
-    let min = this.minAngle(p1, p2);
-    return Math.max(2 * Math.PI - min, min);
+    let a1 = Math.atan2(p1.y, p1.x);
+    let a2 = Math.atan2(p2.y, p2.x);
+    return this.normalize((a1>a2 ? a2-a1 : a1-a2) * this.__RAD_TO_SCALE);
   } else if (type === "lines") {
     let a = this.minAngle(p1, p2);
-    return Math.max(a, Math.PI - a); // notice that {(a) and (Math.PI - a)} are always positive.
+    return Math.max(a, this.__HALF_SCALE - a); // notice that {(a) and (Math.PI - a)} are always positive.
   }
 }
 
@@ -48,17 +120,14 @@ export function maxAngle(p1, p2, { type = "vectors" } = {}) {
  * @param {object} options instanceof '{}' that defines 'type', 'dir'.
  */
 export function angle(p1, p2, { type = "vectors", dir = -1 } = {}) {
+  var a1, a2;
   if (type === "vectors") {
-    var a1 = this.minAngle(p1, { x: 1, y: 0 });
-    a1 = p1.y >= 0 ? a1 : -a1;
-    var a2 = this.minAngle(p2, { x: 1, y: 0 });
-    a2 = p2.y >= 0 ? a2 : -a2;
-    let a = dir === -1 || dir === "-" || dir === "CCW" ? a2 - a1 : a1 - a2;
-
-    return this.normalize(a);
+    a1 = Math.atan2(p1.y, p1.x);
+    a2 = Math.atan2(p2.y, p2.x);
+    return this.normalize((dir === -1 || dir === "-" || dir === "CCW" ? a2 - a1 : a1 - a2) * this.__RAD_TO_SCALE);
   } else if (type === "lines") {
-    let a1 = this.angle(p1, p2, { type: "vectors", dir });
-    let a2 = this.angle(p1, p2.mult(-1), { type: "vectors", dir });
+    a1 = this.angle(p1, p2, { type: "vectors", dir });
+    a2 = this.angle(p1, { x: -p2.x, y: -p2.y }, { type: "vectors", dir });
     return Math.min(a1, a2); // that is a wonderful optimization for getting the angle of rotation when you rotate the 1st line to fit it on the other one, consider the dir of rotation inside options.
   }
 }
@@ -71,9 +140,9 @@ export function angle(p1, p2, { type = "vectors", dir = -1 } = {}) {
  * given angle is arrested inside the first round from 0 to SCALE
  */
 export function normalizeInside(angle, roundOffset = 0) {
-  let r0 = this.SCALE * roundOffset,
-    r1 = r0 + this.SCALE;
-  angle = angle > r1 ? angle - Math.floor((angle - r0) / this.SCALE) * this.SCALE : angle < r0 ? angle + Math.floor((r1 - angle) / this.SCALE) * this.SCALE : angle;
+  let r0 = this.__SCALE * roundOffset,
+    r1 = r0 + this.__SCALE;
+  angle = angle > r1 ? angle - Math.floor((angle - r0) / this.__SCALE) * this.__SCALE : angle < r0 ? angle + Math.floor((r1 - angle) / this.__SCALE) * this.__SCALE : angle;
   return angle;
 }
 
@@ -133,7 +202,7 @@ export function strDegMinSec(angle, secAccuracy = 2) {
  * @returns {Number}
  */
 export function fromDegMinSec(degMinSec) {
-  return ((degMinSec.deg + degMinSec.min / 60 + degMinSec.sec / 3600) / 360) * this.SCALE;
+  return ((degMinSec.deg + degMinSec.min / 60 + degMinSec.sec / 3600) / 360) * this.__SCALE;
 }
 
 /**
@@ -151,7 +220,7 @@ export function fromStrDegMinSec(strDegMinSec) {
   });
   if (a === void 0) throw new Error(`the angle is not represented in degrees, minute and seconds format.`);
 
-  return (a / 360) * this.SCALE; // convert to the current scale
+  return (a / 360) * this.__SCALE; // convert to the current scale
 }
 
 //#region aliases, shorcuts
