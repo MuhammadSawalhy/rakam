@@ -1,12 +1,29 @@
 
-export default class {
+export default class vector {
    constructor(x, y) {
       this.x = x;
       this.y = y;
    }
 
-   static fromAngle(angle, mag = 1) {
-      return new vector(mag * Math.cos(angle), mag * Math.sin(angle))
+   /**
+    * 
+    * @param {Number} angle 
+    * @param {Number} mag 
+    * @param {String} angleType one of the values of geometry.angles.angleTypes
+    */
+   static fromAngle(angle, mag = 1, angleType="rad") {
+      switch (angleType) {
+         case "deg":
+            angle *= Math.PI / 180;
+            break;
+         case "gon":
+            angle *= Math.PI / 400;
+            break;
+         case "grad":
+            angle *= Math.PI / 400;
+            break;
+      }
+      return new vector(mag * Math.cos(angle), mag * Math.sin(angle));
    }
 
    get mag() {

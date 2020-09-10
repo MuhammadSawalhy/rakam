@@ -10,7 +10,7 @@ export default {
 
       this.header.addedFuncs.concat(["__scicave_rakam_fact__"]);
 
-      this.header.concat(fact);
+      this.header.push(...fact);
     }
   },
 
@@ -96,7 +96,7 @@ export default {
 
       this.header.addedVars.concat(["__scicave_rakam_gammaG__", "__scicave_rakam_gammaP__"]);
 
-      this.header.concat(gamma);
+      this.header.push(...gamma);
     }
   },
 
@@ -106,7 +106,9 @@ export default {
 
       this.header.addedFuncs.concat(["__scicave_rakam_int__"]);
 
-      this.header.concat(int);
+      // this.header.concat(int);
+      // concating will return a new array losing all defined props in header
+      this.header.push(...int);
     }
   },
 };
