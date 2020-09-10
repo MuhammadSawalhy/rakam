@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^2.2.2"
+    "@scicave/math-parser": "^2.2.2",
+    "fraction.js": "^4.0.12"
   }
 }
