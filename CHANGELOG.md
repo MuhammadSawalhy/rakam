@@ -8,21 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Use the package [angles.js](https://www.npmjs.com/package/angles), extending some new APIs, (methods), here below.
-- In `geometry.angles.degMinSec`, you can get {deg, min, sec}. Convert  float number into degrees, minutes, and seconds.
-- In `geometry.angles.strSegMinSec`, you can get (12° 3' 5"). Convert  float number or {deg, min, sec} into string representing the angle in degrees, minutes and seconds.
-- `geometry.angles.fromDegMinSec`, reverts the function `degMinSec`.
-- `geometry.angles.fromStrDegMinSec`, reverts the function `strDegMinSec`.
-- `geometry.angles.nomalizeInside`, gets the equivalent engle inside a complete round starting from a given offset. For example, you can accomplish the same thing with `angles.normalizeHalf(angle)` and `angles.normalizeInside(angles, -0.5)`, -0.5 here is the offset (-50%) of our range which the angle will be normalized in.
-
-
 ### Changed
-
-
 ### Fixed
 ### Deprecated
 ### Removed
 ### Security
+
+## [0.1.0] - 2020-9-9
+### Added
+- Use the package [angles.js](https://www.npmjs.com/package/angles), extending some new APIs, (methods), here below.
+- `fromDeg`, `fromRad` and `fromGon`
+- In `geometry.angles.degMinSec`, you can get {deg, min, sec}. Convert  float number into degrees, minutes, and seconds.
+- In `geometry.angles.strDegMinSec`, you can get (12° 3' 5"). Convert  float number or {deg, min, sec} into string representing the angle in degrees, minutes and seconds and return the angles formated in string.
+- `geometry.angles.fromDegMinSec`, reverts the function `degMinSec`.
+- `geometry.angles.fromStrDegMinSec`, reverts the function `strDegMinSec`.
+- Alias some long-name function: replace degMinSec with `DMS`. For example, `fromStrDegMinSec` = `fromStrDMS` and `digMinSec` = `DMS`.
+- `geometry.angles.nomalizeInside`, gets the equivalent engle inside a complete round starting from a given offset. For example, you can accomplish the same result with `angles.normalizeHalf(angle)` and `angles.normalizeInside(angles, -0.5)`, -0.5 here is the offset (-50%) of our range which the angle will be normalized in.
+
 
 ## [0.0.2] - 2020-9-4
 ### Fixed
