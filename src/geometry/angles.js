@@ -27,17 +27,27 @@ Object.defineProperty(angles, 'SCALE', {
   }
 });
 
-Object.defineProperty(angles, 'degMinSecSymbols', {
+const dmsSymbolsDesribtor  = {
   get(){
     return this.__dmsSymbols;
   },
   set(v){
     this.__dmsSymbols = v;
-    this.__dmsRegex = new RegExp(`^\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.deg})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.min})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${this.__dmsSymbols.sec})?\\s*$`);
+
+    function repRegSpecials(str) {
+      var specialSymbols = /\\|\^|\$|\[|\]|\{|\}|\(|\)|\.|\+|\*|\/|\|/g;
+      return str.replace(specialSymbols, '\\\\$0');
+    }
+
+    this.__dmsRegex = new RegExp(`^\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${repRegSpecials(this.__dmsSymbols.deg)})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${repRegSpecials(this.__dmsSymbols.min)})?\\s*(?:((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))\\s*${repRegSpecials(this.__dmsSymbols.sec)})?\\s*$`);
   }
-});
+}
+
+Object.defineProperty(angles, 'degMinSecSymbols', dmsSymbolsDesribtor);
+Object.defineProperty(angles, 'DMSSymbols', dmsSymbolsDesribtor);
 
 angles.SCALE = 360;
-angles.degMinSecSymbols = {deg: '°', min: '"', sec: "'"};
+angles.EPSILON = 1e-10;
+angles.DMSSymbols = {deg: '°', min: '"', sec: "'"};
 
 export default angles;

@@ -67,6 +67,18 @@ export function fromRad(n) {
 //#endregion
 
 /**
+ * Know whether 2 angles are equivalent or not
+ * @param {number} a1 1st angles
+ * @param {number} a2 2nd angle
+ * @return {boolean}
+ */
+export function equals(a1, a2) {
+  a1 = a1 % this["__SCALE"];
+  a2 = a2 % this["__SCALE"];
+  return  a2 >= a1 - this["EPSILON"] && a1 >= a2 - this["EPSILON"];
+}
+
+/**
  * returns angle between 0 and SCALE (one round)
  * returns the smaller angle between two vectors or lines
  * @param {vector} p1 instanceof vector or {x: ___, y: ___},

@@ -10,7 +10,6 @@
 
 
 var TAU = 2 * Math.PI;
-var EPS = 1e-15;
 
 // var DIRECTIONS = ["N", "E", "S", "W"];
 var DIRECTIONS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -28,7 +27,6 @@ function mod(x, m) {
 }
 
 export default {
-  SCALE: 360,
   /**
    * Normalize an arbitrary angle to the interval [-180, 180)
    *
@@ -180,30 +178,26 @@ export default {
    * @param {number=} shift An optional angle to rotate the coordinate system
    * @returns {number}
    */
-  quadrant: function (x, y, k, shift) {
+  quadrant: function (x, y, k= 4, shift= 0) {
     var s = this["__SCALE"];
 
-    if (k === undefined) k = 4; // How many regions? 4 = quadrant, 8 = octant, ...
-
-    if (shift === undefined) shift = 0; // Rotate the coordinate system by shift° (positiv = counter-clockwise)
-
-    /* shift = PI / k, k = 4:
+    /* (shift = 180 / k), (k = 4), (s = 360):
      *   I) 45-135
      *  II) 135-225
      * III) 225-315
-     *  IV) 315-360
+     *  IV) 315-405  or 315-45
      */
 
-    /* shift = 0, k = 4:
+    /* (shift = 0), (k = 4), (s = 360):
      *   I) 0-90
      *  II) 90-180
      * III) 180-270
-     *  IV) 270-360
+     *  IV) 270-360 or 270-0
      */
 
     var phi = (Math.atan2(y, x) + TAU) / TAU;
 
-    if (Math.abs((phi * s) % (s / k)) < EPS) {
+    if (Math.abs((phi * s) % (s / k)) < this["EPSILON"]) {
       return 0;
     }
 
