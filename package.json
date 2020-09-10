@@ -1,6 +1,6 @@
 {
   "name": "rakam",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
   "main": "lib/index.js",
   "files": [
@@ -44,6 +44,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-exponentiation-operator": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.0.0",
