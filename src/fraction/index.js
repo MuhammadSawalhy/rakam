@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-import hasOwnproperty from '../utils/hasOwnProperty';
+import { hasOwnProperty } from '../utils/prototypeBuiltins';
 
 /*
 // import { gcd2 } from "../core/index";
@@ -30,7 +30,7 @@ import hasOwnproperty from '../utils/hasOwnProperty';
  * @param {string | number} num valid argument to pass to fraction.js
  */
 export function fraction(num) {
-  if(typeof num === "object" && hasOwnproperty(num, "q")) {
+  if(typeof num === "object" && hasOwnProperty(num, "q")) {
     return (new Fraction([num.s * num.r, num.d])).add(num.q);
   }
   return new Fraction(num);
