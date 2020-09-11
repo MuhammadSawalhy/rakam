@@ -31,7 +31,7 @@ import { hasOwnProperty } from '../utils/prototypeBuiltins';
  */
 export function fraction(num) {
   if(typeof num === "object" && hasOwnProperty(num, "q")) {
-    return (new Fraction([num.s * num.r, num.d])).add(num.q);
+    return (new Fraction([num.s * num.r, num.d])).add(num.s * num.q);
   }
   return new Fraction(num);
 }
