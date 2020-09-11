@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-
+import hasOwnproperty from '../utils/hasOwnProperty';
 
 /*
 // import { gcd2 } from "../core/index";
@@ -30,6 +30,9 @@ import Fraction from 'fraction.js';
  * @param {string | number} num valid argument to pass to fraction.js
  */
 export function fraction(num) {
+  if(typeof num === "object" && hasOwnproperty(num, "q")) {
+    return (new Fraction([num.s * num.r, num.d])).add(num.q);
+  }
   return new Fraction(num);
 }
 
@@ -39,11 +42,13 @@ export function fraction(num) {
  */
 export function quotRem(num) {
   let f = new Fraction(num);
+  let m = f.n % f.d;
+  let re = new Fraction([m, f.d]);
   return {
     s: f.s,
-    q: ~~((f.n - f.n % f.d) / f.d),
-    r: f.n % f.d,
-    d: f.d,
+    q: ~~((f.n - m) / f.d),
+    r: re.n,
+    d: re.d,
   };
 }
 
