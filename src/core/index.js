@@ -2,84 +2,12 @@
  * TODO: add comments
  */
 
-
-export function dist(a, b, c, d) {
-  if(typeof a === 'object' && typeof b === 'object'){
-    return ((a.x-b.x)**2 + (a.y-b.y)**2)**0.5;
-  } if (c && d){
-    return ((a-c)**2 + (b-d)**2)**0.5;
-  } else {
-    throw new Error('can\'t calculate the distance, check that you passed two vectors or 4 numbers x1,y1,x2,y2');
-  }
-}
-
-export function constrain(v, min, max) {
-  return Math.min(max, Math.max(min, v));
-}
-
 // TODO: fill this function with a fast algorithm 
-// export function snap(value, options = { snapTo: { type: 'num', value: '' }, a: {} }) {
 
-// }
-
-export function random(start, end) {
-  if (end) {
-    return start + Math.random() * (end - start);
-  } else {
-    return Math.random() * start;
-  }
-}
-
-export function randomInt(start, end) {
-  return Math.round(this.random(start, end))
-}
-
-export function gcd(...values) {
-  let gcd_ = values[0];
-  let a = values[1];
-  if (gcd_ % 1 != 0 || a % 1 != 0)
-    return NaN;
-  gcd_ = a > gcd_ ? this.gcd2(a, gcd_) : this.gcd2(gcd_, a);
-
-  for (let i = 2; i < values.length; i++) {
-    a = Math.abs(values[i]);
-    if (a % 1 != 0)
-      return NaN;
-    gcd_ = a > gcd_ ? this.gcd2(a, gcd_) : this.gcd2(gcd_, a);
-  }
-
-  return gcd_;
-}
-
-export function gcd2(a, b) {
-  if (b == 0)
-    return a;
-  return this.gcd2(b, a % b);
-}
-
-export function lcm(...values) {
-  let product = 1;
-  let a;
-  for (let i = 0; i < values.length; i++) {
-    a = values[i];
-    if (a % 1 !== 0)
-      return NaN;
-    product *= a;
-  }
-  return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
-}
-
-export function trunc(v) {
-  return v < 0 ? Math.ceil(v) : Math.floor(v);
-}
-
-export function toFixed(v, decimalDigitsNum) {
-  return Math.round(v * 10**decimalDigitsNum) / 10**decimalDigitsNum;
-}
 
 // TODO: 
 
-// export function newtonMethod(intialGuess, F, F_prime, cs) {
+// export default function newtonMethod(intialGuess, F, F_prime, cs) {
 //   let x = intialGuess, x_;
 //   do {
 //     x_ = x;
@@ -92,7 +20,41 @@ export function toFixed(v, decimalDigitsNum) {
 //   return x;
 // }
 
-// export function evaluate(){
+// export default function evaluate(){
 
 // }
 
+export { default as constrain } from "./constrain";
+export { default as dist } from "./dist";
+export { default as gcd } from "./gcd";
+export { default as gcd2 } from "./gcd2";
+export { default as lcm } from "./lcm";
+export { default as random } from "./random";
+export { default as randomInt } from "./randomInt";
+export { default as snap } from "./snap";
+export { default as toFixed } from "./toFixed";
+export { default as trunc } from "./trunc";
+
+import constrain from "./constrain"; 
+import dist from "./dist"; 
+import gcd from "./gcd"; 
+import gcd2 from "./gcd2"; 
+import lcm from "./lcm"; 
+import random from "./random"; 
+import randomInt from "./randomInt"; 
+import snap from "./snap"; 
+import toFixed from "./toFixed"; 
+import trunc from "./trunc"; 
+
+export default {
+  constrain,
+  dist,
+  gcd,
+  gcd2,
+  lcm,
+  random,
+  randomInt,
+  snap,
+  toFixed,
+  trunc,
+}

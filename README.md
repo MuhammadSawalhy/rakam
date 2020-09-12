@@ -24,7 +24,7 @@ let {math2js} = require('rakam').parser;
 // math2js(math, options, parserOptions);
 ```
 
-> See documentation for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/parser/math2js.md)
+> See documentations for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/parser/math2js.md)
 
 
 # geometry
@@ -46,12 +46,12 @@ const angles = require('rakam').geometry.angles;
 ```
 
 
-> Documentation [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
+> Documentations: [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
 
 
 # License
 
-Copyright (C) 2020 sciCave™ scicaveteam@gmail.com
+Copyright (C) 2020 sciCave™ <scicaveteam@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
