@@ -2,10 +2,12 @@
   "name": "rakam",
   "version": "0.1.0",
   "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
-  "main": "lib/index.js",
+  "main": "lib/cjs/",
+  "module": "lib/esm/",
   "files": [
     "lib"
   ],
+  "browserslist": "> 0.25%, not dead",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/scicave/rakam.git"
@@ -15,15 +17,14 @@
   },
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
-    "build": "rollup -c",
-    "build:prod": "node ./utils/generate-version-file.js && cross-env NODE_ENV=production rollup -c",
-    "prod": "npm run prepare && npm run build:prod",
+    "build": "rimraf ./lib/**/* && gulp build && rollup -c && gulp copy-bundle-to-main",
+    "prod": "npm run prepare && npm run build",
     "prepare": "npm run lint && npm run test",
     "lint": "eslint src/ --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "preversion": "npm run prepare",
-    "postversion": "npm run build:prod"
+    "postversion": "npm run build"
   },
   "jest": {
     "verbose": true,
@@ -43,21 +44,25 @@
   "author": "SciCave",
   "license": "MIT",
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/plugin-transform-exponentiation-operator": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/plugin-transform-spread": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
     "cross-env": "^7.0.2",
     "eslint": "^7.8.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "jest": "^26.4.2",
-    "pegjs": "^0.10.0",
-    "rollup": "^1.32.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.26.11",
     "rollup-jest": "0.0.2",
-    "rollup-plugin-terser": "^7.0.0"
+    "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "@scicave/math-latex-parser": "^1.1.1",
     "@scicave/math-parser": "^2.2.2",
     "fraction.js": "^4.0.12"
