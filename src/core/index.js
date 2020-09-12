@@ -33,7 +33,7 @@ export { default as random } from "./random";
 export { default as randomInt } from "./randomInt";
 export { default as snap } from "./snap";
 export { default as toFixed } from "./toFixed";
-export { default as truc } from "./truc";
+export { default as trunc } from "./trunc";
 
 import constrain from "./constrain"; 
 import dist from "./dist"; 
@@ -44,7 +44,7 @@ import random from "./random";
 import randomInt from "./randomInt"; 
 import snap from "./snap"; 
 import toFixed from "./toFixed"; 
-import truc from "./truc"; 
+import trunc from "./trunc"; 
 
 export default {
   constrain,
@@ -56,5 +56,5 @@ export default {
   randomInt,
   snap,
   toFixed,
-  truc,
+  trunc,
 }
