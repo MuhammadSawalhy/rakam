@@ -140,8 +140,7 @@ describe("math2js", ()=>{
       });
   
       let p = parser.math2js(math, { handlers }, { singleCharName: false, functions: ['asd'] });
-      console.log('-------------------------------\n', p.code);
-  
+
       expect(p.eval()).toBe(value);
   
     });
