@@ -1,5 +1,4 @@
-import { quotRem, fraction } from '../index';
-import { randomInt, random } from '../../core/index';
+const {quotRem, frac, randomInt, random } = require('rakam');
 
 let tests = [
   {
@@ -35,11 +34,11 @@ describe("teset qutoRem method", ()=>{
     }
   });
 
-  test('fraction: process the output of qutoRem', ()=>{
+  test('frac: process the output of qutoRem', ()=>{
     for(let i=0; i<20; i++) {
       let number = random(-100, 100)
-      let v = fraction(quotRem(number));
-      let e = fraction(number);
+      let v = frac(quotRem(number));
+      let e = frac(number);
       if (Object.values(v).filter(v => Object.values(e).indexOf(v) > -1).length < Object.values(v).length) console.log("number>>>>>>>>>>>>>>>>>", number);
       expect(v).toStrictEqual(e);
     }

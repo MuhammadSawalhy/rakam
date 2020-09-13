@@ -1,8 +1,8 @@
-import fraction from "./fraction.js";
-import quotRem from "./quotRem.js";
+import frac from "./frac";
+import quotRem from "./quotRem";
 
 export default {
-  fraction,
+  frac,
   quotRem,
 };
 

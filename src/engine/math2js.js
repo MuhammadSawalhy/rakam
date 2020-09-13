@@ -1,5 +1,5 @@
 import mathParser from "@scicave/math-parser";
-import UndefinedUsed from "../errors/UndefinedUsed.js";
+import UndefinedUsed from "../error/UndefinedUsed.js";
 import prepareHandlers from "./utils/math2js/prepareHandlers.js";
 import prepareScope from "./utils/math2js/prepareScope.js";
 import generateJs from "./utils/math2js/generateJs.js";
@@ -83,3 +83,4 @@ export default function math2js(math, options, parserOptions = {}) {
 }
 
 math2js.defaultHandlers = defaultHandlers;
+math2js.generateJs = generateJs;

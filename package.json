@@ -29,7 +29,9 @@
   },
   "jest": {
     "verbose": true,
-    "preset": "rollup-jest"
+    "moduleNameMapper": {
+      "rakam": "<rootDir>/main/index.js"
+    }
   },
   "keywords": [
     "math",

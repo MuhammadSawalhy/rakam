@@ -104,6 +104,7 @@ export default class vector {
    }
    
    /**
+    * get the dot product of this vector and another vector
     * @param {vector} v 
     */
    dot(v) {

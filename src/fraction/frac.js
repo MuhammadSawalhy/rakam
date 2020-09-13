@@ -5,7 +5,7 @@ import { hasOwnProperty } from '../utils/prototypeBuiltins';
 /**
  * @param {string | number} num valid argument to pass to fraction.js
  */
-export default function fraction(num) {
+export default function frac(num) {
   if(typeof num === "object" && hasOwnProperty(num, "q")) {
     return (new Fraction([num.s * num.r, num.d])).add(num.s * num.q);
   }
