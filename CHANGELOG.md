@@ -6,7 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
 ### Added
 ### Changed
 ### Fixed
@@ -14,12 +13,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## [1.0.0-0] - 2020-9-14
+
+### Added
+- Import (es6 import) or require (commonjs) specific method to accelerate app loading, and to minimize your bundle size.
+- `geometry.lines`:
+  - `equation`
+  - `intersection`
+  - `projection`
+  - `distance`
+- Add a header to the bundled file.
+- `fraction`:
+  - `frac`
+  - `quotRem`
+
+### Changed
+- Rename `parser` to `engine`, for semantic perpose, and it's fancier and more existing name.
+
+
 ## [0.1.0] - 2020-9-9
 ### Added
 - Use the package [angles.js](https://www.npmjs.com/package/angles), extending some new APIs, (methods), here below.
 - `fromDeg`, `fromRad` and `fromGon`
 - In `geometry.angles.degMinSec`, you can get {deg, min, sec}. Convert  float number into degrees, minutes, and seconds.
-- In `geometry.angles.strDegMinSec`, you can get (12° 3' 5"). Convert  float number or {deg, min, sec} into string representing the angle in degrees, minutes and seconds and return the angles formated in string.
+- `geometry.angles.strDegMinSec`, you can get an angle formatted as (12° 3' 5"). Convert float number or {deg, min, sec} into a string representing the angle in degrees, minutes, and seconds.
 - `geometry.angles.fromDegMinSec`, reverts the function `degMinSec`.
 - `geometry.angles.fromStrDegMinSec`, reverts the function `strDegMinSec`.
 - Alias some long-name function: replace degMinSec with `DMS`. For example, `fromStrDegMinSec` = `fromStrDMS` and `digMinSec` = `DMS`.
@@ -28,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.2] - 2020-9-4
 ### Fixed
-- the second trial to fix readme file issue, after asking [a question](https://stackoverflow.com/questions/63733460/readme-is-deformed-in-npmjs-but-appears-in-github) in stackoverflow.
+- The second trial to fix the README file issue, after asking [a question](https://stackoverflow.com/questions/63733460/readme-is-deformed-in-npmjs-but-appears-in-github) in "stackoverflow".
 
 
 

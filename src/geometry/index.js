@@ -1,5 +1,5 @@
 import angles from './angles/';
-import lines from './lines/';
+import lines from './2d/lines/';
 
 export default {
   angles,

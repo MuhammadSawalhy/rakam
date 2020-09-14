@@ -1,3 +1,4 @@
 
 **/*.min.js
-lib/
+main/
+module/
