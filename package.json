@@ -19,13 +19,10 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "gulp build && rollup -c",
-    "prod": "npm run prepare && npm run build",
     "prepare": "npm run lint && npm run test",
     "lint": "eslint src/ --fix",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "preversion": "npm run prepare",
-    "postversion": "npm run build"
+    "test:watch": "jest --watch"
   },
   "jest": {
     "verbose": true,
