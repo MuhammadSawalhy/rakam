@@ -1,7 +1,7 @@
 {
   "name": "rakam",
   "version": "1.0.0-0",
-  "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
+  "description": "Math library focusing on the performance 🚀.",
   "main": "main",
   "module": "module",
   "files": [
@@ -19,12 +19,10 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "gulp build && rollup -c",
-    "prod": "npm run lint && npm run build && npm run test",
     "prepare": "npm run lint && npm run test",
     "lint": "eslint src/ --fix",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "preversion": "npm run prod"
+    "test:watch": "jest --watch"
   },
   "jest": {
     "verbose": true,
@@ -38,6 +36,11 @@
     "rakam",
     "latex",
     "arithmetic",
+    "interval",
+    "complex",
+    "geometry",
+    "angles",
+    "fraction",
     "interval-arithmetic",
     "array-arithmetic",
     "calculator",
