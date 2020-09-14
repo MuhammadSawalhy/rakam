@@ -1,24 +1,14 @@
 
-[core-docs]: https://github.com/scicave/rakam/blob/master/docs/core/index.md
-
-[fraction-docs]: https://github.com/scicave/rakam/blob/master/docs/fraction/index.md
-
-[angles-docs]: https://github.com/scicave/rakam/blob/master/docs/geometry/index.md
-
-[lines-docs]: https://github.com/scicave/rakam/blob/master/docs/geometry/index.md
-
-[math2js-docs]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
-
 # RAKAM 1️⃣ 2️⃣ 3️⃣ ...
 
 [![NPM Package](https://img.shields.io/npm/v/rakam.svg?style=flat)](https://npmjs.org/package/angles "View this project on npm")
 [![Build Status](https://travis-ci.org/scicave/rakam.svg)](https://travis-ci.org/infusion/Angles.js)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://www.plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an opensource project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
+Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an opensource project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
 
 ### Features:
-- Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal, [click here](#engine).
+- Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
 - Parse math expression.
 - The same for latex.
 - Convert between latex and math expression.
@@ -32,21 +22,21 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 - core
   lcm, gcd, lcm2, gcd2, dist, constrain, trunc, toFixed, random, randomInt
 - engine
-  - [math2js](math2js-docs)
+  - [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md)
   - math2latex
   - mathParser
   - latexParser
   - latex2js
   - latex2math
 - geometry
-  - [angles](angles-docs)
-  - [lines](lines-docs)
-- [fraction](fraction-docs)
+  - [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
+  - [lines](https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md)
+- [fraction](https://github.com/scicave/rakam/blob/master/docs/fraction/index.md)
 
-
+<!-- 
 # 🤝 Contribution
 
-
+ -->
 
 # 🛠 engine
 
@@ -55,7 +45,7 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 
 Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use `new Function(...)` in vanilla js (the native js).
 
-See documentations for more about [math2js](math2js-docs)
+See documentations for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md)
 
 
 # 📐 geometry
@@ -72,7 +62,7 @@ You can:
 - Or get it as `12° 26' 53.48"`
 
 
-Documentations: [angles](angles-docs)
+Documentations: [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
 
 
 ## lines
@@ -83,11 +73,11 @@ You can:
 - Project a point onto a line
 - Get the distance between a point ad a line
 
-Documentations: [lines](lines-docs)
+Documentations: [lines](https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md)
 
 # ➗ fraction
 
-Documentation: [fraction](fraction-docs)
+Documentation: [fraction](https://github.com/scicave/rakam/blob/master/docs/fraction/index.md)
 
 # 📜 License
 
