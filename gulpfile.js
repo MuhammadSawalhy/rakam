@@ -11,16 +11,21 @@ const CJS_DEST = './main';
 
 gulp.task("update-version-file", ()=>{
 
-  const FILE_PATH = './src/version.js';
+  const fileName = 'version.js';
   const VERSION = pkg.version;
-  const CODE = [
+  const ESM_CODE = [
     "// this file is auto generated",
     "// the current version is:",
     "export default \"" + VERSION + "\";",
   ].join('\n');
-
+  const CJS_CODE = [
+    "// this file is auto generated",
+    "// the current version is:",
+    "module.exports = \"" + VERSION + "\";",
+  ].join('\n');
   return new Promise((res) => {
-    fs.writeFileSync(path.resolve(__dirname, FILE_PATH), CODE);
+    fs.writeFileSync(path.resolve(ESM_DEST, fileName), ESM_CODE);
+    fs.writeFileSync(path.resolve(CJS_DEST, fileName), CJS_CODE);
     res('version file updated!');
   });
 
@@ -56,8 +61,7 @@ gulp.task("clean", ()=>{
 });
 
 gulp.task("build", gulp.series([
-    'update-version-file', 
-    'clean', 
-    gulp.parallel(['build:cjs', 'build:esm']),
-  ])
-);
+  'clean', 
+  'update-version-file', 
+  gulp.parallel(['build:cjs', 'build:esm']),
+]));

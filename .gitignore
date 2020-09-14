@@ -3,4 +3,3 @@ module/
 main/
 node_modules/
 .vscode/
-./src/version.js
