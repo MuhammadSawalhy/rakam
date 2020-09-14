@@ -1,5 +1,5 @@
-import angles from './angles.js';
-import lines from './lines.js';
+import angles from './angles/';
+import lines from './lines/';
 
 export default {
   angles,
