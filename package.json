@@ -2,10 +2,11 @@
   "name": "rakam",
   "version": "0.1.0",
   "description": "Intense math library. God willing, we won't stop developing it, we will be so happy when you contribute to make this library eligible for all needs and uses.",
-  "main": "lib/cjs/",
-  "module": "lib/esm/",
+  "main": "main",
+  "module": "module",
   "files": [
-    "lib"
+    "main",
+    "module"
   ],
   "browserslist": "> 0.25%, not dead",
   "repository": {
@@ -17,7 +18,7 @@
   },
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
-    "build": "rimraf ./lib/**/* && gulp build && rollup -c && gulp copy-bundle-to-main",
+    "build": "gulp build && rollup -c",
     "prod": "npm run prepare && npm run build",
     "prepare": "npm run lint && npm run test",
     "lint": "eslint src/ --fix",
@@ -28,7 +29,9 @@
   },
   "jest": {
     "verbose": true,
-    "preset": "rollup-jest"
+    "moduleNameMapper": {
+      "rakam": "<rootDir>/main/index.js"
+    }
   },
   "keywords": [
     "math",

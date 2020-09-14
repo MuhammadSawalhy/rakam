@@ -1,5 +1,4 @@
-import angles from "../angles";
-import vector from '../../vector';
+const { angles, vector } = require('rakam');
 
 // the acceptable differencve between the expected
 // value and the return angle from "angles" methods

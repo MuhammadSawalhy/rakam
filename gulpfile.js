@@ -1,19 +1,13 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-// const rename = require('gulp-rename');
+
 const path = require('path');
 const fs = require('fs');
 const pkg = require('./package.json');
 
 const SRC = './src/**/*.js';
-const ESM_DEST = './lib/esm';
-const CJS_DEST = './lib/cjs';
-const BUNDLE = './lib/index.js';
-
-// const CJS_INDEX_CONTENT = `
-// // this file is auto generated
-// exports = require('.').default;
-// `; 
+const ESM_DEST = './module';
+const CJS_DEST = './main';
 
 gulp.task("update-version-file", ()=>{
 
@@ -37,12 +31,6 @@ gulp.task("build:cjs", ()=>{
   const babelConfig = require('./babel.config')({ env: (e)=> e === process.env.NODE_ENV });
   return gulp
     .src(SRC)
-    // .pipe(rename(function (p) {
-    //   // rename index.js into index-cjs.js
-    //   if(path.dirname === __dirname + "/src" && p.basename === 'index') {
-    //     p.basename += "-cjs"
-    //   }
-    // }))
     .pipe(babel(babelConfig))
     .pipe(gulp.dest(CJS_DEST))
   ;
@@ -58,20 +46,18 @@ gulp.task("build:esm", ()=>{
   ;
 });
 
+gulp.task("clean", ()=>{
+  const rimraf = require('rimraf');
+  return new Promise((res) => {
+    rimraf.sync(path.resolve(CJS_DEST, '*'));
+    rimraf.sync(path.resolve(ESM_DEST, '*'));
+    res('version file updated!');
+  });
+});
+
 gulp.task("build", gulp.series([
     'update-version-file', 
+    'clean', 
     gulp.parallel(['build:cjs', 'build:esm']),
   ])
 );
-
-gulp.task("export-default-directly", ()=>{
-
-});
-
-gulp.task("copy-bundle-to-main", ()=>{
-  return gulp
-    .src(BUNDLE)
-    .pipe(gulp.dest(CJS_DEST))
-  ;
-});
-

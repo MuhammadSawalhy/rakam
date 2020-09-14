@@ -1,19 +1,19 @@
 /* eslint-disable-file no-unused-vars */
 
 // we are using rollup-jest transformer
-import parser from '../index.js';
-import {defaultHandlers} from '../math2js.js';
-import generateJs from '../utils/math2js/generateJs.js';
+const {math2js} = require('rakam');
+const defaultHandlers = math2js.defaultHandlers;
+const generateJs = math2js.generateJs;
 
 // const path = require('path');
-// let pkg = require(path.resolve(process.cwd(), './package.json'));
-// let {parser} = require(path.resolve(process.cwd(), pkg.main));
+// const pkg = require(path.resolve(process.cwd(), './package.json'));
+// const {math2js} = require(path.resolve(process.cwd(), pkg.main));
 
 
 describe("math2js", ()=>{
 
   it("should return a valid object, {eval: function, code: string}", ()=>{
-    let p = parser.math2js('1+2-sinx');
+    let p = math2js('1+2-sinx');
     expect(p).toEqual(expect.any(Object));
     expect(p.eval).toEqual(expect.any(Function));
     expect(typeof p.code).toBe('string');
@@ -26,7 +26,7 @@ describe("math2js", ()=>{
       let math = '1+2-sinx';
       let x = Math.PI; Math.x = x;
       let value = 1+2-Math.sin(x);
-      let p = parser.math2js(math); // scope = window.Math
+      let p = math2js(math); // scope = window.Math
       expect(p.eval()).toBe(value);
     });
   
@@ -37,7 +37,7 @@ describe("math2js", ()=>{
       let scope = {
         t: 5,
       };
-      let p = parser.math2js(math, { scope });
+      let p = math2js(math, { scope });
       expect(p.eval()).toBe(value);
   
     });
@@ -49,7 +49,7 @@ describe("math2js", ()=>{
         let vars = { x: 90, sin(x){ return Math.sin(x*Math.PI/180) } };
         return vars[id];
       };
-      let p = parser.math2js(math, { scope });
+      let p = math2js(math, { scope });
       expect(p.eval()).toBe(value);
     });
   
@@ -70,7 +70,7 @@ describe("math2js", ()=>{
         }
       ];
   
-      let p = parser.math2js(math, { scope }); // scope = window.Math
+      let p = math2js(math, { scope }); // scope = window.Math
       expect(p.eval()).toBe(value);
   
     });
@@ -106,7 +106,7 @@ describe("math2js", ()=>{
   
       });
   
-      let p = parser.math2js(math, { handlers });
+      let p = math2js(math, { handlers });
   
       expect(p.eval()).toBe(value);
   
@@ -139,7 +139,7 @@ describe("math2js", ()=>{
         }
       });
   
-      let p = parser.math2js(math, { handlers }, { singleCharName: false, functions: ['asd'] });
+      let p = math2js(math, { handlers }, { singleCharName: false, functions: ['asd'] });
 
       expect(p.eval()).toBe(value);
   

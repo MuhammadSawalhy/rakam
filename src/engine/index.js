@@ -17,5 +17,5 @@ export default {
   texParser,
   latex2js,
   latex2math,
-
+  
 };

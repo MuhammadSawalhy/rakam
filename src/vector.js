@@ -1,8 +1,15 @@
 
 export default class vector {
    constructor(x, y) {
-      this.x = x;
-      this.y = y;
+      if (y) {
+         this.x = x;
+         this.y = y;
+      } else if (typeof x === 'object') {
+         this.x = x.x;
+         this.t = x.y;
+      } else {
+         throw "invalid arguments";
+      }
    }
 
    /**
@@ -104,6 +111,7 @@ export default class vector {
    }
    
    /**
+    * get the dot product of this vector and another vector
     * @param {vector} v 
     */
    dot(v) {

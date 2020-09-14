@@ -1,7 +1,8 @@
+[anglesjs-docs]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.js.md
 
 # angles
 
-You can:
+### You can:
 
 - Convert angles from unit to another one (e.g. from deg to red or rad to grad, etc...).
 - Calculate the angle between two vectors, `{ x: number, y: number }`. You can also calculate the angle between two lines.
@@ -10,23 +11,28 @@ You can:
 - Or get it as `12° 26' 53.48"`.
 
 
-Usage:
+### Special thanks:
 
+In order not to reinvent the wheel, or do the same effort wasting time, Rakam uses the [angles.js](https://www.npmjs.com/package/angles)@0.2.4, with its amazing APIs and methods.
+
+> @license Angles.js v0.2.4 08/04/2016
+> 
+> Copyright (c) 2015, Robert Eisele (robert@xarg.org)
+> 
+> Dual licensed under the MIT or GPL Version 2 licenses.
+
+See [README.md](anglesjs-docs) of angles.js
+
+### Usage:
 ```js
 const angles = require('rakam').geometry.angles;
+// or
+const angles = require('rakam').angles;
+// or
+const angles = require('rakam/main/geometry/angles');
+// or if you use a bundler, e.g., rollup or webpack
+import angles from 'rakam/module/geometry/angles';
 ```
-
-# Special thanks
-
-In order not to reinvent the wheel, or do the same effort wasting time, Rakam uses the [angles.js](https://www.npmjs.com/package/angles)@v0.2.4, with its amazing APIs and methods.
-
-```
-@license Angles.js v0.2.4 08/04/2016
-Copyright (c) 2015, Robert Eisele (robert@xarg.org)
-Dual licensed under the MIT or GPL Version 2 licenses.
-```
-
-> See [README.md](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.js.md) of angles.js
 
 # Properties
 
@@ -66,7 +72,7 @@ Convert a given angle from the current SCALE into gradians, or gons, (SCALE = 40
 
 ## degMinSec
 
-> alias: `DMS`
+Alias: `DMS`
 
 Get a given angle in degrees unit, as an object has properties "deg", "min" and "sec". 
 
@@ -79,7 +85,7 @@ console.log(angles.degMinSec(30.6346, -1)); // to get the exact computed sec
 
 ## strDegMinSec
 
-> alias: `strDMS`
+Alias: `strDMS`
 
 Get a given angle in degrees unit, as a string like `12° 26' 53.48"`.
 
@@ -87,11 +93,9 @@ You can pass "secAccuracy" in the 2nd argument, to use on calculating the deg, m
 
 ## fromDegMinSec
 
-> alias: `fromDMS`
+Alias: `fromDMS`
 
-Reverts the method `degMinSec`.
-
-So that:
+Reverts the method `degMinSec`, consequently:
 ```js
 let a = 30.123;
 
@@ -113,6 +117,6 @@ console.log(angles.equals(a, a2));
 
 ## fromStrDegMinSec
 
-> alias: `fromStrDMS`
+Alias: `fromStrDMS`
 
 Reverts the method `strDegMinSec`.

@@ -1,10 +1,11 @@
-import core from './core/index.js';
-import engine from './engine/index.js';
-import geometry from './geometry/index.js'
-import fraction from './fraction/index.js';
+import core from './core/';
+import engine from './engine/';
+import geometry from './geometry/'
+import fraction from './fraction/';
+import error from './error/';
 
 import vector from './vector';
-import matrix from './vector';
+import matrix from './matrix';
 
 import version from './version.js';
 
@@ -25,6 +26,10 @@ export default {
    fraction,
    // make sure the API's identifiers are unique
    ...fraction,
+
+   error,
+   // make sure the API's identifiers are unique
+   ...error,
 
    vector,
    matrix,

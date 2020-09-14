@@ -9,10 +9,10 @@ import commonjs from "@rollup/plugin-commonjs";
 
 const fs = require('fs')
 const HEADER = './src/header.js';
-const SRC = "./lib/esm/index.js";
-const DEST = "./lib/";
+const SRC = "./module/index.js";
+const DEST = "./main/"; // overwrite the existing index.js
 
-process.env.NODE_ENV = 'rollup'; // for ./babel.config.js
+// process.env.NODE_ENV = 'rollup'; // for ./babel.config.js
 
 // generate banner with today's date and correct version
 function createBanner () {
