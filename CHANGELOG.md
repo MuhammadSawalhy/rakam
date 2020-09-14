@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `quotRem`
 
 ### Changed
-- Rename `parser` to `engine`, for semantic perpose, and it's fancier and more existing name.
+- Rename `parser` to `engine`, for semantic purpose, and it is a more existing name.
 
 
 ## [0.1.0] - 2020-9-9
