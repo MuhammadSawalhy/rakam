@@ -23,9 +23,20 @@ gulp.task("update-version-file", ()=>{
     "// the current version is:",
     "module.exports = \"" + VERSION + "\";",
   ].join('\n');
+  
+  function checkPath(p) {
+    const dir = path.dirname(p);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  }
+
   return new Promise((res) => {
-    fs.writeFileSync(path.resolve(ESM_DEST, fileName), ESM_CODE);
-    fs.writeFileSync(path.resolve(CJS_DEST, fileName), CJS_CODE);
+    let esm = path.resolve(ESM_DEST, fileName);
+    let cjs = path.resolve(CJS_DEST, fileName);
+    checkPath(esm); checkPath(cjs);
+    fs.writeFileSync(esm, ESM_CODE);
+    fs.writeFileSync(cjs, CJS_CODE);
     res('version file updated!');
   });
 
