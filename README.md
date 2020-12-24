@@ -13,8 +13,8 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 - The same for latex.
 - Convert between latex and math expression.
 - Geometric shapes and properties and intersections: now [lines](#lines) are avaliable.
-- Get a float number as a numerator over a denomerator { s: sign<1|-1>, n: integer, d: integer }
-- As well as getting the quotient, the reminder and the denomerator of a fraction, { s: sign<1|-1>, q: integer, r: integer, d: integer }. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
+- Get a float number as a numerator over a denomerator `{ s: sign<1|-1>, n: integer, d: integer }`.
+- As well as getting the quotient, the reminder and the denomerator of a fraction, `{ s: sign<1|-1>, q: integer, r: integer, d: integer }`. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
 
 > You can get any import any of the APIs elements directly, saving load time and bundle size.
 
@@ -56,23 +56,23 @@ See documentations for more about [math2js](https://github.com/scicave/rakam/blo
 
 You can:
 
-- Convert angles from unit to another one (e.g. from deg to red or rad to grad, etc...).
+- Convert angles from unit to another one (e.g. from deg to red, or rad to grad, etc...).
 - Calculate the angle between two vectors, `{ x: number, y: number }`. You can also calculate the angle between two lines.
-- In both cases, between vectors or lines, you can get the minimal or maximal angle, or get the angle when the first vector (or line) rotates by it reaching the other vector (or line).
-- Calculate the angle in degree (as float number), and get it as `{deg: number, min: number, sec: number}`, degree, minutes and seconds.
+- In both cases, between vectors or lines, you can get the minimal or maximal angle or get the angle by which the first vector (or line) rotates to reach the other vector (or line).
+- Calculate the angle in degree (as float number), and get it as `{deg: number, min: number, sec: number}`, degree, minutes and seconds respectively.
 - Or get it as `12° 26' 53.48"`
 
 
-Documentations: [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
+Documentations: [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md).
 
 
 ## lines
 
 You can:
-- Get a line equation parameters: "a", "b" and "c" in (ax + by + c = 0).
-- Get the 2 lines intersection point
-- Project a point onto a line
-- Get the distance between a point ad a line
+- Get a line equation parameters: "a", "b" and "c" in `ax + by + c = 0 `.
+- Get the 2 lines intersection point.
+- Project a point onto a line.
+- Get the distance between a point ad a line.
 
 Documentations: [lines](https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md)
 
