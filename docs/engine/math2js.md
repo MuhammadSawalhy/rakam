@@ -88,6 +88,7 @@ Accepable values: object, function or mixed array of objects and functions.
     return ()=>__scicave_rakam_getId__('y') * __scicave_rakam_getId__('t') - __scicave_rakam_getId__('sin')(__scicave_rakam_getId__('x')) + __scicave_rakam_getId__('z');
   })(scope);
   ```
+  
   </details>
 
 ### handlers
@@ -143,6 +144,7 @@ Use existing handlers by default:
   ```
 
   <details><summary>This happens behind the scene:</summary>
+  
   ```js
   // this happens behind the scene:
   let func = eval(generatedJs.code);
@@ -160,6 +162,7 @@ Use existing handlers by default:
   }
   generatedJs.eval = func(Math);
   ```
+  
   </details>
 
 ## parserOptions: object
