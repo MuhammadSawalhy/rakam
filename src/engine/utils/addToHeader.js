@@ -8,6 +8,7 @@ export default {
 
       let fact = ["function __scicave_rakam_fact__(n) {", "  return __scicave_rakam_gamma__(n + 1);", "}"];
 
+      // make them remeber that I have been added to the header
       this.header.addedFuncs.concat(["__scicave_rakam_fact__"]);
 
       this.header.push(...fact);

@@ -1,11 +1,11 @@
 
-# RAKAM 1️⃣ 2️⃣ 3️⃣ ...
+# RAKAM ➕ ➗ 📐
 
 [![NPM Package](https://img.shields.io/npm/v/rakam.svg?style=flat)](https://npmjs.org/package/angles "View this project on npm")
 [![Build Status](https://travis-ci.org/scicave/rakam.svg)](https://travis-ci.org/infusion/Angles.js)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an opensource project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
+Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an open-source project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
 
 ### Features:
 - Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
@@ -34,6 +34,7 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 - [fraction](https://github.com/scicave/rakam/blob/master/docs/fraction/index.md)
 
 <!-- 
+
 # 🤝 Contribution
 
  -->
@@ -41,17 +42,17 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 # 🛠 engine
 
 ## math2js
-<!-- the same as the description in the documentations -->
+<!-- CAUTION: the same as the description in the documentations -->
 
-Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use `new Function(...)` in vanilla js (the native js).
+Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
-See documentations for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md)
+See documentations for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md).
 
 
 # 📐 geometry
 
 ## angles
-<!-- the same as the description in the documentations -->
+<!-- CAUTION: the same as the description in the documentations -->
 
 You can:
 

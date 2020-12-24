@@ -1,8 +1,8 @@
 import mathParser from "@scicave/math-parser";
-import UndefinedUsed from "../error/UndefinedUsed.js";
-import prepareHandlers from "./utils/math2js/prepareHandlers.js";
-import prepareScope from "./utils/math2js/prepareScope.js";
-import generateJs from "./utils/math2js/generateJs.js";
+import UndefinedUsed from "../error/UndefinedUsed";
+import prepareScope from "./utils/prepareScope";
+import prepareHandlers from "./utils/math2js/prepareHandlers";
+import generateJs from "./utils/math2js/generateJs";
 
 // the  default handler will be exported in some cases
 // TODO: ["int", "diff"]

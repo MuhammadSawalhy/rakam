@@ -1,5 +1,7 @@
 /**
- * take the babelified files in ./lib/esm/ and create a bundled file and a minified one with source maps.
+ * take the babelified files in ./module/
+ * and create a bundled file and a minified one with source maps.
+ * no need to use babel here
  */
 
 import { terser } from "rollup-plugin-terser";
@@ -17,39 +19,9 @@ const DEST = "./main/"; // overwrite the existing index.js
 // generate banner with today's date and correct version
 function createBanner () {
   
-  // read the version number from package.json
-  function getVersion () {
-    return require('./package.json').version;
-  }
-  
-  // read the desription number from package.json
-  function wrapText (t, max) {
-    if(t.indexOf('\n') > -1){
-      return t.split('\n').map(a=>{
-        if(a) return '    ' + wrapText(a, max);
-        return a;
-      }).join('\n');
-    } else {
-      if (t.length <= max) return t;
-      let c = 0; // counter
-      return t.split(' ').map(a=>{
-        if(a) {
-          c += a.length;
-          if(c > max) { c = 0; return a + "\n"; }
-        }
-        return a;
-      }).join(' ');
-    }
-  }
-
-  // read the description number from package.json
-  function getDescription () {
-    return wrapText(require('./package.json').description, 80);
-  }
+  let { version, description } = require('./package.json');
 
   const today = new Date().toISOString().substr(0, 10); // today, formatted as yyyy-mm-dd
-  const version = getVersion();
-  const description = getDescription();
 
   return String(fs.readFileSync(HEADER))
     .replace('@@description', description)
@@ -75,6 +47,7 @@ const config = {
   ],
 };
 
+// minify using specialized module for minification
 const minConfig = {
   ...config,
   input: SRC,

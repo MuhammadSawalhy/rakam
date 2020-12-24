@@ -1,7 +1,7 @@
 /* eslint-disable-file no-unused-vars */
 import addToHeader from "../addToHeader";
-import randomName from '../../../utils/randomName';
-import generateJs from './generateJs';
+import randomName from '../../../utils/randomName.js';
+import generateJs from './generateJs.js';
 
 export default function prepareHandlers(handlers){
   for (let i = 0; i < handlers.length; i++) {
@@ -11,22 +11,24 @@ export default function prepareHandlers(handlers){
           {
             handlers[i] = {
               test(node) {
-                return node.check({ type: "function", name: 'sum' });
+                return node.check({ type: "sum" });
               },
 
               handle(parserTree, {params, scope, handlers, undef, header}) {
-                // check validity of sum arguments
-                let delimiter;
+                if(!(parserTree.args[0] && parserTree.args[1])) throw new Error('')
                 
-                if (!(
-                  parserTree.args[0] && parserTree.args[0].check({ type: "block", name: "()" }) &&
-                  (delimiter = parserTree.args[0].args[0]) && delimiter.check({ type: "delimiter", name: "," }) &&
-                  delimiter.args.length === 4 && delimiter.args[1].checkType('id')
-                )) {
-                  throw new Error('sum function has invalid arguments: "' + parserTree.match.text + '"');
-                }
+                // check validity of sum arguments
+                let delimiter, sumVar, sumExpr, newParams, start, end, headerFuncName, _sum; 
 
-                let sumVar, sumExpr, newParams, start, end, headerFuncName, _sum; 
+                if (
+                  parserTree.args[0].check({ type: "block", name: "()" }) &&
+                  parserTree.args[0].args[0].check({ type: "delimiter", name: "," })
+                ) {
+                  delimiter = parserTree.args[0].args[0];
+                  if(!(delimiter.args.length === 4 && delimiter.args[1].checkType('id'))){
+                    throw new Error('sum function has invalid arguments: "' + parserTree.match.text + '"');
+                  }
+                }
 
                 sumVar = delimiter.args[1].name;
                 newParams = [...params];

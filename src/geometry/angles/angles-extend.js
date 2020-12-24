@@ -1,4 +1,4 @@
-import trunc from "../../core/trunc.js";
+import trunc from "../../core/trunc";
 
 export const angleTypes = {
   RAD: 'rad',

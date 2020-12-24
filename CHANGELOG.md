@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Pass scope as string when generating js function.
+- `latex2js`
+-  
 ### Changed
 ### Fixed
 ### Deprecated

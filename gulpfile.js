@@ -1,3 +1,6 @@
+// to create the main and module directories,,,
+// files are also handled with babel
+
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 
@@ -10,7 +13,6 @@ const ESM_DEST = './module';
 const CJS_DEST = './main';
 
 gulp.task("update-version-file", ()=>{
-
   const fileName = 'version.js';
   const VERSION = pkg.version;
   const ESM_CODE = [
@@ -67,7 +69,7 @@ gulp.task("clean", ()=>{
   return new Promise((res) => {
     rimraf.sync(path.resolve(CJS_DEST, '*'));
     rimraf.sync(path.resolve(ESM_DEST, '*'));
-    res('version file updated!');
+    res('Destination are cleaned...');
   });
 });
 
