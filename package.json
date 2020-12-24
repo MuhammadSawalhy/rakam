@@ -19,7 +19,7 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "gulp build && rollup -c",
-    "prepare": "npm run lint && npm run test",
+    "prepublishOnly": "npm run lint && npm run test",
     "lint": "eslint src/ --fix",
     "test": "jest",
     "test:watch": "jest --watch"
