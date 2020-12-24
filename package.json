@@ -1,6 +1,6 @@
 {
   "name": "rakam",
-  "version": "1.0.0-1",
+  "version": "1.0.0-2",
   "description": "Math library focusing on the performance 🚀.",
   "main": "main",
   "module": "module",
