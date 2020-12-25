@@ -29,7 +29,7 @@ Accepable values: object, function or mixed array of objects and functions.
 - passing array of scopes: [(Object | Function)*]
 
   ```js
-  let {parser} = require('rakam');
+  let { engine } = require('rakam');
   let math = 'y t -sinx +z';
   let scope = [
     { t: 1, x: 180, },
@@ -39,7 +39,7 @@ Accepable values: object, function or mixed array of objects and functions.
       return vars[id];
     }
   ];
-  let generatedJs = parser.math2js(math, { scope });
+  let generatedJs = engine.math2js(math, { scope });
 
   // testing the result!
   console.log(generatedJs.eval());
@@ -105,7 +105,7 @@ A handler is an ordinary object mainly contains two methods: `test` and `handle`
 Create your own handler
 
 ```js
-const defaultHandlers = math2js.defaultHandlers;
+const defaultHandlers = engine.math2js.defaultHandlers;
 
 function getTheId = (id)=>{
   //asdasd.....
@@ -120,7 +120,7 @@ const newHandler = {
   }
 };
 
-const fn = math2js(math, {handlers: [...defaultHandlers, newHandler]});
+const fn = math2js(math, { handlers: [...defaultHandlers, newHandler] });
 // fn = {eval: Function, code: String}
 
 console.log(fn.code);
@@ -131,6 +131,7 @@ Use existing handlers by default:
 - `sum`, in latex: `\sum_{n = 1}^{100}n`
 
   ```js
+  // math2js exists in rakam directly, and also inside rakam.engine
   const { math2js } = require('rakam');
 
   let generatedJs = math2js('1+2-sum(n,n,1,100000)');
