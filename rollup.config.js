@@ -43,7 +43,6 @@ const config = {
   plugins: [
     nodeResolve(),
     commonjs(),
-    // babel({ babelHelpers: 'bundled' }),
   ],
 };
 

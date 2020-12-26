@@ -39,7 +39,9 @@ jobs:
         run: npm install
 
       - name: build
-        run: npm run build:dev
+        # TODO: change to build:cjs
+        # enable _interopRequire for .test.js
+        run: npm run build:prod
 
       - name: Tests
         run: npm run ci

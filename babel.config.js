@@ -29,5 +29,15 @@ module.exports = (api) => {
   return {
     presets,
     plugins: plugins.filter(Boolean),
+    env: {
+      // TODO: make CI og github in workflow/tests.yml run build:cjs
+      // then transform while testing
+      test: {
+        presets,
+        plugins: [
+          "@babel/transform-modules-commonjs"
+        ]
+      }
+    }
   };
 };
