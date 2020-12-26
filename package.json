@@ -18,12 +18,15 @@
   },
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
-    "build": "gulp build && rollup -c",
+    "start": "npx gulp cjs-watch",
+    "build:dev": "gulp build:cjs",
+    "build:prod": "gulp build && rollup -c",
     "style": "prettier src/ --write",
     "lint": "eslint src/ --fix",
     "test": "jest tests/",
     "test:watch": "jest tests/ --watch",
-    "preversion": "npm run style && npm run lint && npm run test"
+    "preversion": "npm run style && npm run lint && npm run test",
+    "ci": "npm run test"
   },
   "jest": {
     "verbose": true,
