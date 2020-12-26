@@ -78,3 +78,7 @@ gulp.task("build", gulp.series([
   'update-version-file', 
   gulp.parallel(['build:cjs', 'build:esm']),
 ]));
+
+gulp.task("cjs-watch", ()=>{
+  gulp.watch(SRC, { ignoreInitial: false }, gulp.series(["build:cjs"]));
+});

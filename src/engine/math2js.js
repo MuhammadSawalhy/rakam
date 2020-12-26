@@ -58,11 +58,13 @@ export default function math2js(math, options, parserOptions = {}) {
     }, []);
   }
 
+  // TODO: use a coherent code generation such exists in:
+  // https://github.com/javascript-in-arabic/core.git
   let code = [
     // "(scope) => {",
     ...header
       .map((h) => h.split('\n'))
-      .flat()
+      .reduce((flatted,curArray)=>flatted.concat(curArray), []) // flat
       .map((h) => '  ' + h),
     `  return (${params.join(', ')})=>${jsExpr};`,
     // "}",

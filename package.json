@@ -18,17 +18,20 @@
   },
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
-    "build": "gulp build && rollup -c",
+    "start": "npx gulp cjs-watch",
+    "build:dev": "gulp build:cjs",
+    "build:prod": "gulp build && rollup -c",
     "style": "prettier src/ --write",
     "lint": "eslint src/ --fix",
     "test": "jest tests/",
     "test:watch": "jest tests/ --watch",
-    "preversion": "npm run style && npm run lint && npm run test"
+    "preversion": "npm run style && npm run lint && npm run test",
+    "ci": "npm run test"
   },
   "jest": {
     "verbose": true,
     "moduleNameMapper": {
-      "rakam": "<rootDir>/main/index.js"
+      "^rakam$": "<rootDir>/main"
     }
   },
   "keywords": [
@@ -47,10 +50,12 @@
     "calculator",
     "numpy"
   ],
-  "author": "SciCave",
+  "author": "sciCave",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
     "@babel/plugin-transform-exponentiation-operator": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/plugin-transform-spread": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
@@ -65,7 +70,6 @@
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.26.11",
-    "rollup-jest": "0.0.2",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
