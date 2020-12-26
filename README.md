@@ -22,16 +22,16 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 - core
   lcm, gcd, lcm2, gcd2, dist, constrain, trunc, toFixed, random, randomInt
 - engine
-  - [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md)
+  - [math2js][engine-math2js]
   - math2latex
   - mathParser
   - latexParser
   - latex2js
   - latex2math
 - geometry
-  - [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md)
-  - [lines](https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md)
-- [fraction](https://github.com/scicave/rakam/blob/master/docs/fraction/index.md)
+  - [angles][geometry-angles]
+  - [lines][geometry-lines]
+- [fraction][fraction]
 
 <!-- 
 
@@ -46,7 +46,7 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 
 Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
-See documentations for more about [math2js](https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md).
+See documentations for more about [math2js][engine-math2js].
 
 
 # 📐 geometry
@@ -63,7 +63,7 @@ You can:
 - Or get it as `12° 26' 53.48"`
 
 
-Documentations: [angles](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md).
+Documentations: [angles][geometry-angles].
 
 
 ## lines
@@ -74,11 +74,11 @@ You can:
 - Project a point onto a line.
 - Get the distance between a point ad a line.
 
-Documentations: [lines](https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md)
+Documentations: [lines][geometry-lines].
 
 # ➗ fraction
 
-Documentation: [fraction](https://github.com/scicave/rakam/blob/master/docs/fraction/index.md)
+Documentation: [fraction][fraction].
 
 # 📜 License
 
@@ -90,3 +90,9 @@ https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
+
+
+[engine-math2js]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
+[ geometry-angles ]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md
+[ geometry-lines ]: https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md
+[ fraction ]: https://github.com/scicave/rakam/blob/master/docs/fraction/index.md
