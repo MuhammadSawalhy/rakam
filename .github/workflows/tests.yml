@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: build
+      - name: Build
         # TODO: change to build:cjs
         # enable _interopRequire for .test.js
         run: npm run build:prod
