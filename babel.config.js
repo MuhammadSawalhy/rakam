@@ -1,7 +1,10 @@
-// the file is a modified copy from katex.js project, https://github.com/KaTeX/KaTeX
+
+// babel-jest is used by default when testing with jest
 
 module.exports = (api) => {
+  // set inside gulp tasks
   const isCJS = api.env("cjs");
+  const isESM = api.env("esm");
 
   const presets = [
     ["@babel/preset-env", {
@@ -10,9 +13,10 @@ module.exports = (api) => {
   ];
 
   const plugins = [
-    "@babel/transform-runtime",
+    // when building main, module directories only
+    (isCJS || isESM) && "@babel/transform-runtime",
     isCJS && "@babel/transform-modules-commonjs",
-    isCJS && "add-module-exports",
+    isESM && "add-module-exports",
     ["@babel/plugin-transform-spread", {
       loose: true,
     },],
