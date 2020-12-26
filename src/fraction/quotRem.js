@@ -16,7 +16,6 @@ export default function quotRem(num) {
   };
 }
 
-
 // my approach
 /*
 // export function quotientRemainder(num) {

@@ -1,3 +1,2 @@
-// this file is auto generated
-// the current version is:
-export default "0.1.0";
+// this file will be auto filled by gulp "genrate-version-file" task.
+export default 'ourversion'; // this is just a placeholder

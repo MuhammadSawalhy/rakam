@@ -1,4 +1,3 @@
-[anglesjs-docs]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.js.md
 
 # angles
 
@@ -21,7 +20,7 @@ In order not to reinvent the wheel, or do the same effort wasting time, Rakam us
 > 
 > Dual licensed under the MIT or GPL Version 2 licenses.
 
-See [README.md](anglesjs-docs) of angles.js
+See [README.md](https://github.com/scicave/rakam/blob/master/docs/geometry/angles.js.md) of angles.js
 
 ### Usage:
 ```js

@@ -1,4 +1,3 @@
-
 import distance from './distance';
 import projection from './projection';
 import equation from './equation';

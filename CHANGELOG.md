@@ -5,13 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-### Added
-### Changed
+## [1.0.0-2] - 2020-12-24
 ### Fixed
-### Deprecated
-### Removed
-### Security
+
+- Change `src` for the demo's `<script></script>`: issue(#2).
+
+- Change `license` inside `package.json` to "Apache-2.0": issue(#3).
+
+- Replace `prepare` script in `package.json` with `prepublishOnly`: issue(#4).
 
 ## [1.0.0-0] - 2020-9-14
 
@@ -28,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `quotRem`
 
 ### Changed
-- Rename `parser` to `engine`, for semantic perpose, and it's fancier and more existing name.
+- Rename `parser` to `engine`, for semantic purpose, and it is a more existing name.
 
 
 ## [0.1.0] - 2020-9-9
@@ -50,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [0.0.1] - 2020-9-4
+
 ### Fixed
 - Change README.md from a binary looking file into a file in bytes, there was weird README in [rakam](https://npmjs.com/package/rakam).
 
@@ -66,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - as well as the max angle
 
 - `geometry.lines`, here you can get: 
-  - line equation `ax+by+c=0`, the line info returned as {a:number,b:number,c:number}
+  - line equation `ax+by+c=0`, the line info returned as `{a:number, b:number, c:number}`
   - the intersection point between two lines
   - projection of a point on a line
   - the dist, or the displacement till the line from a given point, the shortest distance to the line, which is the length of the perpendicular line to this line from that point.

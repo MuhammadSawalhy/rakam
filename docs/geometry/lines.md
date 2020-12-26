@@ -47,7 +47,7 @@ let inters = lines.intersection(lineEq1, lineEq2);
 
 ## distance
 
-Arguments: 1st arg is the point, the 2nd arg is a line [equation](equation).
+Arguments: 1st arg is the point, the 2nd arg is a line [equation](#equation).
 
 Returns: the distance as number, in other words, the segment length between the point and its [projection](#projection) onto the line.
 
@@ -61,7 +61,7 @@ let dist = lines.distance(new vector(-1, 5), lineEquation);
 
 ## projection
 
-Arguments: 1st arg is the point to be projected in a line whose [equation](equation) is the 2nd arg.
+Arguments: 1st arg is the point to be projected in a line whose [equation](#equation) is the 2nd arg.
 
 Returns: an object, { x: number, y: number }.
 

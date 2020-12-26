@@ -3,16 +3,14 @@
  *
  * Copyright (c) 2015, Robert Eisele (robert@xarg.org)
  * Dual licensed under the MIT or GPL Version 2 licenses.
- * 
+ *
  * We have made some modifications here
  **/
-
-
 
 var TAU = 2 * Math.PI;
 
 // var DIRECTIONS = ["N", "E", "S", "W"];
-var DIRECTIONS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+var DIRECTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 // var DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
 /**
@@ -34,7 +32,7 @@ export default {
    * @returns {number}
    */
   normalizeHalf: function (n) {
-    var c = this["__SCALE"];
+    var c = this['__SCALE'];
     var h = c / 2;
 
     return mod(n + h, c) - h;
@@ -46,7 +44,7 @@ export default {
    * @returns {number}
    */
   normalize: function (n) {
-    var c = this["__SCALE"];
+    var c = this['__SCALE'];
 
     return mod(n, c);
   },
@@ -64,7 +62,7 @@ export default {
     if (from === to) {
       return 0;
       // if (mod(-z, 360) < mod(z, 360)) {
-    } else if (this["normalizeHalf"](z) < 0) {
+    } else if (this['normalizeHalf'](z) < 0) {
       return -1; // Left
     } else {
       return +1; // Right
@@ -81,7 +79,7 @@ export default {
   between: function (n, a, b) {
     // Check if an angle n is between a and b
 
-    var c = this["__SCALE"];
+    var c = this['__SCALE'];
     n = mod(n, c);
     a = mod(a, c);
     b = mod(b, c);
@@ -97,7 +95,7 @@ export default {
    * @returns {number}
    */
   diff: function (a, b) {
-    return Math.abs(b - a) % this["__SCALE"];
+    return Math.abs(b - a) % this['__SCALE'];
   },
   /**
    * Calculate the minimal distance between two angles
@@ -108,7 +106,7 @@ export default {
    */
   distance: function (a, b) {
     // here are some modifications
-    return Math.abs(this["normalizeHalf"](a - b));
+    return Math.abs(this['normalizeHalf'](a - b));
   },
   /**
    * Calculate radians from current angle
@@ -148,7 +146,7 @@ export default {
    * @returns {number}
    */
   fromSinCos: function (sin, cos) {
-    var s = this["__SCALE"];
+    var s = this['__SCALE'];
     var angle = (1 + Math.acos(cos) / TAU) * s;
 
     if (sin < 0) {
@@ -164,7 +162,7 @@ export default {
    * @returns {number}
    */
   fromSlope: function (p1, p2) {
-    var s = this["__SCALE"];
+    var s = this['__SCALE'];
     var angle = (TAU + Math.atan2(p2[1] - p1[1], p2[0] - p1[0])) % TAU;
 
     return (angle / TAU) * s;
@@ -178,8 +176,8 @@ export default {
    * @param {number=} shift An optional angle to rotate the coordinate system
    * @returns {number}
    */
-  quadrant: function (x, y, k= 4, shift= 0) {
-    var s = this["__SCALE"];
+  quadrant: function (x, y, k = 4, shift = 0) {
+    var s = this['__SCALE'];
 
     /* (shift = 180 / k), (k = 4), (s = 360):
      *   I) 45-135
@@ -197,7 +195,7 @@ export default {
 
     var phi = (Math.atan2(y, x) + TAU) / TAU;
 
-    if (Math.abs((phi * s) % (s / k)) < this["EPSILON"]) {
+    if (Math.abs((phi * s) % (s / k)) < this['EPSILON']) {
       return 0;
     }
 
@@ -215,7 +213,7 @@ export default {
     // 180° = S
     // 270° = W
 
-    var s = this["__SCALE"];
+    var s = this['__SCALE'];
     var k = DIRECTIONS.length;
 
     // floor((2ck + s) / (2s)) = round((c / s) * k)
@@ -233,7 +231,7 @@ export default {
    * @returns {number}
    */
   lerp: function (a, b, p, dir) {
-    var s = this["__SCALE"];
+    var s = this['__SCALE'];
     a = mod(a, s);
     b = mod(b, s);
 
@@ -253,7 +251,7 @@ export default {
    * @returns {number}
    */
   average: function (angles) {
-    var s = this["__SCALE"];
+    var s = this['__SCALE'];
 
     // Basically treat each angle as a vector, add all the vecotrs up,
     // and return the angle of the resultant vector.

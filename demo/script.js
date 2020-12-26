@@ -1,4 +1,2 @@
-
-let {parser} = rakam;
-
-console.log(parser.math2js('1+2-sinx'));
+console.log("You can use rakam's API under the global varaible rakam.");
+console.log("e.g.: `let { engine } = rakam;`");

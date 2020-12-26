@@ -1,6 +1,6 @@
 {
   "name": "rakam",
-  "version": "0.1.0",
+  "version": "1.0.0-2",
   "description": "Math library focusing on the performance 🚀.",
   "main": "main",
   "module": "module",
@@ -19,10 +19,11 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "build": "gulp build && rollup -c",
-    "prepare": "npm run lint && npm run test",
+    "style": "prettier src/ --write",
     "lint": "eslint src/ --fix",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest tests/",
+    "test:watch": "jest tests/ --watch",
+    "preversion": "npm run style && npm run lint && npm run test"
   },
   "jest": {
     "verbose": true,
@@ -47,7 +48,7 @@
     "numpy"
   ],
   "author": "SciCave",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@babel/plugin-transform-exponentiation-operator": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
@@ -61,6 +62,7 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "jest": "^26.4.2",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.26.11",
     "rollup-jest": "0.0.2",
