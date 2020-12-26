@@ -1,4 +1,3 @@
-
 /**
  * return {a: ___, b: ___, c: ___} in "a*x+b*y+c=0"
  * @param {Number} slopeAngle slope angle

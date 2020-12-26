@@ -1,27 +1,23 @@
-import mathParser from "@scicave/math-parser";
-import UndefinedUsed from "../error/UndefinedUsed";
-import prepareScope from "./utils/prepareScope";
-import prepareHandlers from "./utils/math2js/prepareHandlers";
-import generateJs from "./utils/math2js/generateJs";
+import mathParser from '@scicave/math-parser';
+import UndefinedUsed from '../error/UndefinedUsed';
+import prepareScope from './utils/prepareScope';
+import prepareHandlers from './utils/math2js/prepareHandlers';
+import generateJs from './utils/math2js/generateJs';
 
 // the  default handler will be exported in some cases
 // TODO: ["int", "diff"]
-export const defaultHandlers = ["sum", "gamma", "fact"];
+export const defaultHandlers = ['sum', 'gamma', 'fact'];
 
 export default function math2js(math, options, parserOptions = {}) {
-  
-  let defaultOptions = { params: [], scope: Math, handlers: [...defaultHandlers], throwUndefError: false }
+  let defaultOptions = { params: [], scope: Math, handlers: [...defaultHandlers], throwUndefError: false };
   options = Object.assign({}, defaultOptions, options);
 
-  let
-    params = options.params,
+  let params = options.params,
     scope = options.scope,
     handlers = options.handlers,
     header = options.header,
-    throwUndefError = options.throwUndefError
-  ;
-
-  if (typeof math === "string") {
+    throwUndefError = options.throwUndefError;
+  if (typeof math === 'string') {
     math = mathParser.parse(math, parserOptions);
   }
 
@@ -47,7 +43,8 @@ export default function math2js(math, options, parserOptions = {}) {
   let jsExpr = generateJs(math, { params, scope, header, handlers, undef });
 
   if (undef.vars.length || undef.funcs.length) {
-    if (throwUndefError) throw new UndefinedUsed("trying to use undefined variables in the generated js function.", undef);
+    if (throwUndefError)
+      throw new UndefinedUsed('trying to use undefined variables in the generated js function.', undef);
     // handling repeatition
     undef.vars = undef.vars.reduce((b, a) => {
       if (!b.find((e) => e === a)) b.push(a);
@@ -64,21 +61,21 @@ export default function math2js(math, options, parserOptions = {}) {
   let code = [
     // "(scope) => {",
     ...header
-      .map((h) => h.split("\n"))
+      .map((h) => h.split('\n'))
       .flat()
-      .map((h) => "  " + h),
-    `  return (${params.join(", ")})=>${jsExpr};`,
+      .map((h) => '  ' + h),
+    `  return (${params.join(', ')})=>${jsExpr};`,
     // "}",
-  ].join("\n");
+  ].join('\n');
 
-  let funcParams = [typeof scope === "function" ? "__scicave_rakam_getId__" : "scope"];
+  let funcParams = [typeof scope === 'function' ? '__scicave_rakam_getId__' : 'scope'];
 
   // using function instead of eval, see https://rollupjs.org/guide/en/#avoiding-eval
   let func = new Function(...funcParams, code);
 
   return {
     eval: func(...funcArgs),
-    code: `(${funcParams.join(", ")})=>{\n${code}\n}`,
+    code: `(${funcParams.join(', ')})=>{\n${code}\n}`,
   };
 }
 

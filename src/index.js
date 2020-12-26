@@ -1,6 +1,6 @@
 import core from './core/';
 import engine from './engine/';
-import geometry from './geometry/'
+import geometry from './geometry/';
 import fraction from './fraction/';
 import error from './error/';
 
@@ -10,30 +10,28 @@ import matrix from './matrix';
 import version from './version.js';
 
 export default {
+  core,
+  // make sure the API's identifiers are unique
+  ...core,
 
-   core,
-   // make sure the API's identifiers are unique
-   ...core,
-   
-   engine,
-   // make sure the API's identifiers are unique
-   ...engine,
-   
-   geometry,
-   // make sure the API's identifiers are unique
-   ...geometry,
+  engine,
+  // make sure the API's identifiers are unique
+  ...engine,
 
-   fraction,
-   // make sure the API's identifiers are unique
-   ...fraction,
+  geometry,
+  // make sure the API's identifiers are unique
+  ...geometry,
 
-   error,
-   // make sure the API's identifiers are unique
-   ...error,
+  fraction,
+  // make sure the API's identifiers are unique
+  ...fraction,
 
-   vector,
-   matrix,
+  error,
+  // make sure the API's identifiers are unique
+  ...error,
 
-   version,
+  vector,
+  matrix,
 
+  version,
 };

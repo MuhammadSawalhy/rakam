@@ -1,4 +1,2 @@
-// TODO: 
-export default function (){
-
-}
+// TODO:
+export default function () {}

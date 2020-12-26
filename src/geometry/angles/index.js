@@ -3,15 +3,15 @@
  * the npm package https://www.npmjs.com/package/angles licensed under MIT OR GPL-2.0
  */
 
-import * as extend from "./angles-extend.js";
-import anglesJs from "./angles-external.js"; // https://www.npmjs.com/package/angles
+import * as extend from './angles-extend.js';
+import anglesJs from './angles-external.js'; // https://www.npmjs.com/package/angles
 
 const angles = {
   ...anglesJs,
   ...extend,
 };
 
-Object.defineProperty(angles, "SCALE", {
+Object.defineProperty(angles, 'SCALE', {
   get() {
     return this.__SCALE;
   },
@@ -34,25 +34,22 @@ const dmsSymbolsDesribtor = {
 
     function repRegSpecials(str) {
       var specialSymbols = /\\|\^|\$|\[|\]|\{|\}|\(|\)|\.|\+|\*|\/|\|/g;
-      return str.replace(specialSymbols, "\\\\$0");
+      return str.replace(specialSymbols, '\\\\$0');
     }
 
     const numRegex = '((?:-?\\d+(?:\\s*\\.\\s*)?\\d*)|(?:-?\\d*(?:\\s*\\.\\s*)?\\d+))';
     const degRegex = `(?:${numRegex}\\s*${repRegSpecials(this.__dmsSymbols.deg)})`;
     const minRegex = `(?:${numRegex}\\s*${repRegSpecials(this.__dmsSymbols.min)})`;
     const secRegex = `(?:${numRegex}\\s*${repRegSpecials(this.__dmsSymbols.sec)})`;
-    this.__dmsRegex = new RegExp(
-      `^\\s*${degRegex}?\\s*${minRegex}?\\s*${secRegex}?\\s*$`
-    );
+    this.__dmsRegex = new RegExp(`^\\s*${degRegex}?\\s*${minRegex}?\\s*${secRegex}?\\s*$`);
   },
 };
 
-Object.defineProperty(angles, "degMinSecSymbols", dmsSymbolsDesribtor);
-Object.defineProperty(angles, "DMSSymbols", dmsSymbolsDesribtor);
+Object.defineProperty(angles, 'degMinSecSymbols', dmsSymbolsDesribtor);
+Object.defineProperty(angles, 'DMSSymbols', dmsSymbolsDesribtor);
 
 angles.SCALE = 360;
 angles.EPSILON = 1e-10;
-angles.DMSSymbols = { deg: "°", min: '"', sec: "'" };
+angles.DMSSymbols = { deg: '°', min: '"', sec: "'" };
 
 export default angles;
-

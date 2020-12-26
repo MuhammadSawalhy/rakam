@@ -5,6 +5,6 @@
  * @param {number} f the mgnetic field
  */
 export default function snap(v, m, f) {
-  let e = Math.abs(v-m);
+  let e = Math.abs(v - m);
   return e <= f ? m : v;
 }

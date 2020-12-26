@@ -1,6 +1,3 @@
-
-export default class matrix{
-  constructor(){
-
-  }
+export default class matrix {
+  constructor() {}
 }
