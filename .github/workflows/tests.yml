@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master]
   pull_request:
-    branches: [master, develop]
+    branches: [master]
 
 # grapped from https://github.com/zloirock/core-js/blob/master/.github/workflows/tests.yml
 # commit 2fc3915c9fa310d1b315ef41ad18ce6a5a68bb0c

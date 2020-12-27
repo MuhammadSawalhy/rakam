@@ -53,7 +53,6 @@
   "author": "sciCave",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
     "@babel/plugin-transform-exponentiation-operator": "^7.10.4",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.11.5",
