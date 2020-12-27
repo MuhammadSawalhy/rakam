@@ -24,6 +24,10 @@ See [README.md](anglesjs-docs) of angles.js
 
 # Methods
 
+<!-- CAUTION: it has to be the same versio of the used fration.js inside code -->
+
+All APIs of fraction.js are avaliable.
+
 ## frac
 
 Input a quotRem output, or send a float number.
