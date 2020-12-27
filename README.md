@@ -2,8 +2,8 @@
 # RAKAM ➕ ➗ 📐
 
 [![NPM Package](https://img.shields.io/npm/v/rakam?style=for-the-badge&color=orange)](https://npmjs.com/package/rakam "View this project on npm")
-![npm downloads](https://img.shields.io/npm/dm/rakam?style=for-the-badge)
-![github workflow tests](https://img.shields.io/github/workflow/status/scicave/rakam/Node.js%20CI?style=for-the-badge)
+![npm downloads](https://img.shields.io/npm/dm/rakam?style=for-the-badge "Downloads from npmjs")
+[![github workflow tests](https://img.shields.io/github/workflow/status/scicave/rakam/Node.js%20CI?style=for-the-badge)](https://github.com/scicave/rakam/actions?query=workflow%3A%22Node.js+CI%22 "Github workflow: build and test")
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 
