@@ -9,8 +9,6 @@ on:
   pull_request:
     branches: [master]
 
-# grapped from https://github.com/zloirock/core-js/blob/master/.github/workflows/tests.yml
-# commit 2fc3915c9fa310d1b315ef41ad18ce6a5a68bb0c
 jobs:
   build:
     name: tests
@@ -24,12 +22,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node }}-
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-${{ matrix.node }}-
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
         with:
@@ -45,3 +43,4 @@ jobs:
 
       - name: Tests
         run: npm run ci
+
