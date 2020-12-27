@@ -9,6 +9,9 @@
     "module"
   ],
   "browserslist": "> 0.25%, not dead",
+  "engines": {
+    "node": ">=10"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/scicave/rakam.git"
