@@ -1,10 +1,10 @@
 
 # RAKAM ➕ ➗ 📐
 
-[![NPM Package](https://img.shields.io/npm/v/rakam?style=flat-square&color=orange)](https://npmjs.com/package/rakam "View this project on npm")
-![npm downloads](https://img.shields.io/npm/dm/rakam?style=flat-square)
-![github workflow tests](https://img.shields.io/github/workflow/status/scicave/rakam/Node.js%20CI?style=flat-square)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![NPM Package](https://img.shields.io/npm/v/rakam?style=for-the-badge&color=orange)](https://npmjs.com/package/rakam "View this project on npm")
+![npm downloads](https://img.shields.io/npm/dm/rakam?style=for-the-badge)
+![github workflow tests](https://img.shields.io/github/workflow/status/scicave/rakam/Node.js%20CI?style=for-the-badge)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
 
 Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an open-source project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
