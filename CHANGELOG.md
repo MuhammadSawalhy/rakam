@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-3] - Unreleased
+
+### Added
+
+1. Aliases for some function:
+   1. `frac: { fraction: frac, quotRem: qr }`.
+   2. `core: { distance: dist, random: rnd, randonInt: rndi,  }`.
+
+### Change
+
+1. Remove exposing of API in the global API `rakam.math2js // not defined`, but `core` still exposed.
+2. Rename `rakam.fraction` into `rakam.frac`.
+
 ## [1.0.0-2] - 2020-12-24
 
 ### Fixed
