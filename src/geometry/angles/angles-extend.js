@@ -249,4 +249,4 @@ export const fromDMS = fromDegMinSec;
 
 export const fromStrDMS = fromStrDegMinSec;
 
-//#endregion
+

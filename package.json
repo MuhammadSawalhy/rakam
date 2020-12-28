@@ -22,14 +22,14 @@
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
     "start": "npx gulp cjs-watch",
-    "build:dev": "gulp build:cjs",
-    "build:prod": "gulp build && rollup -c",
+    "build": "gulp build:cjs",
     "style": "prettier src/ --write",
     "lint": "eslint src/ --fix",
     "test": "jest tests/",
     "test:watch": "jest tests/ --watch",
-    "preversion": "npm run style && npm run lint && npm run test",
-    "ci": "npm run test"
+    "test:cov": "npm run test -- --collectCoverage && eval `cat .env` codecov",
+    "preversion": "npm run style && npm run lint",
+    "postversion": "gulp build && rollup -c"
   },
   "jest": {
     "verbose": true,
