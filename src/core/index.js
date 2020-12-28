@@ -4,8 +4,6 @@
 
 // TODO: fill this function with a fast algorithm
 
-// TODO:
-
 // export default function newtonMethod(intialGuess, F, F_prime, cs) {
 //   let x = intialGuess, x_;
 //   do {
@@ -23,19 +21,8 @@
 
 // }
 
-export { default as constrain } from './constrain';
-export { default as dist } from './dist';
-export { default as gcd } from './gcd';
-export { default as gcd2 } from './gcd2';
-export { default as lcm } from './lcm';
-export { default as random } from './random';
-export { default as randomInt } from './randomInt';
-export { default as snap } from './snap';
-export { default as toFixed } from './toFixed';
-export { default as trunc } from './trunc';
-
 import constrain from './constrain';
-import dist from './dist';
+import distance from './dist';
 import gcd from './gcd';
 import gcd2 from './gcd2';
 import lcm from './lcm';
@@ -45,9 +32,16 @@ import snap from './snap';
 import toFixed from './toFixed';
 import trunc from './trunc';
 
+const aliases = {
+  rnd: random,
+  rndi: randomInt,
+  dist: distance,
+};
+
 export default {
+  ...aliases,
   constrain,
-  dist,
+  distance,
   gcd,
   gcd2,
   lcm,

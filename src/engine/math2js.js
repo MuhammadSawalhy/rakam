@@ -64,7 +64,7 @@ export default function math2js(math, options, parserOptions = {}) {
     // "(scope) => {",
     ...header
       .map((h) => h.split('\n'))
-      .reduce((flatted,curArray)=>flatted.concat(curArray), []) // flat
+      .reduce((flatted, curArray) => flatted.concat(curArray), []) // flat
       .map((h) => '  ' + h),
     `  return (${params.join(', ')})=>${jsExpr};`,
     // "}",
