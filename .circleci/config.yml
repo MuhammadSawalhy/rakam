@@ -17,6 +17,9 @@ jobs:
           name: Node.js Version
           command: node --version
       - run:
+          name: Install Node Modules
+          command: npm ci
+      - run:
           name: Build
           command: npm run build
       - run:
