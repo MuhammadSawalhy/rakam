@@ -33,9 +33,9 @@ workflows:
   main:
     jobs:
       - unit-tests:
-          version: 10
+          version: "10"
       - unit-tests:
-          version: 12
+          version: "12"
       - unit-tests:
-          version: 14
+          version: "14"
 
