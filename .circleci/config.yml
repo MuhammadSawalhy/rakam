@@ -1,8 +1,41 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+
+jobs:
+  unit-tests:
+    parameters:
+      version:
+        type: string
+    docker:
+      - image: circleci/node:<< parameters.version >>
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - node-modules-{{ checksum package-lock.json }}
+      - run:
+          name: Node.js Version
+          command: node --version
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Unit test
+          command: |
+            npm run test:ci
+      - save_cache:
+          name: Save Node Modules Cache
+          key: node-modules-{{ checksum package-lock.json }}
+          paths:
+            - ~/.cache/
+
 workflows:
-  node-tests:
+  main:
     jobs:
-      - node/build:prod
-      - node/ci
+      - unit-tests:
+          version: 10
+      - unit-tests:
+          version: 12
+      - unit-tests:
+          version: 14
+

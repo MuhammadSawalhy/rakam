@@ -16,28 +16,18 @@ module.exports = (api) => {
     // when building main, module directories only
     (isCJS || isESM) && "@babel/transform-runtime",
     isCJS && "@babel/transform-modules-commonjs",
-    isESM && "add-module-exports",
+    isCJS && "add-module-exports",
     ["@babel/plugin-transform-spread", {
       loose: true,
     },],
     "@babel/transform-exponentiation-operator",
     // "preval",
-  ];
+  ].filter(Boolean);
 
-  if (!isCJS) presets[0][1].modules = false;
+  if (isESM) presets[0][1].modules = false;
   
   return {
     presets,
-    plugins: plugins.filter(Boolean),
-    env: {
-      // TODO: make CI og github in workflow/tests.yml run build:cjs
-      // then transform while testing
-      test: {
-        presets,
-        plugins: [
-          "@babel/transform-modules-commonjs"
-        ]
-      }
-    }
+    plugins,
   };
 };

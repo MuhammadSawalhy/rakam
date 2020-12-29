@@ -23,12 +23,13 @@
   "scripts": {
     "start": "npx gulp cjs-watch",
     "build": "gulp build:cjs",
-    "style": "prettier src/ --write",
+    "format": "prettier --write {src,tests}/**/*.js",
     "lint": "eslint src/ --fix",
     "test": "jest tests/",
-    "test:watch": "jest tests/ --watch",
-    "test:cov": "npm run test -- --collectCoverage && eval `cat .env` codecov",
-    "preversion": "npm run style && npm run lint",
+    "test:watch": "npm t -- --watch",
+    "test:cov": "npm t -- --collectCoverage && eval `cat .env` codecov",
+    "test:ci": "npm t -- --ci --detectOpenHandles --forceExit",
+    "preversion": "npm run format && npm run lint",
     "postversion": "gulp build && rollup -c"
   },
   "jest": {

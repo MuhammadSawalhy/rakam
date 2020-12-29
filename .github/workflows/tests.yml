@@ -22,25 +22,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      # - uses: actions/cache@v2
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-${{ matrix.node }}-
+      - uses: actions/cache@v2
+        with:
+          path: **/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build
-        # TODO: change to build:cjs
-        # enable _interopRequire for .test.js
+      - name: Build --Development
         run: npm run build
 
       - name: Tests
-        run: npm run test
+        run: npm run test:ci
 
