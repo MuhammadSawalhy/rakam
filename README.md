@@ -13,7 +13,7 @@
 
 Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an open-source project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
 
-### Features:
+## Features
 - Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
 - Parse math expression.
 - The same for latex.
@@ -22,9 +22,9 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
 - Get a float number as a numerator over a denomerator `{ s: sign<1|-1>, n: integer, d: integer }`.
 - As well as getting the quotient, the reminder and the denomerator of a fraction, `{ s: sign<1|-1>, q: integer, r: integer, d: integer }`. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
 
-> You can get any import any of the APIs elements directly, saving load time and bundle size.
+> You can get and import any of Rakam's APIs directly, saving load time and bundle size.
 
-### Documentations tree (API):
+## Documentations tree (API)
 - core
   lcm, gcd, lcm2, gcd2, dist, constrain, trunc, toFixed, random, randomInt
 - engine
@@ -39,15 +39,32 @@ Rakam or (رقم) in Arabic, which means "number". This is a math library. One o
   - [lines][geometry-lines]
 - [fraction][fraction]
 
+
+## Usage
+
+### Browser
+
+```html
+<!-- contain url for source-maps -->
+<script src="https://cdn.jsdelivr.net/npm/rakam/main/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rakam/main/index.min.js"></script>
+```
+
+### Node.js, or with a bundler
+
+```sh
+❯ npm i rakam
+```
+
 <!-- 
 
 # 🤝 Contribution
 
  -->
 
-# 🛠 engine
+## 🛠 engine
 
-## math2js
+### math2js
 <!-- CAUTION: the same as the description in the documentations -->
 
 Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
@@ -55,9 +72,9 @@ Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser
 See documentations for more about [math2js][engine-math2js].
 
 
-# 📐 geometry
+## 📐 geometry
 
-## angles
+### angles
 <!-- CAUTION: the same as the description in the documentations -->
 
 You can:
@@ -72,7 +89,7 @@ You can:
 Documentations: [angles][geometry-angles].
 
 
-## lines
+### lines
 
 You can:
 - Get a line equation parameters: "a", "b" and "c" in `ax + by + c = 0 `.
@@ -82,11 +99,11 @@ You can:
 
 Documentations: [lines][geometry-lines].
 
-# ➗ fraction
+## ➗ fraction
 
 Documentation: [fraction][fraction].
 
-# 📜 License
+## 📜 License
 
 Copyright (&copy;) 2020 sciCave™ <scicaveteam@gmail.com>
 
