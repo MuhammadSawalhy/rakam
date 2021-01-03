@@ -11,16 +11,21 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-Rakam or (رقم) in Arabic, which means "number". This is a math library. One of the reasons to give this package a try is that, the **_performance_** is in our considerations. As some great projects such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an open-source project cares about these situations arises, so that we can cooperate and contribute to reach the optimal performance 🚀.
+Rakam or (رقم) in Arabic, which means "number". This is a math library, one of the reasons to
+give this package a try is that, the **_performance_** is the main goal. As some great projects
+such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__
+calculations in tons of iterations to generate the graph. The need of such an open-source project
+cares about these situations arises, don't forget to contribute by raising an issue at github or
+optimizing some algorithms 🚀.
 
 ## Features
 - Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
 - Parse math expression.
 - The same for latex.
 - Convert between latex and math expression.
-- Geometric shapes and properties and intersections: now [lines](#lines) are avaliable.
-- Get a float number as a numerator over a denomerator `{ s: sign<1|-1>, n: integer, d: integer }`.
-- As well as getting the quotient, the reminder and the denomerator of a fraction, `{ s: sign<1|-1>, q: integer, r: integer, d: integer }`. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
+- Geometric shapes and properties and intersections: now [lines](#lines) are available.
+- Get a float number as a numerator over a denominator `{ s: sign<1|-1>, n: integer, d: integer }`.
+- As well as getting the quotient, the reminder and the denominator of a fraction, `{ s: sign<1|-1>, q: integer, r: integer, d: integer }`. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
 
 > You can get and import any of Rakam's APIs directly, saving load time and bundle size.
 
@@ -115,7 +120,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 
-[engine-math2js]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
+[ engine-math2js ]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
 [ geometry-angles ]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md
 [ geometry-lines ]: https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md
 [ fraction ]: https://github.com/scicave/rakam/blob/master/docs/fraction/index.md
