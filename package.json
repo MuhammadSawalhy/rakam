@@ -62,11 +62,11 @@
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/plugin-transform-spread": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@rollup/plugin-commonjs": "^15.0.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
     "babel-plugin-add-module-exports": "^1.0.4",
     "cross-env": "^7.0.2",
-    "eslint": "^7.8.1",
+    "eslint": "^7.17.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "jest": "^26.4.2",
@@ -78,7 +78,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^2.2.2",
+    "@scicave/math-parser": "^3.0.0",
     "fraction.js": "^4.0.12"
   }
 }
