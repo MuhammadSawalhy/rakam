@@ -1,6 +1,9 @@
 ﻿# math2js
 
-Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handles the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use `new Function(...)` in vanilla js (the native js).
+Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math
+expression, then handle the AST, or say the parser tree, to generate the equivalent js code,
+in a very customizable way. After all of these steps, we easily use
+[Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
 ```js
 const math2js = require('rakam').engine.math2js;
@@ -15,18 +18,27 @@ let fn = math2js(math, options, parserOptions);
 console.log(fn); // {eval: Function, code: String}
 ```
 
-## math: string
+## Limitations
 
-A math expression parsable by math-parser.
+Actually, you can use [handlers](#options.handlers) to defeat these limitations. The following expressions can be parsed but they have special use cases, it is better to create articulated handlers in these cases.  
 
-## options: object
+- Tuples: `1 + (1,2,pi)`.
+- Matrices: `[ 1, 2; 3, 4 ]`.
+- Ellipsis: `f(1,2,...,6)`.
+- Sets: `{ 1, 2, ..., 6 }`.
 
-### scope
->  Type: object?, Default: `Math`.
+## math
 
-Accepable values: object, function or mixed array of objects and functions.
+Type: `string | mathParser.Node`.
 
-- passing array of scopes: [(Object | Function)*]
+A math expression to be parsed with math-parser.
+
+## options
+
+### options.scope
+Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`.
+
+- passing array of scopes
 
   ```js
   let { engine } = require('rakam');
@@ -91,16 +103,28 @@ Accepable values: object, function or mixed array of objects and functions.
   
   </details>
 
-### handlers
-> Type: Handler[], Default: `["sum", "fact", "gamma"]`.
+### options.handlers
+Type: `Array<Handler>`, Default: `["sum", "fact", "gamma"]`.
 
-This default string array is converted into handlers array before starting parsing, you musn't pass string values. So, what is a handler?
+This default string array is converted into handlers array before starting parsing, you mustn't pass string values. So, what is a handler?
 
-A handler is an ordinary object mainly contains two methods: `test` and `handle`. In other words, `{test: Function, handle: Function}`
+A handler is an ordinary object mainly contains two methods: `test` and `handle`. In other words: 
 
-- test: receives math-parser Node, returns a booleany value used in `generateJs` found in "src/parser/utils/math2js/generateJs.js".
+````typescript
+type Handler = {
+    test: (mathParser.Node)=> boolean,
+    handle: (mathParser.Node /* that passed the test */, HandlingOptions)=> string,
+};
 
-- handle: when the test method returns a truely value, the parser node will be handled here, then a string is returned, representing a portion of the final js expression.
+// CAUTION: fill before release
+type HandlingOptions = {
+    
+}
+````
+
+- `test`: receives math-parser Node, returns a booleany value used in `generateJs` found in "src/parser/utils/math2js/generateJs.js".
+
+- `handle`: when the test method returns a `true`, the parser node will be handled here, then a string is returned, representing a portion of the final js expression.
 
 Create your own handler
 
@@ -128,24 +152,25 @@ console.log(fn.code);
 
 Use existing handlers by default:
 
-- `sum`, in latex: `\sum_{n = 1}^{100}n`
+- `sum`, in latex: `\sum_{n = 1}^{100}n`.
 
   ```js
-  // math2js exists in rakam directly, and also inside rakam.engine
-  const { math2js } = require('rakam');
-
+  const { engine: { math2js } } = require('rakam');
+  
   let generatedJs = math2js('1+2-sum(n,n,1,100000)');
-
+  
   /// test the evaluation speed of sum expression iterating 100000 time.
-  console.time('evaluation time'); generatedJs.eval(); console.timeEnd('evaluation time');
-
-  // when the code went hot in node engine in my pc.
-  // evaluation time: 0.103ms
-  // astonishing result!!! <3 alhamdullah!
+  console.time('evaluation time ⌚');
+  generatedJs.eval();
+  console.timeEnd('evaluation time ⌚');
+  
+  // evaluation time ⌚: 0.103ms
+  // when the code went hot in node engine in my pc. running it multiple times.
+  // astonishing result!!! 💖 alhamdullah!
   ```
 
   <details><summary>This happens behind the scene:</summary>
-  
+
   ```js
   // this happens behind the scene:
   let func = eval(generatedJs.code);
@@ -163,10 +188,10 @@ Use existing handlers by default:
   }
   generatedJs.eval = func(Math);
   ```
-  
+
   </details>
 
 ## parserOptions: object
 
-Options for @scicave/math-parser
+Options for [`@scicave/math-parser@3`](https://github.com/scicave/math-parser).
 
