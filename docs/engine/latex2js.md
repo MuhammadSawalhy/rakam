@@ -1,20 +1,20 @@
-﻿# math2js
+﻿# latex2js
 
-Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math
-expression, then handle the AST, or say the parser tree, to generate the equivalent js code,
+Rakam uses [@scicave/math-latex-parser](https://npmjs.com/package/@scicave/math-latex-parser) library to parse latex expression.
+expression, then handle the AST, to generate the equivalent js code,
 in a very customizable way. After all of these steps, we easily use
 [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
 ```js
-const math2js = require('rakam').engine.math2js;
+const latex2js = require('rakam').engine.latex2js;
 // or
-const math2js = require('rakam').math2js;
+const latex2js = require('rakam').latex2js;
 // or
-const math2js = require('rakam/main/engine/math2js');
+const latex2js = require('rakam/main/engine/latex2js');
 // or if you use a bundler, e.g., rollup or webpack
-import math2js from 'rakam/module/engine/math2js';
+import latex2js from 'rakam/module/engine/latex2js';
 
-let fn = math2js(math, options, parserOptions);
+let fn = latex2js(latex, options, parserOptions);
 console.log(fn); // {eval: Function, code: String}
 ```
 
@@ -24,14 +24,14 @@ Actually, you can use [handlers](#options.handlers) to defeat these limitations.
 
 - Tuples: `1 + (1,2,pi)`.
 - Matrices: `[ 1, 2; 3, 4 ]`.
-- Ellipsis: `f(1,2,...,6)`.
+- Ellipsis: `f(1,2, ...,6)`.
 - Sets: `{ 1, 2, ..., 6 }`.
 
-## math
+## latex
 
-Type: `string | mathParser.Node`.
+Type: `string | latexParser.Node`.
 
-A math expression to be parsed with math-parser.
+A latex expression to be parsed with [math-latex-parser][math-latex-parser].
 
 ## options
 
@@ -42,7 +42,7 @@ Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the b
 
   ```js
   let { engine } = require('rakam');
-  let math = 'y t -sinx +z';
+  let latex = '\frac yt -\sin x +z';
   let scope = [
     { t: 1, x: 180, },
     { x: 3, y: 4 },
@@ -51,13 +51,13 @@ Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the b
       return vars[id];
     }
   ];
-  let generatedJs = engine.math2js(math, { scope });
+  let generatedJs = engine.latex2js(latex, { scope });
 
   // testing the result!
   console.log(generatedJs.eval());
-  // y t -sinx +z     ///////////
-  // 4 * 1 - Math.sin(Math.PI) + 1
-  // === 5            ///////////
+  // \frac yt -\sin x +z   ///////////
+  // 4 / 1 - Math.sin(Math.PI) + 1
+  // === 5                 ///////////
   ```
 
   <details><summary>This happens behind the scene:</summary>
@@ -104,7 +104,7 @@ Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the b
   </details>
 
 ### options.handlers
-Type: `Array<Handler>`, Default: `["sum", "fact", "gamma"]`.
+Type: `Array<Handler>`, Default: ` engine.latex2js.defaultHandlers = ["sum", "fact", "gamma", "int"]`.
 
 This default string array is converted into handlers array before starting parsing, you mustn't pass string values. So, what is a handler?
 
@@ -112,8 +112,11 @@ A handler is an ordinary object mainly contains two methods: `test` and `handle`
 
 ````typescript
 type Handler = {
-    test: (mathParser.Node)=> boolean,
-    handle: (mathParser.Node /* that passed the test */, HandlingOptions)=> string,
+    test: (latexParser.Node)=> boolean,
+    handle: (
+    	latexParser.Node /* that passed the test */,
+    	HandlingOptions
+    ) => string,
 };
 
 // CAUTION: fill before release
@@ -122,14 +125,14 @@ type HandlingOptions = {
 }
 ````
 
-- `test`: receives math-parser Node, returns a booleany value used in `generateJs` found in "src/parser/utils/math2js/generateJs.js".
+- `test`: receives `math-latex-parser` Node, returns a `boolean` value. It is used in `generateJs` found in `src/parser/utils/latex2js/generateJs.js`.
 
 - `handle`: when the test method returns a `true`, the parser node will be handled here, then a string is returned, representing a portion of the final js expression.
 
 Create your own handler
 
 ```js
-const defaultHandlers = engine.math2js.defaultHandlers;
+const defaultHandlers = engine.latex2js.defaultHandlers;
 
 function getTheId = (id)=>{
   //asdasd.....
@@ -144,7 +147,7 @@ const newHandler = {
   }
 };
 
-const fn = math2js(math, { handlers: [...defaultHandlers, newHandler] });
+const fn = latex2js(latex, { handlers: [...defaultHandlers, newHandler] });
 // fn = {eval: Function, code: String}
 
 console.log(fn.code);
@@ -152,12 +155,12 @@ console.log(fn.code);
 
 Use existing handlers by default:
 
-- `sum`, in latex: `\sum_{n = 1}^{100}n`.
+- `sum`, e.g.: `\sum_{n = 1}^{100}n`.
 
   ```js
-  const { engine: { math2js } } = require('rakam');
+  const { engine: { latex2js } } = require('rakam');
   
-  let generatedJs = math2js('1+2-sum(n,n,1,100000)');
+  let generatedJs = latex2js('\sum_{n = 1}^{100000}n');
   
   /// test the evaluation speed of sum expression iterating 100000 time.
   console.time('evaluation time ⌚');
@@ -176,7 +179,7 @@ Use existing handlers by default:
   let func = eval(generatedJs.code);
   // or
   let func = (scope)=>{
-    // scope is the passed object to math2js or by default is Math
+    // scope is the passed object to latex2js or by default is Math
     function __scicave_rakam_egvjeuqa__(){
       let _ = 0
       for(var n = 1; n <= 100000; n++){
@@ -193,5 +196,6 @@ Use existing handlers by default:
 
 ## parserOptions: object
 
-Options for [`@scicave/math-parser@3`](https://github.com/scicave/math-parser).
+Options for [`@scicave/math-latex-parser`][math-latex-parser].
 
+[math-latex-parser]: https://github.com/scicave/math-parser
