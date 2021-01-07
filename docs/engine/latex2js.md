@@ -24,8 +24,8 @@ Actually, you can use [handlers](#options.handlers) to defeat these limitations.
 
 - Tuples: `1 + (1,2,pi)`.
 - Matrices: `[ 1, 2; 3, 4 ]`.
-- Ellipsis: `f(1,2, ...,6)`.
-- Sets: `{ 1, 2, ..., 6 }`.
+- Ellipsis: `f\left(1,2, ...,6\right)`.
+- Sets: `\{ 1, 2, ..., 6 \}`.
 
 ## latex
 
@@ -36,7 +36,7 @@ A latex expression to be parsed with [math-latex-parser][math-latex-parser].
 ## options
 
 ### options.scope
-Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the best performance, don't pass an array.
+Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the best performance, don't pass arrays.
 
 - passing array of scopes
 
@@ -112,10 +112,10 @@ A handler is an ordinary object mainly contains two methods: `test` and `handle`
 
 ````typescript
 type Handler = {
-    test: (latexParser.Node)=> boolean,
+    test: (node: latexParser.Node)=> boolean,
     handle: (
-    	latexParser.Node /* that passed the test */,
-    	HandlingOptions
+    	node: latexParser.Node /* that passed the test */,
+    	options: HandlingOptions
     ) => string,
 };
 

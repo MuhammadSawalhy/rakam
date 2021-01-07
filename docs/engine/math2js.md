@@ -14,8 +14,9 @@ const math2js = require('rakam/main/engine/math2js');
 // or if you use a bundler, e.g., rollup or webpack
 import math2js from 'rakam/module/engine/math2js';
 
+// { eval: Function, code: string }
 let fn = math2js(math, options, parserOptions);
-console.log(fn); // {eval: Function, code: String}
+console.log(fn); 
 ```
 
 ## Limitations
@@ -31,7 +32,7 @@ Actually, you can use [handlers](#options.handlers) to defeat these limitations.
 
 Type: `string | mathParser.Node`.
 
-A math expression to be parsed with math-parser.
+A maths expression to be parsed with math-parser.
 
 ## options
 
@@ -112,8 +113,11 @@ A handler is an ordinary object mainly contains two methods: `test` and `handle`
 
 ````typescript
 type Handler = {
-    test: (mathParser.Node)=> boolean,
-    handle: (mathParser.Node /* that passed the test */, HandlingOptions)=> string,
+    test: (node: mathParser.Node)=> boolean,
+    handle: (
+    	node: mathParser.Node, // that passed the test
+    	options: HandlingOptions
+    ) => string,
 };
 
 // CAUTION: fill before release
@@ -145,7 +149,7 @@ const newHandler = {
 };
 
 const fn = math2js(math, { handlers: [...defaultHandlers, newHandler] });
-// fn = {eval: Function, code: String}
+// fn = { eval: Function, code: string }
 
 console.log(fn.code);
 ```
