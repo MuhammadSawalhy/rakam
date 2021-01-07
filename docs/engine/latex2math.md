@@ -12,7 +12,7 @@ import latex2math from 'rakam/module/engine/latex2math';
 // use it
 // latex2math:
 //     (latex: string, options: Latex2MathOptions, parserOptions)=>string
-latex2math(math, options, parserOptions);
+latex2math(latex, options, parserOptions);
 ```
 
 ----
@@ -21,14 +21,14 @@ Examples:
 
 | LaTex                       | ASCII-math              | Options           |
 | --------------------------- | ----------------------- | ----------------- |
-| `3ab\cdot c` | `3abc`                  |                   |
-| `3ab\cdot c` | `3*a*b*c`               | `autoMult: false` |
+| `3ab\cdot c`                | `3abc`                  |                   |
+| `3ab\cdot c`                | `3*a*b*c`               | `autoMult: false` |
 | `\sin{x}`                   | `sin(x)`                |                   |
-| `1 + \frac{\sin{x}}{\tan{y}} \geq 6` | `1+ sin(x)/tan(y) >= 6` |                   |
+| `1 + \frac{\sin{x}}{\tan{y}} \geq 6` | `1+ sin(x)/tan(y) >= 6` |          |
 | `\begin{matrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{matrix}` | `[ 1, 2, 3 ; 4, 5, 6 ]` |  |
 | `\left(x, y, z\right)` | `(x, y, z)` |  |
 
-## math
+## latex
 
 Type: `string`.
 
@@ -46,6 +46,6 @@ type Latex2MathOptions = {
 
 ## parserOptions
 
-Take a look at [math-latex-parser][math-parser] package.
+Take a look at [math-latex-parser][math-latex-parser] package.
 
 [math-latex-parser]: https://github.com/scicave/math-latex-parser	"" math-latex-parser github repo ""

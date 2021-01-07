@@ -1,6 +1,6 @@
 ﻿# math2js
 
-Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math
+Rakam uses [@scicave/math-parser][math-parser] library to parse math
 expression, then handle the AST, or say the parser tree, to generate the equivalent js code,
 in a very customizable way. After all of these steps, we easily use
 [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
@@ -193,5 +193,7 @@ Use existing handlers by default:
 
 ## parserOptions: object
 
-Options for [`@scicave/math-parser@3`](https://github.com/scicave/math-parser).
+Options for [@scicave/math-parser][math-parser].
+
+[math-parser]: https://github.com/scicave/math-parser
 
