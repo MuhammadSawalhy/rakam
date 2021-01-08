@@ -1,4 +1,3 @@
-
 # RAKAM ➕ ➗ 📐
 
 [![NPM Package](https://img.shields.io/npm/v/rakam?color=blue)](https://npmjs.com/package/rakam "View this project on npm")
@@ -10,71 +9,90 @@
 [![Maintenance](https://img.shields.io/maintenance/yes/2021.svg)](https://github.com/scicave/rakam/graphs/commit-activity)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-
-Rakam or (رقم) in Arabic, which means "number". This is a math library, one of the reasons to
+Rakam or (رقم) in Arabic, which means "number". This is a math(s) library, one of the reasons to
 give this package a try is that, the **_performance_** is the main goal. As some great projects
-such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__
-calculations in tons of iterations to generate the graph. The need of such an open-source project
+such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com) make __intense__ calculations in tons of iterations to generate the graph. The need of such an open-source project
 cares about these situations arises, don't forget to contribute by raising an issue at github or
 optimizing some algorithms 🚀.
 
-## Features
+# Features
+- Some helpful special maths functions in [core](#core). 
 - Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
 - Parse math expression.
 - The same for latex.
 - Convert between latex and math expression.
-- Geometric shapes and properties and intersections: now [lines](#lines) are available.
-- Get a float number as a numerator over a denominator `{ s: sign<1|-1>, n: integer, d: integer }`.
-- As well as getting the quotient, the reminder and the denominator of a fraction, `{ s: sign<1|-1>, q: integer, r: integer, d: integer }`. AKA: quotient is the whole number, and the decimal part will be converted to a numerator and a denomerator. 
+- Geometric shapes and properties and intersections: [lines](#lines) and [circles](#circles) are available now.
+- Use it harmony with other packages such as [fraction.js](https://github.com/infusion/Fraction.js/).
 
 > You can get and import any of Rakam's APIs directly, saving load time and bundle size.
 
-## Documentations tree (API)
-- core
-  lcm, gcd, lcm2, gcd2, dist, constrain, trunc, toFixed, random, randomInt
-- engine
-  - [math2js][engine-math2js]
-  - math2latex
-  - mathParser
-  - latexParser
-  - latex2js
-  - latex2math
-- geometry
-  - [angles][geometry-angles]
-  - [lines][geometry-lines]
-- [fraction][fraction]
+# Table Of Content
 
+<!--ts-->
+   * [RAKAM <g-emoji class="g-emoji" alias="triangular_ruler" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d0.png">📐</g-emoji>](#rakam---)
+   * [Features](#features)
+   * [Table Of Content](#table-of-content)
+   * [Use It](#use-it)
+   * [engine](#-engine)
+      * [math2js](#math2js)
+   * [geometry](#-geometry)
+      * [angles](#angles)
+      * [lines](#lines)
+      * [circles](#circles)
+   * [fraction](#-fraction)
+   * [License](#-license)
 
-## Usage
+<!-- Added by: ms, at: Fri Jan  8 05:12:19 EET 2021 -->
 
-### Browser
+<!--te-->
+
+# Use It
+
+Browser.
 
 ```html
-<!-- contain url for source-maps -->
 <script src="https://cdn.jsdelivr.net/npm/rakam/main/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rakam/main/index.min.js"></script>
 ```
 
-### Node.js, or with a bundler
+`Nodejs`, or import then bundle.
 
 ```sh
 ❯ npm i rakam
 ```
 
-<!-- 
+# API
 
-# 🤝 Contribution
+## core
 
- -->
 
 ## 🛠 engine
 
-### math2js
 <!-- CAUTION: the same as the description in the documentations -->
 
-Rakam uses [@scicave/math-parser](https://npmjs.com/package/@scicave/math-parser) library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
+### math2js
+
+Rakam uses [@scicave/math-parser][math-parser] library to parse math expression, then handle the AST, or say the parser tree, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
 See documentations for more about [math2js][engine-math2js].
+
+###  math2latex
+
+To convert ASCII-math expressions into latex representation. Let me rephrase it, `12sinx*2/3` => `12\sin{x} \cdot \frac{2}{3}`.
+
+See documentations for more about [math2latex][engine-math2latex].
+
+###  latex2js
+
+Rakam uses [@scicave/math-latex-parser](https://npmjs.com/package/@scicave/math-latex-parser) library to parse latex expression. expression, then handle the AST, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
+
+See documentations for more about [latex2js][engine-latex2js].
+
+### latex2math
+
+To convert latex expressions into ASCII-math expressions. Let me rephrase it, `12\sin x\cdot\frac 23` =>  `12sin(x) * 2 / 3`.
+
+See documentations for more about [latex2math][engine-latex2math].
 
 
 ## 📐 geometry
@@ -90,25 +108,34 @@ You can:
 - Calculate the angle in degree (as float number), and get it as `{deg: number, min: number, sec: number}`, degree, minutes and seconds respectively.
 - Or get it as `12° 26' 53.48"`
 
-
 Documentations: [angles][geometry-angles].
-
 
 ### lines
 
 You can:
 - Get a line equation parameters: "a", "b" and "c" in `ax + by + c = 0 `.
-- Get the 2 lines intersection point.
+- Get the intersection points between lines and any other geometric shape such as circles.
 - Project a point onto a line.
-- Get the distance between a point ad a line.
+- Get the distance between a point and a line.
 
 Documentations: [lines][geometry-lines].
 
+### circles
+
+You can:
+
+- Get a line equation parameters: "h", "k" and "r" in `(x-h)^2 + (y-k)^2 = r^2 `.
+- Get the intersection points between circles and any other geometric shape such as lines.
+- Project a point onto a circle.
+- Get the distance between a point and a line.
+
+Documentations: [circles][geometry-circles].
+
 ## ➗ fraction
 
-Documentation: [fraction][fraction].
+In order to adhere to the universal law "DON'T reinvent the wheel", [fraction.js](https://github.com/infusion/Fraction.js/) is a great and fast library to do computations on fractions. You can also use it with harmony with Rakam, see `math2js` and `latex2js`, and the options `chain: true, chainHead: (num)=>{ new Fraction(num) }, chainMap `.
 
-## 📜 License
+# 📜 License
 
 Copyright (&copy;) 2020 sciCave™ <scicaveteam@gmail.com>
 
@@ -118,9 +145,13 @@ https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-
-
-[ engine-math2js ]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
-[ geometry-angles ]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md
-[ geometry-lines ]: https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md
-[ fraction ]: https://github.com/scicave/rakam/blob/master/docs/fraction/index.md
+[math-parser]: https://github.com/scicave/math-parser
+[math-latex-parser]: https://github.com/scicave/math-latex-parser
+[core]: https://github.com/scicave/rakam/blob/master/docs/core.md
+[engine-math2js]: https://github.com/scicave/rakam/blob/master/docs/engine/math2js.md
+[engine-math2latex]: https://github.com/scicave/rakam/blob/master/docs/engine/math2latex.md
+[engine-latex2math]: https://github.com/scicave/rakam/blob/master/docs/engine/latex2math.md
+[engine-latex2js]: https://github.com/scicave/rakam/blob/master/docs/engine/latex2js.md
+[geometry-angles]: https://github.com/scicave/rakam/blob/master/docs/geometry/angles.md
+[geometry-lines]: https://github.com/scicave/rakam/blob/master/docs/geometry/lines.md
+[geometry-circles]: https://github.com/scicave/rakam/blob/master/docs/geometry/circles.md
