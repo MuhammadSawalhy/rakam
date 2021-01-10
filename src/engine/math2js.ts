@@ -3,13 +3,14 @@ import UndefinedUsed from '../error/UndefinedUsed';
 import prepareScope from './utils/prepareScope';
 import prepareHandlers from './utils/math2js/prepareHandlers';
 import generateJs from './utils/math2js/generateJs';
+import type { Math2JsOptions } from './types'; 
 
 // the  default handler will be exported in some cases
 // TODO: ["int", "diff"]
 export const defaultHandlers = ['sum', 'gamma', 'fact'];
 
-export default function math2js(math, options, parserOptions = {}) {
-  let defaultOptions = { params: [], scope: Math, handlers: [...defaultHandlers], throwUndefError: false };
+export default function math2js(math, options: Math2JsOptions, parserOptions = {}) {
+  let defaultOptions: Math2JsOptions = { params: [], scope: Math, handlers: [...defaultHandlers], throwUndefError: false };
   options = Object.assign({}, defaultOptions, options);
 
   let params = options.params,

@@ -1,7 +1,6 @@
 import core from './core/';
 import engine from './engine/';
 import geometry from './geometry/';
-import frac from './fraction/';
 import error from './error/';
 
 import vector from './vector';
@@ -17,8 +16,6 @@ export default {
   engine,
 
   geometry,
-
-  frac,
 
   error,
 

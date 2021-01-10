@@ -8,6 +8,7 @@ import latex2math from './latex2math.js';
 
 // export all function as default wraped in object
 export default {
+  
   mathParser,
   math2js,
   math2latex,
@@ -15,4 +16,5 @@ export default {
   texParser,
   latex2js,
   latex2math,
+
 };
