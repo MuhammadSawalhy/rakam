@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/scicave/rakam#readme",
   "scripts": {
-    "start": "npx gulp cjs-watch",
+    "start": "gulp cjs-watch",
     "build": "gulp build:cjs",
     "format": "prettier --write {src,tests}/**/*.js",
     "lint": "eslint src/ --fix",
@@ -72,13 +72,13 @@
     "jest": "^26.4.2",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.26.11",
+    "rollup": "^2.36.1",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^3.0.0",
+    "@scicave/math-parser": "^4.0.0",
     "fraction.js": "^4.0.12"
   }
 }
