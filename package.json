@@ -64,6 +64,8 @@
     "@babel/preset-env": "^7.11.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
     "babel-plugin-add-module-exports": "^1.0.4",
     "cross-env": "^7.0.2",
     "eslint": "^7.17.0",
@@ -78,7 +80,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^4.0.0",
+    "@scicave/math-parser": "^4.1.1",
     "fraction.js": "^4.0.12"
   }
 }
