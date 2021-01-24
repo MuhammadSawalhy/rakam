@@ -1,54 +1,59 @@
-export default function generateJs(parserTree, { params, scope, handlers, undef, header }) {
+import MathParserNode from '@scicave/math-parser/lib/Node';
+import { Math2JsHandlingOptions } from '../../types';
+
+export default function generateJs(parserTree: MathParserNode, options: Math2JsHandlingOptions) {
+  let { params, scope, handlers } = options;
+
   for (let h of handlers) {
     if (h.test(parserTree)) {
-      return h.handle(parserTree, { params, scope, handlers, undef, header });
+      return h.handle(parserTree, options);
     }
   }
 
   if (parserTree.checkType('number')) {
     return parserTree.value;
   } else if (parserTree.checkType('id')) {
-    return getScopedId(parserTree.name, { params, scope, handlers, undef, header });
+    return getScopedId(parserTree.name, options);
   } else if (parserTree.checkType('member expression')) {
     let obj, mem;
     // parserTree.args[0] may be another member expression
     if (parserTree.args[0].checkType('id') || parserTree.args[0].checkType('function')) {
-      obj = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+      obj = generateJs(parserTree.args[0], options);
     }
     if (parserTree.args[1].checkType('id')) {
       mem = parserTree.name;
     } else if (parserTree.args[1].checkType('function')) {
       // this is the samp algorithm in generateJs of type function here below.
-      let args = generateJs(parserTree.args[1].args[0], { params, scope, handlers, undef, header });
+      let args = generateJs(parserTree.args[1].args[0], options);
       let name = parserTree.args[1].name;
       if (parserTree.args[0].check({ type: 'block', name: '()' })) return `${name}${args}`;
       mem = `${name}(${args})`;
-      generateJs(parserTree.args[1], { params, scope, handlers, undef, header });
+      generateJs(parserTree.args[1], options);
     } else {
       throw new Error('unexpected error happend!');
     }
 
     return obj + '.' + mem;
   } else if (parserTree.checkType('function')) {
-    let args = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
-    let name = getScopedId(parserTree.name, { params, scope, handlers, undef, header });
+    let args = generateJs(parserTree.args[0], options);
+    let name = getScopedId(parserTree.name, options);
     if (parserTree.args[0].check({ type: 'block', name: '()' })) return `${name}${args}`;
     return `${name}(${args})`;
   } else if (parserTree.check({ type: 'block', name: '()' })) {
     let opening = '(',
       closing = ')';
-    return opening + generateJs(parserTree.args[0], { params, scope, handlers, undef, header }) + closing;
+    return opening + generateJs(parserTree.args[0], { params, scope, handlers, throwUndefError, header }) + closing;
   } else if (parserTree.check({ type: 'automult' })) {
-    let left = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
-    let right = generateJs(parserTree.args[1], { params, scope, handlers, undef, header });
+    let left = generateJs(parserTree.args[0], { params, scope, handlers, throwUndefError, header });
+    let right = generateJs(parserTree.args[1], { params, scope, handlers, throwUndefError, header });
     let op = '*';
     return left + ' ' + op + ' ' + right;
   } else if (parserTree.check({ type: 'operator', operatorType: 'postfix' })) {
-    let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+    let arg = generateJs(parserTree.args[0], { params, scope, handlers, throwUndefError, header });
     return arg + parserTree.name;
   } else if (parserTree.check({ type: 'operator', operatorType: 'infix' })) {
-    let left = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
-    let right = generateJs(parserTree.args[1], { params, scope, handlers, undef, header });
+    let left = generateJs(parserTree.args[0], { params, scope, handlers, throwUndefError, header });
+    let right = generateJs(parserTree.args[1], { params, scope, handlers, throwUndefError, header });
     let op = parserTree.name;
 
     switch (parserTree.name) {
@@ -58,12 +63,12 @@ export default function generateJs(parserTree, { params, scope, handlers, undef,
     }
     return left + ' ' + op + ' ' + right;
   } else if (parserTree.check({ type: 'operator', operatorType: 'unary' })) {
-    let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
+    let arg = generateJs(parserTree.args[0], options);
     return parserTree.name + arg;
   } else if (parserTree.checkType('delimiter')) {
     let args = [];
     for (let arg of parserTree.args) {
-      args.push(generateJs(arg, { params, scope, handlers, undef, header }));
+      args.push(generateJs(arg, options));
     }
     return args.join(parserTree.name + ' ');
   } else {
@@ -71,10 +76,12 @@ export default function generateJs(parserTree, { params, scope, handlers, undef,
   }
 }
 
-function getScopedId(id, { params, scope, undef, header }) {
+function getScopedId(id, options: Math2JsHandlingOptions) {
+  let { params, scope, undefs, header } = options;
+
   if (header.addedFuncs.indexOf(id) > -1 || header.addedVars.indexOf(id) > -1) {
-    throw new Error(`identifier "${id} is used internally before, please change it"`);
-  } else if (!scope || params.find((param) => id === param)) {
+    throw new Error(`identifier "${id}" is used internally and auto-generated, please change it`);
+  } else if (!scope || params.indexOf(id) > -1) {
     return id;
   }
 
@@ -84,7 +91,7 @@ function getScopedId(id, { params, scope, undef, header }) {
   else if (scope instanceof Array) {
     let found = false;
     for (let i = 0; i < scope.length; i++) {
-      if (typeof scope[i] === 'object' && Object.prototype.hasOwnProperty.call(scope[i], id)) {
+      if (typeof scope[i] === 'object' && id in scope[i]) {
         found = true;
       } else if (typeof scope[i] === 'function') {
         if (scope[i](id) !== undefined) {
@@ -93,15 +100,17 @@ function getScopedId(id, { params, scope, undef, header }) {
       }
     }
     if (!found) {
-      undef.vars.push(id);
+      undefs.vars.push(id);
     }
     // __scicave_rakam_getId__ is a function in header array iterating throw all scopes
+    // no need for JSON.stringify abecause math-parser parses valid identifer names for js
     return `__scicave_rakam_getId__('${id}')`;
   } else if (typeof scope === 'function') {
     // __scicave_rakam_getId__ is the outer function parameter instead of scope by default
     return `__scicave_rakam_getId__('${id}')`;
   } else if (typeof scope === 'object') {
-    // scope is the passed object to math2js or by default is Math
+    // "scope" will be available as a parameter for the wrapping function
+    // the wrappign function returns another function to be evaluated
     return 'scope.' + id;
   } else if (scope === null) {
     return id;
