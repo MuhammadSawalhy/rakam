@@ -1,17 +1,17 @@
-import addToHeader from '../../addToHeader';
+import { Math2JsHandler } from '../../../types';
 import generateJs from '../generateJs';
 
-export default {
+const intHandler: Math2JsHandler = {
   test(node) {
-    return node.check({ type: 'operator', operatorType: 'postfix', name: '!' });
+    return node.check({ type: "operator", operatorType: "postfix", name: "!" });
   },
 
-  handle(parserTree, { params, scope, handlers, undef, header }) {
+  handle(parserTree, options) {
     // adding function fact to header
-    addToHeader.fact();
-
-    let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
-    if (parserTree.args[0].check({ type: 'block', name: '()' })) return `__scicave_rakam_fact__${arg}`;
+    options.header.add.fact();
+    let arg = generateJs(parserTree.args[0], options);
     return `__scicave_rakam_fact__(${arg})`;
   },
 };
+
+export default intHandler;

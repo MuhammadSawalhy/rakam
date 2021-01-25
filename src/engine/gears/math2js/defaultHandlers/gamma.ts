@@ -1,16 +1,17 @@
-import addToHeader from '../../addToHeader';
+import { Math2JsHandler } from '../../../types';
 import generateJs from '../generateJs';
 
-export default {
+const intHandler: Math2JsHandler = {
   test(node) {
-    return node.check({ type: 'function', name: 'gamma' });
+    return node.checkType('function') && (node.name === 'gamma');
   },
 
-  handle(parserTree, { params, scope, handlers, undef, header }) {
-    // adding function fact to header
-    addToHeader.gamma();
-    let arg = generateJs(parserTree.args[0], { params, scope, handlers, undef, header });
-    if (parserTree.args[0].check({ type: 'block', name: '()' })) return `__scicave_rakam_gamma__${arg}`;
+  handle(parserTree, options) {
+    // adding function gamma to header
+    options.header.add.gamma();
+    let arg = generateJs(parserTree.args[0], options);
     return `__scicave_rakam_gamma__(${arg})`;
   },
 };
+
+export default intHandler;

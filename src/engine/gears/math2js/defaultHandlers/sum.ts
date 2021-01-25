@@ -1,5 +1,4 @@
-import randomName from '../../../../utils/randomName';
-import { Math2JsHandler } from '../../../types';
+import { Math2JsHandler, Math2JsHandlingOptions } from '../../../types';
 import generateJs from '../generateJs';
 
 const sumHandler: Math2JsHandler = {
@@ -7,46 +6,35 @@ const sumHandler: Math2JsHandler = {
     return node.check({ type: 'function', name: 'sum' });
   },
 
-  handle(parserTree, options) {
-    let { params, scope, handlers, throwUndefError } = options;
-    // check validity of sum arguments
-    let delimiter;
+  handle(parserTree, options: Math2JsHandlingOptions) {
+    // parserTree.args: [expr, var, from, to]
+    let { params, header } = options;
 
-    if (
-      !(
-        parserTree.args[0] &&
-        parserTree.args[0].check({ type: 'block', name: '()' }) &&
-        (delimiter = parserTree.args[0].args[0]) &&
-        delimiter.check({ type: 'delimiter', name: ',' }) &&
-        delimiter.args.length === 4 &&
-        delimiter.args[1].checkType('id')
-      )
-    ) {
+    // check validity of sum arguments
+    if (!(parserTree.args[0] && parserTree.args.length === 4 && parserTree.args[1].checkType('id'))) {
       throw new Error('sum function has invalid arguments: "' + parserTree.match.text + '"');
     }
 
-    let sumVar, sumExpr, newParams, start, end, headerFuncName, _sum;
+    let sumVar: string, sumExpr: string, start: string, end: string, headerFuncName: string, sumFunc: string[];
 
-    sumVar = delimiter.args[1].name;
-    newParams = [...params];
-    newParams.push(sumVar);
-    sumExpr = generateJs(delimiter.args[0], options);
-    start = generateJs(delimiter.args[2], options);
-    end = generateJs(delimiter.args[3], options);
+    sumVar = parserTree.args[1].name;
+    sumExpr = generateJs(parserTree.args[0], options);
+    start = generateJs(parserTree.args[2], options);
+    end = generateJs(parserTree.args[3], options);
 
-    headerFuncName = `__scicave_rakam_${randomName()}__`;
-    _sum = [
+    headerFuncName = header.getRandomId();
+    sumFunc = [
       `function ${headerFuncName}(${params.join(', ')}){`,
-      '  let _ = 0',
+      '  let _ = 0;',
       `  for(var ${sumVar} = ${start}; ${sumVar} <= ${end}; ${sumVar}++){`,
       `    _ += ${sumExpr};`,
       '  }',
       '  return _; ',
       '}',
     ];
-    header.push(..._sum);
 
-    header.addedFuncs.push(headerFuncName);
+    header.pushLines(...sumFunc);
+    header.declaredFuncs.push(headerFuncName);
     return headerFuncName + '(' + params.join(', ') + ')';
   },
 };
