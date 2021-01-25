@@ -2,9 +2,9 @@
 
 import latexParser from '@scicave/math-latex-parser';
 import UndefinedUsed from '../error/UndefinedUsed';
-import prepareScope from './utils/prepareScope';
-import prepareHandlers from './utils/latex2js/prepareHandlers';
-import generateJs from './utils/latex2js/generateJs';
+import prepareScope from './gears/prepareScope';
+import prepareHandlers from './gears/latex2js/prepareHandlers';
+import generateJs from './gears/latex2js/generateJs';
 
 // the  default handler will be exported in some cases
 // TODO: ["int", "diff"]

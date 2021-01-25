@@ -1,6 +1,5 @@
 /* eslint-disable-file no-unused-vars */
 import addToHeader from '../addToHeader';
-import randomName from '../../../utils/randomName.js';
 import generateJs from './generateJs.js';
 
 export default function prepareHandlers(handlers) {

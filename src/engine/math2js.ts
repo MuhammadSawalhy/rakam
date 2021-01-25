@@ -1,11 +1,24 @@
-import UndefinedUsed from '../error/UndefinedUsed';
+import MathParserNode from '@scicave/math-parser/lib/Node';
+import mathParser from '@scicave/math-parser';
+import UndefinedUsed from '../errors/UndefinedUsed';
 import prepareScope from './gears/prepareScope';
 import generateJs from './gears/math2js/generateJs';
 import defaultHandlers from './gears/math2js/defaultHandlers';
-import type { Math2JsHandlingOptions, Math2JsOptions } from './types';
+import type { Math2JsHandlingOptions, Math2JsOptions, Math2JsResult } from './types';
 import HeaderUtils from './gears/HeaderUtils';
 
-export default function math2js(math: string | MathParserNode, options: Math2JsOptions = {}, parserOptions = {}) {
+/**
+ * generate optimized compiled js function from
+ * math expression or AST from @scicave/math-parser
+ * @param math parsed or raw math expression
+ * @param options math2js options, Math2JsOptions
+ * @returns { eval: Function, code: string }
+ */
+export default function math2js(
+  math: string | MathParserNode,
+  options: Math2JsOptions = {},
+  parserOptions = {}
+): Math2JsResult {
   let defaultOptions: Math2JsOptions = {
     params: [],
     scope: Math,
@@ -15,10 +28,16 @@ export default function math2js(math: string | MathParserNode, options: Math2JsO
 
   options = Object.assign(defaultOptions, options);
 
-  let { params, scope, handlers, header, throwUndefError } = options;
+  parserOptions = Object.assign(parserOptions, {
+    keepParen: true,
+  });
+
+  let { params, scope, handlers, throwUndefError } = options;
 
   // parse if it is a string, we need AST
-  let ast: MathParserNode = typeof math === 'string' ? mathParser.parse(math, parserOptions) : math;
+  let ast: MathParserNode = typeof math === 'string'
+  ? mathParser.parse(math, parserOptions)
+  : math;
 
   // to know the undefined scope varaibles and functions found in the math expression
   // this have use-cases, e.g., some thing like:
@@ -28,11 +47,15 @@ export default function math2js(math: string | MathParserNode, options: Math2JsO
     funcs: [],
   };
 
-  // create HeaderUtils instance to manage code inside the outer function 
+  // create HeaderUtils instance to manage code inside the outer function
   let headerUtils = new HeaderUtils(options);
 
   let handlingOptions: Math2JsHandlingOptions = {
-    params, scope, header: headerUtils, undefs, handlers
+    params,
+    scope,
+    header: headerUtils,
+    undefs,
+    handlers,
   };
 
   // the argument to be passed to func, the outer function
@@ -44,8 +67,7 @@ export default function math2js(math: string | MathParserNode, options: Math2JsO
   let jsExpr = generateJs(ast, handlingOptions);
 
   if (undefs.vars.length || undefs.funcs.length) {
-    if (throwUndefError)
-      throw new UndefinedUsed('trying to use undefined variables.', undefs);
+    if (throwUndefError) throw new UndefinedUsed('trying to use undefined variables.', undefs);
     // we filter repeated ids
     undefs.vars = undefs.vars.reduce((set: Set<string>, id: string) => {
       set.add(id);
@@ -57,11 +79,9 @@ export default function math2js(math: string | MathParserNode, options: Math2JsO
       set.add(id);
       return set;
     }, new Set());
-
   }
 
-  let code = 
-    `${headerUtils.getCode()}\n  return (${params.join(', ')})=>${jsExpr};`;
+  let code = `${headerUtils.getCode()}\n  return (${params.join(', ')})=>${jsExpr};`;
 
   // using function instead of eval, see
   // https://rollupjs.org/guide/en/#avoiding-eval
@@ -74,6 +94,7 @@ export default function math2js(math: string | MathParserNode, options: Math2JsO
   return {
     eval: func(...outerFuncArgs),
     code: `(${params.join(', ')})=>{\n${code}\n}`,
+    undefs
   };
 }
 

@@ -38,6 +38,11 @@ export interface Math2JsOptions {
   throwUndefError?: boolean;
 }
 
+export interface Math2JsResult {
+  eval: (...args: any[])=>number;
+  code: string;
+  undefs: { vars: string[], funcs: string[] };
+}
 
 //-----------------------//
 //----   latex2js    ----//
