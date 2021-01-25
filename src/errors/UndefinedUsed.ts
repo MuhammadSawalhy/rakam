@@ -4,6 +4,9 @@
  * get compile js function from math or latex
  */
 export default class UndefinedUsed extends Error {
+  vars: string[];
+  funcs: string[];
+
   constructor(message, undef) {
     super(message);
     this.vars = undef.vars;
