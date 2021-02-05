@@ -80,7 +80,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@scicave/math-latex-parser": "^1.1.1",
-    "@scicave/math-parser": "^4.1.1",
+    "@scicave/math-parser": "^4.2.1",
     "fraction.js": "^4.0.12"
   }
 }
