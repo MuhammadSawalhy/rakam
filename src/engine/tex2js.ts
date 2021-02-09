@@ -3,8 +3,8 @@
 import latexParser from '@scicave/math-latex-parser';
 import UndefinedUsed from '../error/UndefinedUsed';
 import prepareScope from './gears/prepareScope';
-import prepareHandlers from './gears/latex2js/prepareHandlers';
-import generateJs from './gears/latex2js/generateJs';
+import prepareHandlers from './gears/tex2js/prepareHandlers';
+import generateJs from './gears/tex2js/generateJs';
 
 // the  default handler will be exported in some cases
 // TODO: ["int", "diff"]
