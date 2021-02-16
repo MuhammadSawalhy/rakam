@@ -1,7 +1,7 @@
 import core from './core/';
 import engine from './engine/';
 import geometry from './geometry/';
-import error from './error/';
+import error from './errors/';
 
 import vector from './vector';
 import matrix from './matrix';
