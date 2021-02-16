@@ -19,6 +19,19 @@ let fn = math2js(math, options, parserOptions);
 console.log(fn); 
 ```
 
+## Table of content
+
+<!--ts-->
+- [math2js](#math2js)
+  - [Table of content](#table-of-content)
+  - [Limitations](#limitations)
+  - [math](#math)
+  - [options](#options)
+    - [options.scope](#optionsscope)
+    - [options.handlers](#optionshandlers)
+  - [parserOptions: object](#parseroptions-object)
+<!--te-->
+
 ## Limitations
 
 Actually, you can use [handlers](#options.handlers) to defeat these limitations. The following expressions can be parsed but they have special use cases, it is better to create articulated handlers in these cases.  
@@ -27,6 +40,9 @@ Actually, you can use [handlers](#options.handlers) to defeat these limitations.
 - Matrices: `[ 1, 2; 3, 4 ]`.
 - Ellipsis: `f(1,2,...,6)`.
 - Sets: `{ 1, 2, ..., 6 }`.
+
+<!--ts-->
+<!--te-->
 
 ## math
 
@@ -39,70 +55,69 @@ A maths expression to be parsed with math-parser.
 ### options.scope
 Type: `Scope = Object | Function | Array<Scope> `, Default: `Math`, to get the best performance, don't pass an array.
 
-- passing array of scopes
+```js
+let { engine } = require('rakam');
+let math = 'y t -sinx +z';
+let scope = [
+  { t: 1, x: 180, },
+  { x: 3, y: 4 },
+  function getId(id){
+    let vars = { z: 1, sin(x){ return Math.sin(x*Math.PI/180) } };
+    return vars[id];
+  }
+];
 
-  ```js
-  let { engine } = require('rakam');
-  let math = 'y t -sinx +z';
-  let scope = [
-    { t: 1, x: 180, },
-    { x: 3, y: 4 },
-    function getId(id){
-      let vars = { z: 1, sin(x){ return Math.sin(x*Math.PI/180) } };
-      return vars[id];
+let generatedJs = engine.math2js(math, { scope });
+
+// testing the result!
+console.log(generatedJs.eval());
+// y t -sinx +z     ///////////
+// 4 * 1 - Math.sin(Math.PI) + 1
+// === 5            ///////////
+```
+
+<details><summary>This happens behind the scene:</summary>
+
+```js
+// behind the scene
+let scope = [
+  { t: 1, x: 180, },
+  { x: 3, y: 4 },
+  function getId(id){
+    let vars = { z: 1, sin(x){ return Math.sin(x*Math.PI/180) } };
+    return vars[id];
+  }
+];
+
+generatedJs.eval = (function anonymous(scope) {
+  function __scicave_rakam_getId__(id) {
+    if (typeof scope[0] === 'object' && scope[0].hasOwnProperty(id)) {
+      return scope[0][id];
     }
-  ];
-  let generatedJs = engine.math2js(math, { scope });
-
-  // testing the result!
-  console.log(generatedJs.eval());
-  // y t -sinx +z     ///////////
-  // 4 * 1 - Math.sin(Math.PI) + 1
-  // === 5            ///////////
-  ```
-
-  <details><summary>This happens behind the scene:</summary>
-
-  ```js
-  // behind the scene
-  let scope = [
-    { t: 1, x: 180, },
-    { x: 3, y: 4 },
-    function getId(id){
-      let vars = { z: 1, sin(x){ return Math.sin(x*Math.PI/180) } };
-      return vars[id];
+    else if (typeof scope[0] === 'function' && (a = scope[0](id)) && a !== undefined) {
+      return a;
     }
-  ];
-
-  generatedJs.eval = (function anonymous(scope) {
-    function __scicave_rakam_getId__(id) {
-      if (typeof scope[0] === 'object' && scope[0].hasOwnProperty(id)) {
-        return scope[0][id];
-      }
-      else if (typeof scope[0] === 'function' && (a = scope[0](id)) && a !== undefined) {
-        return a;
-      }
-      else if (typeof scope[1] === 'object' && scope[1].hasOwnProperty(id)) {
-        return scope[1][id];
-      }
-      else if (typeof scope[1] === 'function' && (a = scope[1](id)) && a !== undefined) {
-        return a;
-      }
-      else if (typeof scope[2] === 'object' && scope[2].hasOwnProperty(id)) {
-        return scope[2][id];
-      }
-      else if (typeof scope[2] === 'function' && (a = scope[2](id)) && a !== undefined) {
-        return a;
-      }
-      else {
-        throw new Error('the scope array has no valid scope in it.');
-      }
+    else if (typeof scope[1] === 'object' && scope[1].hasOwnProperty(id)) {
+      return scope[1][id];
     }
-    return ()=>__scicave_rakam_getId__('y') * __scicave_rakam_getId__('t') - __scicave_rakam_getId__('sin')(__scicave_rakam_getId__('x')) + __scicave_rakam_getId__('z');
-  })(scope);
-  ```
-  
-  </details>
+    else if (typeof scope[1] === 'function' && (a = scope[1](id)) && a !== undefined) {
+      return a;
+    }
+    else if (typeof scope[2] === 'object' && scope[2].hasOwnProperty(id)) {
+      return scope[2][id];
+    }
+    else if (typeof scope[2] === 'function' && (a = scope[2](id)) && a !== undefined) {
+      return a;
+    }
+    else {
+      throw new Error('the scope array has no valid scope in it.');
+    }
+  }
+  return ()=>__scicave_rakam_getId__('y') * __scicave_rakam_getId__('t') - __scicave_rakam_getId__('sin')(__scicave_rakam_getId__('x')) + __scicave_rakam_getId__('z');
+})(scope);
+```
+
+</details>
 
 ### options.handlers
 Type: `Array<Handler>`, Default: `["sum", "fact", "gamma"]`.

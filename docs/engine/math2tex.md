@@ -23,25 +23,25 @@ Examples:
 | ----------------------- | --------------------------- | ----------------- |
 | `3abc`                  | `3 \cdot a \cdot b \cdot c` | `autoMult: false` |
 | `3abc`                  | `3 * a * b * c` | `autoMult: false, cdot: false` |
-| `sinx`                  | `\sin{x}`                   |                   |
-| `1+ (sinx)/(tany) >= 6` | `1 + \frac{\sin{x}}{\tan{y}} \geq 6` |                   |
-| `[1,2,3; 4,5,6]` | `\begin{matrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{matrix}` | `matrixType: "matrix"` |
-| `(x,y,z)` | `\left(x, y, z\right)` |  |
+| `sinx`| `\sin{x} ` ||
+| `1+ (sinx)/(tany) >= 6` | `1 + \frac{\sin{x}}{\tan{y}} \geq 6` ||
+| `[1,2,3; 4,5,6]` | `\begin{matrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{matrix} ` | `matrixType: "matrix"` |
+| `(x,y,z)` | `\left(x, y, z\right) ` |  |
 
 ## math
 
-Type: `string`.
+Type: `string | mathParser.Node`.
 
 A maths expression that can be parsed by [math-parser][math-parser].
 
 ## options
 Type: `Math2LatexOptions`.
 ```typescript
-type Math2LatexOptions = {
-    autoMult: boolean, // default `true`
-    cdot: boolean, // default `true`
-    matrixType: "matrix" | "pmatrix" | "bmatrix", // default `"bmatrix"`
-};
+interface Math2LatexOptions {
+    autoMult: boolean; // default `true`
+    cdot: boolean; // default `true`
+    matrixType: "matrix" | "pmatrix" | "bmatrix"; // default `"bmatrix"`
+}
 ```
 
 * `autoMult`: to output latex with multiplication operator `\cdot`, or keep them auto-multiplied.
