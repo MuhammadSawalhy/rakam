@@ -1,4 +1,8 @@
 import trunc from '../../core/trunc';
+import type { TypeVector } from '../../Vector';
+import type { Angles } from './index';
+
+type DMSType = { deg: number; min: number; sec: number };
 
 export const angleTypes = {
   RAD: 'rad',
@@ -7,60 +11,46 @@ export const angleTypes = {
   GRAD: 'gradian',
 };
 
-//#region conversions
+
+//--------------------------------//
+//          conversions           //
+//--------------------------------//
 
 /**
  * Calculate gons (gradians) from current angle and SCALE
- *
- * @param {number} n
- * @returns {number}
  */
-export function toGrad(n) {
+export function toGrad(this: Angles, n: number): number {
   // https://en.wikipedia.org/wiki/Gradian
   return n / this.__GON_TO_SCALE;
 }
 
 /**
  * Calculate angle from gons (gradians) unit
- *
- * @param {number} n
- * @returns {number}
  */
-export function fromGrad(n) {
+export function fromGrad(this: Angles, n: number): number {
   // https://en.wikipedia.org/wiki/Gradian
   return n * this.__GON_TO_SCALE;
 }
 
 /**
  * Calculate angle from gons (gradians) unit
- *
- * @param {number} n
- * @returns {number}
  */
-export function fromGon(n) {
+export function fromGon(this: Angles, n: number): number {
   // https://en.wikipedia.org/wiki/Gradian
   return n * this.__GON_TO_SCALE;
 }
 
 /**
  * Calculate angle from degree unit
- *
- * @param {number} n
- * @returns {number}
  */
-export function fromDeg(n) {
-  // https://en.wikipedia.org/wiki/Gradian
+export function fromDeg(this: Angles, n: number): number {
   return n * this.__DEG_TO_SCALE;
 }
 
 /**
  * Calculate angle from radian unit
- *
- * @param {number} n
- * @returns {number}
  */
-export function fromRad(n) {
-  // https://en.wikipedia.org/wiki/Gradian
+export function fromRad(this: Angles, n: number): number {
   return n * this.__RAD_TO_SCALE;
 }
 
@@ -68,87 +58,97 @@ export function fromRad(n) {
 
 /**
  * Know whether 2 angles are equivalent or not
- * @param {number} a1 1st angles
- * @param {number} a2 2nd angle
- * @return {boolean}
  */
-export function equals(a1, a2) {
-  a1 = a1 % this['__SCALE'];
-  a2 = a2 % this['__SCALE'];
-  return a2 >= a1 - this['EPSILON'] && a1 >= a2 - this['EPSILON'];
+export function equals(this: Angles, a1: number, a2: number): boolean {
+  a1 = a1 % this.__SCALE;
+  a2 = a2 % this.__SCALE;
+  return a2 >= a1 - this.EPSILON && a1 >= a2 - this.EPSILON;
 }
 
 /**
  * returns angle between 0 and SCALE (one round)
- * returns the smaller angle between two vectors or lines
- * @param {vector} p1 instanceof vector or {x: ___, y: ___},
- * @param {vector} p2 instanceof vector or {x: ___, y: ___};
- * @param {object} options instanceof "Object" that defines "type" which is "verctors" or "lines"
+ * returns the minimal angle between two vectors or lines
  */
-export function minAngle(p1, p2, { type = 'vectors' } = {}) {
-  if (type === 'vectors') {
-    // dot product devided by product if the magnitude
-    // dot product = (p1.x*p2.x + p1.y*p2.y)
-    // the dot product of 2 vectors = mag(p1) * mag(p2) * cos(the angle between these 2 vectors)
-    // let s = (p1.x * p2.x + p1.y * p2.y) / ((p1.x ** 2 + p1.y ** 2) * (p2.x ** 2 + p2.y ** 2)) ** 0.5;
-    // there may be a tiny float error, so let make sure it is valid
-    // return Math.acos(constrain(Math.abs(s), 0, 1)) * this.__RAD_TO_SCALE;
-
-    return this.distance(Math.atan2(p1.y, p1.x) * this.__RAD_TO_SCALE, Math.atan2(p2.y, p2.x) * this.__RAD_TO_SCALE);
-  } else if (type === 'lines') {
-    let a = this.minAngle(p1, p2);
+export function minAngle (
+  this: Angles,
+  p1: TypeVector,
+  p2: TypeVector,
+  { type = 'vectors' } = {}
+): number {
+  if (type === 'lines') {
+    const a = this.minAngle(p1, p2);
     return Math.min(a, this.__HALF_SCALE - a); // notice that {(a) and (Math.PI - a)} are always positive.
   }
+    
+  // dot product devided by product if the magnitude
+  // dot product = (p1.x*p2.x + p1.y*p2.y)
+  // the dot product of 2 vectors = mag(p1) * mag(p2) * cos(the angle between these 2 vectors)
+  // let s = (p1.x * p2.x + p1.y * p2.y) / ((p1.x ** 2 + p1.y ** 2) * (p2.x ** 2 + p2.y ** 2)) ** 0.5;
+  // there may be a tiny float error, so let make sure it is valid
+  // return Math.acos(constrain(Math.abs(s), 0, 1)) * this.__RAD_TO_SCALE;
+
+  return this.distance(
+    Math.atan2(p1.y, p1.x) * this.__RAD_TO_SCALE,
+    Math.atan2(p2.y, p2.x) * this.__RAD_TO_SCALE
+  );
 }
 
 /**
- * returns angle between 0 and SCALE (one round)
- * returns the bigger angle between two vectors or lines
- * @param {vector} p1 instanceof vector or {x: ___, y: ___},
- * @param {vector} p2 instanceof vector or {x: ___, y: ___};
- * @param {object} options instanceof "Object" that defines "type" which is "verctors" or "lines"
+ * returns the greater angle (in [0, SCALE))
+ * between two vectors (default) or lines
  */
-export function maxAngle(p1, p2, { type = 'vectors' } = {}) {
-  if (type === 'vectors') {
-    let a1 = Math.atan2(p1.y, p1.x);
-    let a2 = Math.atan2(p2.y, p2.x);
-    return this.normalize((a1 > a2 ? a2 - a1 : a1 - a2) * this.__RAD_TO_SCALE);
-  } else if (type === 'lines') {
-    let a = this.minAngle(p1, p2);
+export function maxAngle(
+  this: Angles,
+  p1: TypeVector,
+  p2: TypeVector,
+  { type = 'vectors' }: { type?: 'vectors' | 'lines' } = {}
+) {
+  if (type === 'lines') {
+    const a = this.minAngle(p1, p2);
     return Math.max(a, this.__HALF_SCALE - a); // notice that {(a) and (Math.PI - a)} are always positive.
   }
+
+  const a1 = Math.atan2(p1.y, p1.x);
+  const a2 = Math.atan2(p2.y, p2.x);
+  return this.normalize((a1 > a2 ? a2 - a1 : a1 - a2) * this.__RAD_TO_SCALE);
 }
 
 /**
- * returns angle between 0 and SCALE (one round).
- * returns the spwan angle beteen 2 vectors or lines,
+ * returns the angle beteen 2 vectors or lines,
  * when the first turns untill reaching the other one,
- * in counterclockwise (CCW), or the other direction (CW).
- * @param {vector} p1 instanceof vector or {x: ___, y: ___},
- * @param {vector} p2 instanceof vector or {x: ___, y: ___};
- * @param {object} options instanceof '{}' that defines 'type', 'dir'.
+ * in counterclockwise (dir = 1), or the other direction (dir = -1).
  */
-export function angle(p1, p2, { type = 'vectors', dir = -1 } = {}) {
+export function angle (
+  this: Angles,
+  p1: TypeVector,
+  p2: TypeVector,
+  { type = 'vectors', dir = 1 }: { type?: 'vectors' | 'lines'; dir?: -1 | 1 } = {}
+): number {
   var a1, a2;
-  if (type === 'vectors') {
-    a1 = Math.atan2(p1.y, p1.x);
-    a2 = Math.atan2(p2.y, p2.x);
-    return this.normalize((dir === -1 || dir === '-' || dir === 'CCW' ? a2 - a1 : a1 - a2) * this.__RAD_TO_SCALE);
-  } else if (type === 'lines') {
+  if (type === 'lines') {
+    // they are lines
     a1 = this.angle(p1, p2, { type: 'vectors', dir });
     a2 = this.angle(p1, { x: -p2.x, y: -p2.y }, { type: 'vectors', dir });
-    return Math.min(a1, a2); // that is a wonderful optimization for getting the angle of rotation when you rotate the 1st line to fit it on the other one, consider the dir of rotation inside options.
+    // that is a wonderful optimization for getting the angle of rotation
+    // when you rotate the 1st line to fit it on the other one, consider
+    // the dir of rotation inside options.
+    return Math.min(a1, a2);
   }
+
+  // type === 'vectors', or maybe...
+  a1 = Math.atan2(p1.y, p1.x);
+  a2 = Math.atan2(p2.y, p2.x);
+  return this.normalize(dir * (a1 - a2) * this.__RAD_TO_SCALE);
 }
 
 /**
- * returns a float number constrined between 0 and 2*Math.PI by default
+ * returns a float number constrined between 0 and SCALE by default
  * or any other ranges you pass
- * @param {Number} angle
- * @param {Array<Number>} inTheRound the default is 0, means that the
- * given angle is arrested inside the first round from 0 to SCALE
+ * @param angle
+ * @param roundOffset ratio of the SCALE, the angle is normalized
+ * between `SCALE * roundOffset` and `SCALE * (roundOffset + 1)`
  */
-export function normalizeInside(angle, roundOffset = 0) {
+export function normalizeInside(this: Angles, angle: number, roundOffset = 0) {
   let r0 = this.__SCALE * roundOffset,
     r1 = r0 + this.__SCALE;
   angle =
@@ -165,7 +165,7 @@ export function normalizeInside(angle, roundOffset = 0) {
  * @param {Number} secAccuracy number of digits after the dicimal point of "sec"
  * @returns {Object} an object with deg (degrees), min (minutes) and sec (seconds) properities
  */
-export function degMinSec(angle, secAccuracy = 2) {
+export function degMinSec(this: Angles, angle: number, secAccuracy = 2) {
   if (!isNaN(angle)) {
     let deg = angle,
       min = 0,
@@ -196,15 +196,17 @@ export function degMinSec(angle, secAccuracy = 2) {
 
     return { deg, min, sec };
   }
-  throw new Error(`can't convert ${angle} into degrees form, please pass a valid number.`);
+  throw new Error(
+    `can't convert ${angle} into degrees form, please pass a valid number.`
+  );
 }
 
 /**
  * @param {Object | Number} angle {deg:, min:, sec:,} or angle as float number
  * @returns {String}
  */
-export function strDegMinSec(angle, secAccuracy = 2) {
-  angle = typeof angle === 'object' ? angle : degMinSec(angle, secAccuracy);
+export function strDegMinSec(this: Angles, angle: number | DMSType, secAccuracy = 2) {
+  angle = typeof angle === 'object' ? angle : this.degMinSec(angle, secAccuracy);
 
   return (
     (angle.deg ? angle.deg + this.__dmsSymbols.deg + ' ' : '') +
@@ -217,24 +219,27 @@ export function strDegMinSec(angle, secAccuracy = 2) {
  * @param {Object} degMinSec
  * @returns {Number}
  */
-export function fromDegMinSec(degMinSec) {
-  return ((degMinSec.deg + degMinSec.min / 60 + degMinSec.sec / 3600) / 360) * this.__SCALE;
+export function fromDegMinSec(this: Angles, degMinSec: DMSType) {
+  return (
+    ((degMinSec.deg + degMinSec.min / 60 + degMinSec.sec / 3600) / 360) * this.__SCALE
+  );
 }
 
-/**
- * @param {String} strDegMinSec
- * @returns {Number}
- */
-export function fromStrDegMinSec(strDegMinSec) {
+export function fromStrDegMinSec(this: Angles, strDegMinSec: string): number {
   let a;
 
-  strDegMinSec.replace(this.__dmsRegex, (str, d, m, s) => {
+  strDegMinSec.replace(this.__dmsRegex, (_, d, m, s) => {
     d = parseInt(d) || 0;
     m = parseInt(m) || 0;
     s = parseFloat(s) || 0;
     a = d + m / 60 + s / 3600;
+    return '';
   });
-  if (a === void 0) throw new Error(`the angle is not represented in degrees, minute and seconds format.`);
+
+  if (a === undefined)
+    throw new Error(
+      `the angle is not represented in degrees, minute and seconds format.`
+    );
 
   return (a / 360) * this.__SCALE; // convert to the current scale
 }

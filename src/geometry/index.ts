@@ -1,7 +1,9 @@
 import angles from './angles/';
-import Line from './2d/Line';
+import Line2D from './2d/Line';
+
+angles.normalize
 
 export default {
   angles,
-  Line,
+  Line2D,
 };

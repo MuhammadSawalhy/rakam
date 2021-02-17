@@ -3,10 +3,41 @@
  * the npm package https://www.npmjs.com/package/angles licensed under MIT OR GPL-2.0
  */
 
-import * as extend from './angles-extend.js';
-import anglesJs from './angles-external.js'; // https://www.npmjs.com/package/angles
+import * as extend from './angles-extend';
+import { anglesJs } from './angles-external'; // https://www.npmjs.com/package/angles
 
-const angles = {
+//-------------------------//
+//         types           //
+//-------------------------//
+
+export interface IAnglesPrivates {
+  __dmsRegex: RegExp,
+  __dmsSymbols: DMSSymbols;
+  __SCALE: number;
+  __HALF_SCALE: number;
+  __RAD_TO_SCALE: number;
+  __DEG_TO_SCALE: number;
+  __GON_TO_SCALE: number;
+}
+
+export interface IAnglesPublics {
+  SCALE: number;
+  EPSILON: number;
+  DMSSymbols: DMSSymbols;
+  degMinSecSymbols: DMSSymbols;
+}
+
+export type Angles =
+  (typeof anglesJs) & (typeof extend) &
+  IAnglesPrivates & IAnglesPublics
+
+export type DMSSymbols = { deg:string, min: string, sec: string };
+  
+//-------------------------//
+//       actual logic      //
+//-------------------------//
+
+const angles: Partial<Angles> = {
   ...anglesJs,
   ...extend,
 };
@@ -15,8 +46,8 @@ Object.defineProperty(angles, 'SCALE', {
   get() {
     return this.__SCALE;
   },
-  set(v) {
-    var h = v / 2;
+  set(v: number) {
+    const h = v / 2;
     this.__SCALE = v;
     this.__HALF_SCALE = h;
     this.__RAD_TO_SCALE = h / Math.PI;
@@ -25,15 +56,15 @@ Object.defineProperty(angles, 'SCALE', {
   },
 });
 
-const dmsSymbolsDesribtor = {
+const dmsSymbolsDesribtor: PropertyDescriptor & ThisType<Angles> = {
   get() {
     return this.__dmsSymbols;
   },
-  set(v) {
+  set(v: DMSSymbols) {
     this.__dmsSymbols = v;
 
-    function repRegSpecials(str) {
-      var specialSymbols = /\\|\^|\$|\[|\]|\{|\}|\(|\)|\.|\+|\*|\/|\|/g;
+    function repRegSpecials(str: string) {
+      const specialSymbols = /\\|\^|\$|\[|\]|\{|\}|\(|\)|\.|\+|\*|\/|\|/g;
       return str.replace(specialSymbols, '\\\\$0');
     }
 
@@ -52,4 +83,4 @@ angles.SCALE = 360;
 angles.EPSILON = 1e-10;
 angles.DMSSymbols = { deg: '°', min: '"', sec: "'" };
 
-export default angles;
+export default angles as Omit<Angles, keyof IAnglesPrivates>;
