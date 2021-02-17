@@ -1,15 +1,15 @@
 
-type TAngleType = "deg" | "grad" | "gon";
-export type TVector = Vector | { x: number, y: number };
+type AngleType = "deg" | "grad" | "gon" | "rad";
+export type TypeVector = Vector | { x: number, y: number };
 
 export default class Vector {
   x: number;
   y: number;
-  private _mag: number;
-  private _angle: number;
+  private _mag?: number;
+  private _angle?: number;
 
-  constructor(x: TVector | number, y?: number) {
-    if (y) {
+  constructor(x: TypeVector | number, y?: number) {
+    if (y !== undefined) {
       this.x = +x;
       this.y = y;
     } else if (typeof x === 'object') {
@@ -75,7 +75,7 @@ export default class Vector {
   /**
    * your parameter v is either vector or number.
    */
-  add(v: TVector) {
+  add(v: TypeVector) {
     this.x += v.x;
     this.y += v.y;
     this._angle = undefined; this._mag = undefined;
@@ -85,7 +85,7 @@ export default class Vector {
   /**
    * your parameter v is either vector or number.
    */
-  subtract(v: TVector) {
+  subtract(v: TypeVector) {
     this.x -= v.x;
     this.y -= v.y;
     this._angle = undefined; this._mag = undefined;
@@ -114,7 +114,7 @@ export default class Vector {
   /**
    * get the dot product of this vector and another vector
    */
-  dot(v: TVector) {
+  dot(v: TypeVector) {
     return this.x * v.x + this.y * v.y;
   }
 
