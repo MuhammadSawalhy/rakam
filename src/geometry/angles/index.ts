@@ -1,7 +1,3 @@
-/**
- * The idea of SCALE and some other methods are inspired by
- * the npm package https://www.npmjs.com/package/angles licensed under MIT OR GPL-2.0
- */
 
 import * as extend from './angles-extend';
 import { anglesJs } from './angles-external'; // https://www.npmjs.com/package/angles
