@@ -1,6 +1,6 @@
 import gcd2 from './gcd2';
 
-export default function gcd(...values) {
+export default function gcd(...values: number[]) {
   let gcd_ = values[0];
   let a = values[1];
   if (gcd_ % 1 != 0 || a % 1 != 0) return NaN;

@@ -26,7 +26,7 @@ export default class Vector {
    * @param mag
    * @param angleType one of the values of geometry.angles.angleTypes
    */
-  static fromAngle(angle: number, mag = 1, angleType?: TAngleType) {
+  static fromAngle(angle: number, mag = 1, angleType?: AngleType) {
     switch (angleType) {
       case 'deg':
         angle *= Math.PI / 180;

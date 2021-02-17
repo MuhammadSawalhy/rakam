@@ -3,7 +3,7 @@ import engine from './engine/';
 import geometry from './geometry/';
 import error from './errors/';
 
-import vector from './vector';
+import Vector from './Vector';
 import matrix from './matrix';
 
 import version from './version.js';
@@ -19,7 +19,7 @@ export default {
 
   error,
 
-  vector,
+  Vector,
   matrix,
 
   version,

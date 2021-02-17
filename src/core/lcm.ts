@@ -1,4 +1,6 @@
-export default function lcm(...values) {
+import gcd from './gcd';
+
+export default function lcm(...values: number[]) {
   let product = 1;
   let a;
   for (let i = 0; i < values.length; i++) {
@@ -6,5 +8,5 @@ export default function lcm(...values) {
     if (a % 1 !== 0) return NaN;
     product *= a;
   }
-  return Math.abs(product) / Math.pow(this.gcd(...values), values.length - 1);
+  return Math.abs(product) / Math.pow(gcd(...values), values.length - 1);
 }

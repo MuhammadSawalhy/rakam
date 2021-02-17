@@ -1,10 +1,10 @@
 /**
  * "m" is the magnet arracting "v" if it is in a field of value "f"
- * @param {number} v the value
- * @param {number} m the magnet
- * @param {number} f the mgnetic field
+ * @param v the value
+ * @param m the magnet
+ * @param f the mgnetic field
  */
-export default function snap(v, m, f) {
+export default function snap(v: number, m: number, f: number) {
   let e = Math.abs(v - m);
   return e <= f ? m : v;
 }
