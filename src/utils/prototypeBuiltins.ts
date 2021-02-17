@@ -3,6 +3,6 @@
  * https://eslint.org/docs/rules/no-prototype-builtins
  */
 
-export function hasOwnProperty(obj, prop) {
+export function hasOwnProperty(obj: any, prop: string) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }

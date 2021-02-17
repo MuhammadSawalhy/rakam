@@ -7,7 +7,7 @@ export default class UndefinedUsed extends Error {
   vars: string[];
   funcs: string[];
 
-  constructor(message, undef) {
+  constructor(message: string, undef: { funcs: string[], vars: string[] }) {
     super(message);
     this.vars = undef.vars;
     this.funcs = undef.funcs;
