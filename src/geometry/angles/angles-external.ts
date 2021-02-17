@@ -10,20 +10,13 @@
  * We have made some modifications here
  **/
 
-import { IAnglesPrivates, IAnglesPublics } from '.';
+import mod from '../../core/mod';
 
 const TAU = 2 * Math.PI;
 
 // const DIRECTIONS = ["N", "E", "S", "W"];
 const DIRECTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 // const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-
-/**
- * Mathematical modulo
- */
-function mod(x: number, m: number): number {
-  return ((x % m) + m) % m;
-}
 
 export const anglesJs = {
   // the default value will be reset in ./index.ts

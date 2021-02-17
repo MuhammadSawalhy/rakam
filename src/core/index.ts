@@ -31,6 +31,7 @@ import randomInt from './randomInt';
 import snap from './snap';
 import toFixed from './toFixed';
 import trunc from './trunc';
+import mod from './mod';
 
 const aliases = {
   rnd: random,
@@ -40,6 +41,7 @@ const aliases = {
 
 export default {
   ...aliases,
+  mod,
   constrain,
   distance,
   gcd,
