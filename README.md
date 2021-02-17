@@ -16,39 +16,38 @@ such as [plotto](https://plotto.netlify.com) and [desmos](https://www.desmos.com
 cares about these situations arises, don't forget to contribute by raising an issue at github or
 optimizing some algorithms 🚀.
 
-# Features
+## Features
+
 - Some helpful special maths functions in [core](#core). 
 - Compile math expression from a string into js function, ready for evaluation, considering the performance as the main goal.
 - Parse math expression.
 - The same for latex.
 - Convert between latex and math expression.
 - Geometric shapes and properties and intersections: [lines](#lines) and [circles](#circles) are available now.
-- Use it harmony with other packages such as [fraction.js](https://github.com/infusion/Fraction.js/).
+- Use it harmony with other packages such as [fraction.js](https://github.com/infusion/Fraction.js/) and [interval-arithmetics]().
 
 > You can get and import any of Rakam's APIs directly, saving load time and bundle size.
 
-# Table Of Content
+## Table Of Content
 
 <!--ts-->
-   * [RAKAM <g-emoji class="g-emoji" alias="triangular_ruler" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d0.png">📐</g-emoji>](#rakam---)
-   * [Features](#features)
-   * [Table Of Content](#table-of-content)
-   * [Use It](#use-it)
-   * [engine](#-engine)
-      * [math2js](#math2js)
-   * [geometry](#-geometry)
-      * [angles](#angles)
-      * [lines](#lines)
-      * [circles](#circles)
-   * [fraction](#-fraction)
-   * [License](#-license)
-
-<!-- Added by: ms, at: Fri Jan  8 05:12:19 EET 2021 -->
-
+- [RAKAM ➕ ➗ 📐](#rakam---)
+  - [Features](#features)
+  - [Table Of Content](#table-of-content)
+- [Use It](#use-it)
+  - [core](#core)
+  - [🛠 engine](#-engine)
+    - [math2js](#math2js)
+    - [math2latex](#math2latex)
+    - [latex2js](#latex2js)
+    - [latex2math](#latex2math)
+  - [📐 geometry](#-geometry)
+    - [angles](#angles)
+    - [lines](#lines)
+    - [circles](#circles)
+  - [➗ fraction](#-fraction)
+  - [📜 License](#-license)
 <!--te-->
-
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fscicave%2Frakam.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fscicave%2Frakam?ref=badge_large)
 
 # Use It
 
@@ -65,10 +64,7 @@ Browser.
 ❯ npm i rakam
 ```
 
-# API
-
 ## core
-
 
 ## 🛠 engine
 
@@ -80,13 +76,13 @@ Rakam uses [@scicave/math-parser][math-parser] library to parse math expression,
 
 See documentations for more about [math2js][engine-math2js].
 
-###  math2latex
+### math2latex
 
 To convert ASCII-math expressions into latex representation. Let me rephrase it, `12sinx*2/3` => `12\sin{x} \cdot \frac{2}{3}`.
 
 See documentations for more about [math2latex][engine-math2latex].
 
-###  latex2js
+### latex2js
 
 Rakam uses [@scicave/math-latex-parser](https://npmjs.com/package/@scicave/math-latex-parser) library to parse latex expression. expression, then handle the AST, to generate the equivalent js code, in a very customizable way. After all of these steps, we easily use [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#Constructor), `new Function(...)`.
 
@@ -97,7 +93,6 @@ See documentations for more about [latex2js][engine-latex2js].
 To convert latex expressions into ASCII-math expressions. Let me rephrase it, `12\sin x\cdot\frac 23` =>  `12sin(x) * 2 / 3`.
 
 See documentations for more about [latex2math][engine-latex2math].
-
 
 ## 📐 geometry
 
@@ -117,7 +112,8 @@ Documentations: [angles][geometry-angles].
 ### lines
 
 You can:
-- Get a line equation parameters: "a", "b" and "c" in `ax + by + c = 0 `.
+
+- Get a line equation parameters: "a", "b" and "c" in `ax + by + c = 0`.
 - Get the intersection points between lines and any other geometric shape such as circles.
 - Project a point onto a line.
 - Get the distance between a point and a line.
@@ -128,7 +124,7 @@ Documentations: [lines][geometry-lines].
 
 You can:
 
-- Get a line equation parameters: "h", "k" and "r" in `(x-h)^2 + (y-k)^2 = r^2 `.
+- Get a line equation parameters: "h", "k" and "r" in `(x-h)^2 + (y-k)^2 = r^2`.
 - Get the intersection points between circles and any other geometric shape such as lines.
 - Project a point onto a circle.
 - Get the distance between a point and a line.
@@ -137,9 +133,9 @@ Documentations: [circles][geometry-circles].
 
 ## ➗ fraction
 
-In order to adhere to the universal law "DON'T reinvent the wheel", [fraction.js](https://github.com/infusion/Fraction.js/) is a great and fast library to do computations on fractions. You can also use it with harmony with Rakam, see `math2js` and `latex2js`, and the options `chain: true, chainHead: (num)=>{ new Fraction(num) }, chainMap `.
+In order to adhere to the universal law "DON'T reinvent the wheel", [fraction.js](https://github.com/infusion/Fraction.js/) is a great and fast library to do computations on fractions. You can also use it with harmony with Rakam, see `math2js` and `latex2js`, and the options `chain: true, chainHead: (num)=>{ new Fraction(num) }, chainMap`.
 
-# 📜 License
+## 📜 License
 
 Copyright (&copy;) 2020 sciCave™ <scicaveteam@gmail.com>
 
@@ -148,6 +144,8 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fscicave%2Frakam.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fscicave%2Frakam?ref=badge_large)
 
 [math-parser]: https://github.com/scicave/math-parser
 [math-latex-parser]: https://github.com/scicave/math-latex-parser
