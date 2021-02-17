@@ -8,6 +8,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/scicave/rakam/badge)](https://www.codefactor.io/repository/github/scicave/rakam)
 [![Maintenance](https://img.shields.io/maintenance/yes/2021.svg)](https://github.com/scicave/rakam/graphs/commit-activity)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fscicave%2Frakam.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fscicave%2Frakam?ref=badge_shield)
 
 Rakam or (رقم) in Arabic, which means "number". This is a math(s) library, one of the reasons to
 give this package a try is that, the **_performance_** is the main goal. As some great projects
@@ -45,6 +46,9 @@ optimizing some algorithms 🚀.
 <!-- Added by: ms, at: Fri Jan  8 05:12:19 EET 2021 -->
 
 <!--te-->
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fscicave%2Frakam.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fscicave%2Frakam?ref=badge_large)
 
 # Use It
 
